@@ -53,9 +53,13 @@ class LoginActivity : AppCompatActivity() {
                     val userDataList = loginResponse.data
                     if (userDataList.isNotEmpty()) {
                         val userData = userDataList[0]
-                        val userId = userData.id_usuarios
-                        val userName = userData.nombre
-                        Log.d("LoginActivity", "Inicio de sesión EXITOSO")
+                        // aqui recupero datos para mandarlos como put extra
+                        val id_usuarios = userData.id_usuarios
+                        val id_roles = userData.id_roles
+                        val id_vendedor = userData.id_vendedor
+                        val nombre = userData.nombre
+
+                        Log.d("LoginActivity", "Inicio de sesión EXITOSO id_usuarios: $id_usuarios id_roles: $id_roles id_vendedor: $id_vendedor nombre: $nombre")
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         startActivity(intent)
 
