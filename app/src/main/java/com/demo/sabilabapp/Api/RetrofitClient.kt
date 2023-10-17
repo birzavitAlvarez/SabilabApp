@@ -10,6 +10,6 @@ object RetrofitClient {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val consumirApi = retrofit.create(ConsumirApi::class.java)
+    val apiService = retrofit.create(ApiService::class.java)
 
 }

@@ -6,9 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".Login.LoginActivity"
     android:background="@color/background_color"
-
     >
-    <!--        tools:srcCompat="@drawable/ic_logo_sabilab"-->
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="300dp"
@@ -37,6 +36,7 @@
             android:id="@+id/tiet_user_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -57,7 +57,9 @@
             android:id="@+id/tiet_password_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text|textPassword" />
+            android:inputType="text|textPassword"
+            android:singleLine="true"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
