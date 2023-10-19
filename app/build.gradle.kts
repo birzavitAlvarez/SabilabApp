@@ -34,7 +34,7 @@ android {
         jvmTarget = "1.8"
     }
 
-    viewBinding.isEnabled = true
+    //viewBinding.isEnabled = true
     buildFeatures {
         viewBinding = true
     }
@@ -57,7 +57,7 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
-    //coroutinas
+    // COROUTINES
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
 
