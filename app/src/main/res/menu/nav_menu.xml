@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dashboard"
+            android:title="@string/dashboard"
+            android:icon="@drawable/ic_dashboard"
+            android:padding="10dp" />
+
+        <item
+            android:id="@+id/nav_usuarios"
+            android:title="@string/usuarios"
+            android:icon="@drawable/ic_usuarios"
+            android:padding="10dp" />
+
+        <item
+            android:id="@+id/nav_aprovisionamiento"
+            android:title="@string/aprovisionamiento"
+            android:icon="@drawable/ic_aprovisionamiento"
+            android:padding="10dp"
+            />
+
+        <item
+            android:id="@+id/nav_clientes"
+            android:title="@string/clientes"
+            android:icon="@drawable/ic_clientes"
+            android:padding="30dp" />
+
+        <item
+            android:id="@+id/nav_vendedores"
+            android:title="@string/vendedores"
+            android:icon="@drawable/ic_vendedores"
+            android:padding="10dp" />
+
+        <item
+            android:id="@+id/nav_productos"
+            android:title="@string/productos"
+            android:icon="@drawable/ic_productos"
+            android:padding="10dp" />
+
+        <item
+            android:id="@+id/nav_categorias"
+            android:title="@string/categorias"
+            android:icon="@drawable/ic_categorias"
+            android:padding="10dp" />
+
+        <item
+            android:id="@+id/nav_proveedores"
+            android:title="@string/proveedores"
+            android:icon="@drawable/ic_proveedores"
+            android:padding="10dp" />
+
+        <item
+            android:id="@+id/nav_reportes"
+            android:title="@string/reportes"
+            android:icon="@drawable/ic_reportes"
+            android:padding="10dp" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:title="@string/logout"
+            android:icon="@drawable/ic_logout"
+            android:padding="10dp"
+            />
+    </group>
+
+
+</menu>

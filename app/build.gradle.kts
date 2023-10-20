@@ -60,5 +60,7 @@ dependencies {
     // COROUTINES
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
+    // menu
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
 
 }

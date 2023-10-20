@@ -9,4 +9,18 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+
+<!--Menu-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="usuarios">Usuarios</string>
+    <string name="aprovisionamiento">Aprovisionamiento</string>
+    <string name="clientes">Clientes</string>
+    <string name="vendedores">Vendedores</string>
+    <string name="productos">Productos</string>
+    <string name="categorias">Categorias</string>
+    <string name="proveedores">Proveedores</string>
+    <string name="reportes">Reportes</string>
+    <string name="logout">Logout</string>
 </resources>
