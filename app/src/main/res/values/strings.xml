@@ -10,7 +10,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
 
-<!--Menu-->
+    <!--Menu-->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="dashboard">Dashboard</string>
@@ -23,4 +23,6 @@
     <string name="proveedores">Proveedores</string>
     <string name="reportes">Reportes</string>
     <string name="logout">Logout</string>
+    <string name="agregar_usuario">Agregar Usuario</string>
+    <string name="buscar">Buscar</string>
 </resources>

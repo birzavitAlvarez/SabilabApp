@@ -12,5 +12,6 @@
     <color name="header_color">#121127</color>
     <color name="background_color">#f0f0fd</color>
     <color name="error_color">#d10d0d</color>
+    <color name="texto_boton">#FFFFFFFF</color>
 
 </resources>
