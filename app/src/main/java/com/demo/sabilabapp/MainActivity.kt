@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.core.view.GravityCompat
 import android.view.MenuItem
 import android.content.res.Configuration
+import com.demo.sabilabapp.Compras.ComprasActivity
 import com.demo.sabilabapp.Login.LoginActivity
 
 class MainActivity : AppCompatActivity() {
@@ -71,6 +72,8 @@ class MainActivity : AppCompatActivity() {
                     drawerLayout.closeDrawer(GravityCompat.START)
                     drawerLayout.closeDrawers()
                     true
+                    val anny = Intent(this@MainActivity, ComprasActivity::class.java)
+                    startActivity(anny)
                 }
                 R.id.nav_clientes -> {
                     Toast.makeText(applicationContext, "Clientes clicked", Toast.LENGTH_SHORT).show()
