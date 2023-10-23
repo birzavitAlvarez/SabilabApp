@@ -1,6 +1,6 @@
 package com.demo.sabilabapp.Usuarios
 
-data class ListUsuariosTrue(
+data class UsuariosResponse(
     val `data`: Data,
     val status: Int,
     val statusMessage: String

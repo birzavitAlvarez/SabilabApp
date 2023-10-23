@@ -19,7 +19,8 @@
             android:name=".Compras.ComprasActivity"
             android:exported="false"
             android:label="@string/title_activity_compras"
-            android:theme="@style/Theme.SabilabApp" />
+            android:theme="@style/Theme.SabilabApp" >
+        </activity>
         <activity
             android:name=".Usuarios.UsuarioActivity"
             android:exported="true" >
