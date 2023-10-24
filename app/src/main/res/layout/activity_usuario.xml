@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vistaUsuariosPadre"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color"
@@ -84,13 +85,63 @@
         app:layout_constraintStart_toEndOf="@+id/tvUsuarioNumeroPagina"
         app:layout_constraintTop_toBottomOf="@id/svUsuarioBusqueda" />
 
+    <LinearLayout
+        android:id="@+id/llHeader"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/rvUsuarios"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnUsuarioAgregar"
+        android:background="@color/primary_color"
+        android:paddingTop="3dp"
+        android:weightSum="3">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/usuario2"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:textColor="@color/texto_boton"
+            android:textStyle="bold"
+        />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/rol2"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:textColor="@color/texto_boton"
+            android:textStyle="bold"
+        />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/opciones"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:textColor="@color/texto_boton"
+            android:textStyle="bold"
+        />
+    </LinearLayout>
+
+        
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvUsuarios"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="15dp"
-        android:background="@color/secondary_color"
-        app:layout_constraintTop_toBottomOf="@+id/btnUsuarioAgregar"
+        android:background="@color/background_color"
+        app:layout_constraintTop_toBottomOf="@+id/llHeader"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

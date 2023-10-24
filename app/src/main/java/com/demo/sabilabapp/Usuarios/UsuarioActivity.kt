@@ -1,7 +1,9 @@
 package com.demo.sabilabapp.Usuarios
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,38 +27,21 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
         super.onCreate(savedInstanceState)
         binding = ActivityUsuarioBinding.inflate(layoutInflater)
         setContentView(binding?.root)
+        //
         initRecyclerView()
 
-//        CoroutineScope(Dispatchers.IO).launch {
-//            try {
-//                val response = apiService.listUsuariosTrue()
-//                if (response.isSuccessful) {
-//                    val listUsuariosTrue = response.body()
-//                    if (listUsuariosTrue != null && listUsuariosTrue.status == 200) {
-//                        val results = listUsuariosTrue.data.results
-//
-//                        // Crear y configurar el adaptador
-//                        val adapter = UsuariosAdapter(results)
-//                        recyclerView.adapter = adapter
-//
-//                        // Verificar que se están recibiendo datos
-//                        Log.d("UsuariosAdapter", "Cantidad de usuarios: ${results.size}")
-//                    } else {
-//                        // Maneja el caso en el que la solicitud se realizó con éxito, pero el estado es diferente de 200.
-//                    }
-//                } else {
-//                    // Maneja el caso en el que la solicitud no fue exitosa.
-//                }
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//                // Maneja errores de red u otros errores.
-//            }
-//        }
         binding?.svUsuarioBusqueda?.setOnQueryTextListener(this)
-
+        //
+        binding?.btnUsuarioBuscar?.setOnClickListener {
+            val query = binding?.svUsuarioBusqueda?.query?.toString()
+            if (!query.isNullOrBlank()) {
+                searchByUsuario(query)
+            }
+        }
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun searchByUsuario(query: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val call = apiService.listarUsuariosPorFiltro(query)
@@ -70,9 +55,15 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
                 } else {
                     showError()
                 }
+                hideKeyboard()
             }
 
         }
+    }
+
+    private fun hideKeyboard() {
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding?.vistaUsuariosPadre?.windowToken,0)
     }
 
     private fun showError() {

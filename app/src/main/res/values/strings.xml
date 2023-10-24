@@ -68,4 +68,9 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="usuario">usuario</string>
+    <string name="rol">rol</string>
+    <string name="usuario2">USUARIO</string>
+    <string name="rol2">ROL</string>
+    <string name="opciones">OPCIONES</string>
 </resources>
