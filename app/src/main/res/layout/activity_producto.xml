@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Productos.ProductoActivity">
+
+    <TextView
+        android:id="@+id/tvProductoTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="Producto"
+        android:textColor="@color/text"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/svProductoBusqueda"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="Producto"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvProductoTitulo" />
+
+    <Button
+        android:id="@+id/btnProductoBuscar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:backgroundTint="@color/primary_color"
+        android:text="@string/buscar"
+        android:textColor="@color/texto_boton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.387"
+        app:layout_constraintStart_toEndOf="@+id/svProductoBusqueda"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnProductoAgregar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/primary_color"
+        android:text="Agregar Producto"
+        android:textColor="@color/texto_boton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/svProductoBusqueda" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/ibProductoBefore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/background_color"
+        android:src="@drawable/ic_before"
+        app:layout_constraintStart_toEndOf="@+id/btnProductoAgregar"
+        app:layout_constraintTop_toBottomOf="@+id/svProductoBusqueda" />
+
+    <TextView
+        android:id="@+id/tvProductoNumeroPagina"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:text="1/15"
+        app:layout_constraintStart_toEndOf="@+id/ibProductoBefore"
+        app:layout_constraintTop_toBottomOf="@+id/svProductoBusqueda" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/ibProductoNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/background_color"
+        android:src="@drawable/ic_next"
+        app:layout_constraintStart_toEndOf="@+id/tvProductoNumeroPagina"
+        app:layout_constraintTop_toBottomOf="@id/svProductoBusqueda" />
+
+    <LinearLayout
+        android:id="@+id/llHeader"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/rvProductos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnProductoAgregar"
+        android:background="@color/primary_color"
+        android:paddingTop="3dp"
+        android:weightSum="3">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="PRODUCTO"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:textColor="@color/texto_boton"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="PRECIO"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:textColor="@color/texto_boton"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/opciones"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:textColor="@color/texto_boton"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvProductos"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/background_color"
+        app:layout_constraintTop_toBottomOf="@+id/llHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
