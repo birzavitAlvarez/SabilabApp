@@ -8,13 +8,11 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.demo.sabilabapp.Adapters.UsuariosAdapter
-import com.demo.sabilabapp.Api.ApiService
 import com.demo.sabilabapp.Api.RetrofitClient.apiService
 import com.demo.sabilabapp.databinding.ActivityUsuarioBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import com.demo.sabilabapp.Usuarios.Result
 import java.util.Locale
 
 class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
@@ -58,6 +56,7 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
 
     }
 
+    @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     private fun nextPage(np: Int){
         CoroutineScope(Dispatchers.IO).launch {
             val call3 = apiService.paginaUsuarios(np)
@@ -92,15 +91,7 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
                     datitos.clear()
                     datitos.addAll(dataUsuario)
                     adapter.notifyDataSetChanged()
-                    cosita()
-//                    val pagination = pruebita?.data?.pagination
-//                    if (pagination != null) {
-//                        // Obtén los valores de currentPage y totalPages desde la respuesta.
-//                        val currentPage = pagination.currentPage
-//                        val totalPages = pagination.totalPages
-//
-//                        binding?.tvUsuarioNumeroPagina?.text = "$currentPage/$totalPages"
-//                    }
+                    getCurrentAndTotal()
                 } else {
                     showError()
                 }
@@ -108,7 +99,8 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
         }
     }
 
-    private fun cosita(){
+    @SuppressLint("SetTextI18n")
+    private fun getCurrentAndTotal(){
         CoroutineScope(Dispatchers.IO).launch {
             val call2 = apiService.listUsuariosTrue()
             val pruebita = call2.body()
@@ -116,7 +108,6 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
                 if (call2.isSuccessful) {
                     val pagination = pruebita?.data?.pagination
                     if (pagination != null) {
-                        // Obtén los valores de currentPage y totalPages desde la respuesta.
                         currentPage = pagination.currentPage
                         totalPages = pagination.totalPages
 

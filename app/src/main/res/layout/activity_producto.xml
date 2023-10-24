@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="Producto"
+        android:text="@string/producto"
         android:textColor="@color/text"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -23,7 +23,6 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="Producto"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvProductoTitulo" />
 
@@ -38,7 +37,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.387"
         app:layout_constraintStart_toEndOf="@+id/svProductoBusqueda"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
 
     <Button
         android:id="@+id/btnProductoAgregar"
@@ -46,10 +46,11 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:backgroundTint="@color/primary_color"
-        android:text="Agregar Producto"
+        android:text="@string/agregar_producto"
         android:textColor="@color/texto_boton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/svProductoBusqueda" />
+        app:layout_constraintTop_toBottomOf="@+id/svProductoBusqueda"
+        tools:ignore="TextContrastCheck" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/ibProductoBefore"
@@ -60,7 +61,8 @@
         android:backgroundTint="@color/background_color"
         android:src="@drawable/ic_before"
         app:layout_constraintStart_toEndOf="@+id/btnProductoAgregar"
-        app:layout_constraintTop_toBottomOf="@+id/svProductoBusqueda" />
+        app:layout_constraintTop_toBottomOf="@+id/svProductoBusqueda"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <TextView
         android:id="@+id/tvProductoNumeroPagina"
@@ -70,7 +72,8 @@
         android:layout_marginTop="30dp"
         android:text="1/15"
         app:layout_constraintStart_toEndOf="@+id/ibProductoBefore"
-        app:layout_constraintTop_toBottomOf="@+id/svProductoBusqueda" />
+        app:layout_constraintTop_toBottomOf="@+id/svProductoBusqueda"
+        tools:ignore="HardcodedText" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/ibProductoNext"
@@ -81,54 +84,53 @@
         android:backgroundTint="@color/background_color"
         android:src="@drawable/ic_next"
         app:layout_constraintStart_toEndOf="@+id/tvProductoNumeroPagina"
-        app:layout_constraintTop_toBottomOf="@id/svProductoBusqueda" />
+        app:layout_constraintTop_toBottomOf="@id/svProductoBusqueda"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <LinearLayout
-        android:id="@+id/llHeader"
+        android:id="@+id/llHeaderProducto"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
+        android:background="@color/primary_color"
         android:orientation="horizontal"
+        android:paddingTop="3dp"
+        android:weightSum="3"
         app:layout_constraintBottom_toTopOf="@+id/rvProductos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnProductoAgregar"
-        android:background="@color/primary_color"
-        android:paddingTop="3dp"
-        android:weightSum="3">
+        tools:ignore="TextSizeCheck">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="PRODUCTO"
-            android:textSize="24sp"
             android:gravity="center"
+            android:text="@string/producto2"
             android:textColor="@color/texto_boton"
-            android:textStyle="bold"
-            />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="PRECIO"
             android:textSize="24sp"
-            android:gravity="center"
-            android:textColor="@color/texto_boton"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/precio2"
+            android:textColor="@color/texto_boton"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/opciones"
-            android:textSize="24sp"
-            android:gravity="center"
             android:textColor="@color/texto_boton"
-            android:textStyle="bold"
-            />
+            android:textSize="24sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
 
@@ -139,7 +141,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="15dp"
         android:background="@color/background_color"
-        app:layout_constraintTop_toBottomOf="@+id/llHeader"
+        app:layout_constraintTop_toBottomOf="@+id/llHeaderProducto"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

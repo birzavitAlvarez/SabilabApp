@@ -25,7 +25,6 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="@string/usuarios"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvUsuarioTitulo" />
 
@@ -40,7 +39,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.387"
         app:layout_constraintStart_toEndOf="@+id/svUsuarioBusqueda"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
 
     <Button
         android:id="@+id/btnUsuarioAgregar"
@@ -51,7 +51,8 @@
         android:text="@string/agregar_usuario"
         android:textColor="@color/texto_boton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/svUsuarioBusqueda" />
+        app:layout_constraintTop_toBottomOf="@+id/svUsuarioBusqueda"
+        tools:ignore="TextContrastCheck" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/ibUsuarioBefore"
@@ -62,7 +63,8 @@
         android:backgroundTint="@color/background_color"
         android:src="@drawable/ic_before"
         app:layout_constraintStart_toEndOf="@+id/btnUsuarioAgregar"
-        app:layout_constraintTop_toBottomOf="@+id/svUsuarioBusqueda" />
+        app:layout_constraintTop_toBottomOf="@+id/svUsuarioBusqueda"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <TextView
         android:id="@+id/tvUsuarioNumeroPagina"
@@ -72,7 +74,8 @@
         android:layout_marginTop="30dp"
         android:hint="1/15"
         app:layout_constraintStart_toEndOf="@+id/ibUsuarioBefore"
-        app:layout_constraintTop_toBottomOf="@+id/svUsuarioBusqueda" />
+        app:layout_constraintTop_toBottomOf="@+id/svUsuarioBusqueda"
+        tools:ignore="HardcodedText,TextContrastCheck" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/ibUsuarioNext"
@@ -83,54 +86,53 @@
         android:backgroundTint="@color/background_color"
         android:src="@drawable/ic_next"
         app:layout_constraintStart_toEndOf="@+id/tvUsuarioNumeroPagina"
-        app:layout_constraintTop_toBottomOf="@id/svUsuarioBusqueda" />
+        app:layout_constraintTop_toBottomOf="@id/svUsuarioBusqueda"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <LinearLayout
-        android:id="@+id/llHeader"
+        android:id="@+id/llHeaderUsuario"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
+        android:background="@color/primary_color"
         android:orientation="horizontal"
+        android:paddingTop="3dp"
+        android:weightSum="3"
         app:layout_constraintBottom_toTopOf="@+id/rvUsuarios"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnUsuarioAgregar"
-        android:background="@color/primary_color"
-        android:paddingTop="3dp"
-        android:weightSum="3">
+        tools:ignore="TextSizeCheck">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/usuario2"
-            android:textSize="24sp"
-            android:gravity="center"
             android:textColor="@color/texto_boton"
-            android:textStyle="bold"
-        />
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/rol2"
-            android:textSize="24sp"
-            android:gravity="center"
             android:textColor="@color/texto_boton"
-            android:textStyle="bold"
-        />
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/opciones"
-            android:textSize="24sp"
             android:gravity="center"
+            android:text="@string/opciones"
             android:textColor="@color/texto_boton"
-            android:textStyle="bold"
-        />
+            android:textSize="24sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
         
@@ -141,7 +143,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="15dp"
         android:background="@color/background_color"
-        app:layout_constraintTop_toBottomOf="@+id/llHeader"
+        app:layout_constraintTop_toBottomOf="@+id/llHeaderUsuario"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -73,4 +73,8 @@
     <string name="usuario2">USUARIO</string>
     <string name="rol2">ROL</string>
     <string name="opciones">OPCIONES</string>
+    <string name="producto">Producto</string>
+    <string name="producto2">PRODUCTO</string>
+    <string name="precio2">PRECIO</string>
+    <string name="agregar_producto">Agregar Producto</string>
 </resources>
