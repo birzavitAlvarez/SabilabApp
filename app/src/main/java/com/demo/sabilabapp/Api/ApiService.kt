@@ -11,6 +11,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
     // Login
@@ -33,5 +34,12 @@ interface ApiService {
     // Filtrar por nombre usuario
     @GET("api/usuarios/filtrar/{nombre}")
     suspend fun listarUsuariosPorFiltro(@Path("nombre") nombre: String): Response<UsuariosResponse>
+
+//    @GET("api/usuarios/true?page={pagina}")
+//    suspend fun paginaUsuarios(@Query("pagina") pagina: Int): Response<UsuariosResponse>
+
+    @GET("api/usuarios/true")
+    suspend fun paginaUsuarios(@Query("page") pagina: Int): Response<UsuariosResponse>
+
 
 }

@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.demo.sabilabapp.Adapters.UsuariosAdapter
+import com.demo.sabilabapp.Api.ApiService
 import com.demo.sabilabapp.Api.RetrofitClient.apiService
 import com.demo.sabilabapp.databinding.ActivityUsuarioBinding
 import kotlinx.coroutines.CoroutineScope
@@ -22,6 +23,8 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
 
     private lateinit var adapter: UsuariosAdapter
     private val datitos = mutableListOf<Result>()
+    private var currentPage = 0
+    private var totalPages: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +32,7 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
         setContentView(binding?.root)
         //
         initRecyclerView()
-
+        listaAlEntrar()
         binding?.svUsuarioBusqueda?.setOnQueryTextListener(this)
         //
         binding?.btnUsuarioBuscar?.setOnClickListener {
@@ -39,6 +42,91 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
             }
         }
 
+        binding?.ibUsuarioNext?.setOnClickListener {
+            if (currentPage < totalPages) {
+                currentPage += 1
+                nextPage(currentPage)
+            }
+        }
+
+        binding?.ibUsuarioBefore?.setOnClickListener {
+            if (currentPage > 1) {
+                currentPage -= 1
+                nextPage(currentPage)
+            }
+        }
+
+    }
+
+    private fun nextPage(np: Int){
+        CoroutineScope(Dispatchers.IO).launch {
+            val call3 = apiService.paginaUsuarios(np)
+            val pruebita = call3.body()
+            runOnUiThread {
+                if (call3.isSuccessful) {
+                    val dataUsuario = pruebita?.data?.results ?: emptyList()
+                    datitos.clear()
+                    datitos.addAll(dataUsuario)
+                    adapter.notifyDataSetChanged()
+
+                    val pagination = pruebita?.data?.pagination
+                    if (pagination != null) {
+                        val currentPage = pagination.currentPage
+                        val totalPages = pagination.totalPages
+                        binding?.tvUsuarioNumeroPagina?.text = "$currentPage/$totalPages"
+                    } else {showError()}
+
+                } else { showError() }
+            }
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun listaAlEntrar() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val call2 = apiService.listUsuariosTrue()
+            val pruebita = call2.body()
+            runOnUiThread {
+                if (call2.isSuccessful) {
+                    val dataUsuario = pruebita?.data?.results ?: emptyList()
+                    datitos.clear()
+                    datitos.addAll(dataUsuario)
+                    adapter.notifyDataSetChanged()
+                    cosita()
+//                    val pagination = pruebita?.data?.pagination
+//                    if (pagination != null) {
+//                        // Obtén los valores de currentPage y totalPages desde la respuesta.
+//                        val currentPage = pagination.currentPage
+//                        val totalPages = pagination.totalPages
+//
+//                        binding?.tvUsuarioNumeroPagina?.text = "$currentPage/$totalPages"
+//                    }
+                } else {
+                    showError()
+                }
+            }
+        }
+    }
+
+    private fun cosita(){
+        CoroutineScope(Dispatchers.IO).launch {
+            val call2 = apiService.listUsuariosTrue()
+            val pruebita = call2.body()
+            runOnUiThread {
+                if (call2.isSuccessful) {
+                    val pagination = pruebita?.data?.pagination
+                    if (pagination != null) {
+                        // Obtén los valores de currentPage y totalPages desde la respuesta.
+                        currentPage = pagination.currentPage
+                        totalPages = pagination.totalPages
+
+                        binding?.tvUsuarioNumeroPagina?.text = "$currentPage/$totalPages"
+                    }
+                } else {
+                    showError()
+                }
+            }
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -52,12 +140,9 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
                     datitos.clear()
                     datitos.addAll(dataUsuario)
                     adapter.notifyDataSetChanged()
-                } else {
-                    showError()
-                }
+                } else { showError() }
                 hideKeyboard()
             }
-
         }
     }
 
