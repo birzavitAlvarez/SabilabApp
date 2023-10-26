@@ -4,6 +4,8 @@ import com.demo.sabilabapp.Compras.Compras
 import com.demo.sabilabapp.Compras.ComprasResponse
 import com.demo.sabilabapp.Login.LoginRequest
 import com.demo.sabilabapp.Login.LoginResponse
+import com.demo.sabilabapp.Roles.RolesResponse
+import com.demo.sabilabapp.Usuarios.Usuario
 import com.demo.sabilabapp.Usuarios.UsuariosResponse
 import retrofit2.Call
 import retrofit2.Response
@@ -34,12 +36,32 @@ interface ApiService {
     // Filtrar por nombre usuario
     @GET("api/usuarios/filtrar/{nombre}")
     suspend fun listarUsuariosPorFiltro(@Path("nombre") nombre: String): Response<UsuariosResponse>
-
-//    @GET("api/usuarios/true?page={pagina}")
-//    suspend fun paginaUsuarios(@Query("pagina") pagina: Int): Response<UsuariosResponse>
-
+    // Paginacion
     @GET("api/usuarios/true")
     suspend fun paginaUsuarios(@Query("page") pagina: Int): Response<UsuariosResponse>
 
+    //Crear Usuarios
+    @POST("api/usuarios")
+    suspend fun createUser(@Body usuario: Usuario)
+
+
+
+    // Lista de Roles
+    @GET("api/roles")
+    suspend fun listRoles(): Response<RolesResponse>
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

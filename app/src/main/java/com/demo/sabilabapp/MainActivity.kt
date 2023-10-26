@@ -14,6 +14,7 @@ import android.view.MenuItem
 import android.content.res.Configuration
 import com.demo.sabilabapp.Compras.ComprasActivity
 import com.demo.sabilabapp.Login.LoginActivity
+import com.demo.sabilabapp.Usuarios.UsuarioActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -65,7 +66,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_usuarios -> {
                     Toast.makeText(applicationContext, "Usuarios clicked", Toast.LENGTH_SHORT).show()
                     drawerLayout.closeDrawer(GravityCompat.START)
+                    drawerLayout.closeDrawers()
                     true
+                    val anny = Intent(this@MainActivity, UsuarioActivity::class.java)
+                    startActivity(anny)
                 }
                 R.id.nav_aprovisionamiento -> {
                     Toast.makeText(applicationContext, "Aprovisionamiento clicked", Toast.LENGTH_SHORT).show()

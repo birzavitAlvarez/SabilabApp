@@ -1,15 +1,26 @@
 package com.demo.sabilabapp.Usuarios
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.demo.sabilabapp.Adapters.UsuariosAdapter
 import com.demo.sabilabapp.Api.RetrofitClient.apiService
+import com.demo.sabilabapp.R
+import com.demo.sabilabapp.Roles.Data as DataRolesImport
 import com.demo.sabilabapp.databinding.ActivityUsuarioBinding
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,7 +32,7 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
 
     private lateinit var adapter: UsuariosAdapter
     private val datitos = mutableListOf<Result>()
-    private var currentPage = 0
+    private var currentPage: Int = 0
     private var totalPages: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +63,10 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
                 currentPage -= 1
                 nextPage(currentPage)
             }
+        }
+
+        binding?.btnUsuarioAgregar?.setOnClickListener {
+            showDialog()
         }
 
     }
@@ -162,6 +177,86 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
     override fun onQueryTextChange(newText: String?): Boolean {
         return true
     }
+
+    private fun showDialog(){
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.item_add_usuario)
+
+        val tvAddUsuarioTitle: TextView = dialog.findViewById(R.id.tvAddUsuarioTitle)
+        val ibAddUsuarioClose: ImageButton = dialog.findViewById(R.id.ibAddUsuarioClose)
+        val tilAddUsuarioNombre: TextInputLayout = dialog.findViewById(R.id.tilAddUsuarioNombre)
+        val tietAddUsuarioNombre: TextInputEditText = dialog.findViewById(R.id.tietAddUsuarioNombre)
+        val tilAddUsuarioPassword: TextInputLayout = dialog.findViewById(R.id.tilAddUsuarioPassword)
+        val tietAddUsuarioPassword: TextInputEditText = dialog.findViewById(R.id.tietAddUsuarioPassword)
+        //val tilAddUsuarioRol: TextInputLayout = dialog.findViewById(R.id.tilAddUsuarioRol)
+        val spAddUsuarioRol: Spinner = dialog.findViewById(R.id.spAddUsuarioRol)
+        val btnAddUsuarioGuardar: Button = dialog.findViewById(R.id.btnAddUsuarioGuardar)
+
+        ibAddUsuarioClose.setOnClickListener{
+            dialog.dismiss()
+        }
+        //
+        loadSpinner()
+
+        //
+        dialog.show()
+    }
+
+    //
+//    private fun loadSpinner() {
+//        val dialog = Dialog(this)
+//        dialog.setContentView(R.layout.item_add_usuario)
+//        val spAddUsuarioRol: Spinner = dialog.findViewById(R.id.spAddUsuarioRol)
+//
+//        CoroutineScope(Dispatchers.IO).launch {
+//            val call = apiService.listRoles()
+//            val response = call.body()
+//
+//            runOnUiThread {
+//                if (response != null && response.status == 200) {
+//                    val dataUsuario = response.data
+//
+//                    val adapterLoad = ArrayAdapter<DataRolesImport>(this@UsuarioActivity, android.R.layout.simple_spinner_item, dataUsuario)
+//                    adapterLoad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//                    spAddUsuarioRol.adapter = adapterLoad
+//                    Log.d("DataUsuario", dataUsuario.toString())
+////                    adapterLoad.clear()
+////                    adapterLoad.addAll(dataUsuario)
+//                    adapterLoad.notifyDataSetChanged()
+//                } else {
+//                    showError()
+//                }
+//            }
+//        }
+//    }
+
+    private fun loadSpinner() {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.item_add_usuario)
+        val spAddUsuarioRol: Spinner = dialog.findViewById(R.id.spAddUsuarioRol)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val call = apiService.listRoles()
+            val response = call.body()
+
+            runOnUiThread {
+                if (response != null && response.status == 200) {
+                    val dataUsuario = response.data
+
+                    val rolesList = dataUsuario.map { it.rol }
+
+                    val adapterLoad = ArrayAdapter<String>(this@UsuarioActivity, android.R.layout.simple_spinner_item, rolesList)
+                    adapterLoad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    spAddUsuarioRol.adapter = adapterLoad
+
+                    Log.d("DataUsuario", rolesList.toString())
+                } else {
+                    showError()
+                }
+            }
+        }
+    }
+    //
 
 
 }

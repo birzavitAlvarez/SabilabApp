@@ -69,6 +69,8 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="usuario">usuario</string>
+    <string name="user">USUARIO</string>
+    <string name="password">CONTRASEÑA</string>
     <string name="rol">rol</string>
     <string name="usuario2">USUARIO</string>
     <string name="rol2">ROL</string>
@@ -77,4 +79,6 @@
     <string name="producto2">PRODUCTO</string>
     <string name="precio2">PRECIO</string>
     <string name="agregar_producto">Agregar Producto</string>
+    <string name="registrar_usuario">Registrar Usuario</string>
+    <string name="guardar">Guardar</string>
 </resources>
