@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Spinner
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,7 +25,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Locale
-import com.demo.sabilabapp.Roles.Data as DataRolesImport
+//import com.demo.sabilabapp.Roles.Data as DataRolesImport
 
 class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
 
@@ -34,10 +33,12 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
 
     private lateinit var adapter: UsuariosAdapter
     private val datitos = mutableListOf<Result>()
-    private var currentPage: Int = 0
-    private var totalPages: Int = 0
-    private var currentPageSearch: Int = 0
-    private var totalPagesSearch: Int = 0
+    private var currentPage: Int = 1
+    private var totalPages: Int = 1
+    private var currentPageSearch: Int = 1
+    private var totalPagesSearch: Int = 1
+    private var verdura: Boolean = false
+    //private var getPala: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,14 +60,30 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
         binding?.ibUsuarioNext?.setOnClickListener {
             if (currentPage < totalPages) {
                 currentPage += 1
-                nextPage(currentPage)
+                if (verdura) {
+                    val query = binding?.svUsuarioBusqueda?.query?.toString()
+                    if (!query.isNullOrBlank()) {
+                        nextPageSearch(query,currentPage)
+                    }
+                    Toast.makeText(this,"tu Gfa",Toast.LENGTH_SHORT).show()
+                } else {
+                    nextPage(currentPage)
+                }
             }
         }
 
         binding?.ibUsuarioBefore?.setOnClickListener {
             if (currentPage > 1) {
                 currentPage -= 1
-                nextPage(currentPage)
+                if (verdura) {
+                    val query = binding?.svUsuarioBusqueda?.query?.toString()
+                    if (!query.isNullOrBlank()) {
+                        nextPageSearch(query,currentPage)
+                    }
+                    Toast.makeText(this,"tu Gfa",Toast.LENGTH_SHORT).show()
+                } else {
+                    nextPage(currentPage)
+                }
             }
         }
 
@@ -76,6 +93,8 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
 
 
     }
+
+
 
     @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     private fun nextPage(np: Int){
@@ -90,11 +109,33 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
                     adapter.notifyDataSetChanged()
                     val pagination = pruebita?.data?.pagination
                     if (pagination != null) {
-                        val currentPage = pagination.currentPage
-                        val totalPages = pagination.totalPages
+                        currentPage = pagination.currentPage
+                        totalPages = pagination.totalPages
                         binding?.tvUsuarioNumeroPagina?.text = "$currentPage/$totalPages"
                     } else {showError()}
                 } else { showError() }
+            }
+        }
+    }//
+    @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
+    private fun nextPageSearch(query:String,np: Int){
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = apiService.listarUsuariosPorNombreYPage(query, np)//.body()
+            val pruebita5 = response.body()
+            runOnUiThread {
+                if (response.isSuccessful) {
+                    val dataUser = pruebita5?.data?.results ?: emptyList()
+                    datitos.clear()
+                    datitos.addAll(dataUser)
+                    adapter.notifyDataSetChanged()
+                    val pagination = pruebita5?.data?.pagination
+                    pagination?.currentPage!!.also { currentPage = it }
+                    pagination.totalPages.also { totalPages = it }
+                    binding?.tvUsuarioNumeroPagina?.text = "$currentPage/$totalPages"
+                    // Procesa la respuesta aquí
+                } else {
+                    showError()
+                }
             }
         }
     }
@@ -111,11 +152,12 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
                     datitos.addAll(dataUsuario)
                     adapter.notifyDataSetChanged()
                     getCurrentAndTotal()
+                    verdura = false
                 } else { showError() }
             }
         }
     }
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     private fun getCurrentAndTotal(){
         CoroutineScope(Dispatchers.IO).launch {
             val call2 = apiService.listUsuariosTrue()
@@ -128,6 +170,7 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
                         totalPages = pagination.totalPages
                         binding?.tvUsuarioNumeroPagina?.text = "$currentPage/$totalPages"
                     }
+                    adapter.notifyDataSetChanged() //TODO
                 } else { showError() }
             }
         }
@@ -151,7 +194,7 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
             }
         }
     }
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     private fun performSearch(query: String?) {
         CoroutineScope(Dispatchers.IO).launch {
             val response = apiService.listarUsuariosPorFiltro(query ?: "").body()
@@ -161,6 +204,8 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
                     currentPage = pagination.currentPage
                     totalPages = pagination.totalPages
                     binding?.tvUsuarioNumeroPagina?.text = "$currentPage/$totalPages"
+                    verdura = true
+                    adapter.notifyDataSetChanged() //TODO
                 } else { showError() }
             }
         }
@@ -196,13 +241,13 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.item_add_usuario)
 
-        val tvAddUsuarioTitle: TextView = dialog.findViewById(R.id.tvAddUsuarioTitle)
+        //val tvAddUsuarioTitle: TextView = dialog.findViewById(R.id.tvAddUsuarioTitle)
         val ibAddUsuarioClose: ImageButton = dialog.findViewById(R.id.ibAddUsuarioClose)
-        val tilAddUsuarioNombre: TextInputLayout = dialog.findViewById(R.id.tilAddUsuarioNombre)
+        //val tilAddUsuarioNombre: TextInputLayout = dialog.findViewById(R.id.tilAddUsuarioNombre)
         val tietAddUsuarioNombre: TextInputEditText = dialog.findViewById(R.id.tietAddUsuarioNombre)
-        val tilAddUsuarioPassword: TextInputLayout = dialog.findViewById(R.id.tilAddUsuarioPassword)
+        //val tilAddUsuarioPassword: TextInputLayout = dialog.findViewById(R.id.tilAddUsuarioPassword)
         val tietAddUsuarioPassword: TextInputEditText = dialog.findViewById(R.id.tietAddUsuarioPassword)
-        val tilAddUsuarioRol: TextInputLayout = dialog.findViewById(R.id.tilAddUsuarioRol)
+        //val tilAddUsuarioRol: TextInputLayout = dialog.findViewById(R.id.tilAddUsuarioRol)
         val spAddUsuarioRol: Spinner = dialog.findViewById(R.id.spAddUsuarioRol)
         val btnAddUsuarioGuardar: Button = dialog.findViewById(R.id.btnAddUsuarioGuardar)
         //tvAddUsuarioTitle.text = "Actualizar Usuario"
@@ -215,7 +260,7 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
             val response = apiService.listRoles().body()
             runOnUiThread {
                 if (response != null && response.status == 200) {
-                    val rolesList = response.data?.map { it.rol } ?: emptyList()
+                    val rolesList = response.data.map { it.rol }
                     val rolesWithSelect = listOf("Seleccionar") + rolesList
                     val adapterLoad = ArrayAdapter(this@UsuarioActivity, android.R.layout.simple_spinner_item, rolesWithSelect)
                     adapterLoad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -244,16 +289,15 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
         }
 
         btnAddUsuarioGuardar.setOnClickListener{
-            val nombreUsuario = tietAddUsuarioNombre.text.toString()
-            val contrasena = tietAddUsuarioPassword.text.toString()
+            val nameUser = tietAddUsuarioNombre.text.toString()
+            val passwordUser = tietAddUsuarioPassword.text.toString()
 
             CoroutineScope(Dispatchers.IO).launch {
 
                 if (selectedRoleId != null) {
-                    val usuario = Usuario(nombreUsuario, contrasena, 1, selectedRoleId!!)
+                    val usuario = Usuario(nameUser, passwordUser, 1, selectedRoleId!!)
                     apiService.createUser(usuario)
                     hideKeyboard()
-                    nextPage(currentPage)
                     dialog.dismiss()
                 } else {
                     runOnUiThread {

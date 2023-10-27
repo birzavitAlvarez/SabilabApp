@@ -5,6 +5,6 @@ data class Result(
     val usuario: String,
     val password: String,
     val activo: Boolean,
-    val rol: String,
+    val rol: String
 
 )

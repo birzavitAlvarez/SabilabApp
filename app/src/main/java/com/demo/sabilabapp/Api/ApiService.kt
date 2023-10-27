@@ -13,6 +13,7 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -50,6 +51,9 @@ interface ApiService {
     //Eliminar usuario(desactivar)
     @DELETE("api/usuarios/desactivar/{id}")
     suspend fun deleteUser(@Path("id") id: Int)
+    //Actualizar Usuario
+    @PUT("api/usuarios/{id}")
+    suspend fun updateUser(@Body usuario:Usuario, @Path("id") id: Int)
 
 
 

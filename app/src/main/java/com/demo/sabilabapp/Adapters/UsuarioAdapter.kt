@@ -1,5 +1,6 @@
 package com.demo.sabilabapp.Adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -19,4 +20,12 @@ class UsuariosAdapter(private val usuariosList: MutableList<Result>) : RecyclerV
     }
 
     override fun getItemCount() = usuariosList.size
+
+    fun removeItem(position: Int) {
+        if (position >= 0 && position < usuariosList.size) {
+            usuariosList.removeAt(position)
+            notifyItemRemoved(position)
+        }
+    }
+
 }
