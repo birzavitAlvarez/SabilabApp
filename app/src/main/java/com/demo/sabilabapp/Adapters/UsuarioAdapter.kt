@@ -28,4 +28,12 @@ class UsuariosAdapter(private val usuariosList: MutableList<Result>) : RecyclerV
         }
     }
 
+    fun updateUser(user: Result) {
+        val position = usuariosList.indexOfFirst { it.id_usuarios == user.id_usuarios }
+        if (position != -1) {
+            usuariosList[position] = user
+            notifyItemChanged(position)
+        }
+    }
+
 }

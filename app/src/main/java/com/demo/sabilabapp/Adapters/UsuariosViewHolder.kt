@@ -3,6 +3,7 @@ package com.demo.sabilabapp.Adapters
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -20,6 +21,7 @@ import com.demo.sabilabapp.Api.RetrofitClient.apiService
 import com.demo.sabilabapp.R
 import com.demo.sabilabapp.Usuarios.Result
 import com.demo.sabilabapp.Usuarios.Usuario
+import com.demo.sabilabapp.Usuarios.UsuarioActivity
 import com.demo.sabilabapp.databinding.ItemUsuarioBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -39,15 +41,11 @@ class UsuarioViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         binding.tvRol.text = query.rol
 
         binding.ibUsuarioEdit.setOnClickListener{
-            var id_roles22:Int = 0
-            if (query.rol == "Administrador"){
-                id_roles22 = 1
-            } else if (query.rol == "Trabajador"){
-                id_roles22 = 2
-            } else if (query.rol == "Soporte"){
-                id_roles22 = 3
-            }
-            showDialog(itemView.context,query.id_usuarios,query.usuario,query.password,id_roles22)
+            var idRoles = 0
+            if (query.rol == "Administrador"){ idRoles = 1 }
+            else if (query.rol == "Trabajador"){ idRoles = 2 }
+            else if (query.rol == "Soporte"){ idRoles = 3 }
+            showDialog(itemView.context,query.id_usuarios,query.usuario,query.password,idRoles)
         }
 
         binding.ibUsuarioDelete.setOnClickListener {
@@ -98,28 +96,24 @@ class UsuarioViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
             CoroutineScope(Dispatchers.IO).launch {
                 val usuario = Usuario(nameUser, passwordUser, 1, id_roles)
-                apiService.updateUser(usuario,id)
-                hideKeyboard()
-                dialog.dismiss()
+                apiService.updateUser(usuario, id)
+
+                (itemView.context as? AppCompatActivity)?.runOnUiThread {
+                    val intent = Intent(itemView.context, UsuarioActivity::class.java)
+                    itemView.context.startActivity(intent)
+                    dialog.dismiss()
+                }
 
             }
         }
+
+
         //
         dialog.show()
     }
-    private fun hideKeyboard() {
-//        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//        imm.hideSoftInputFromWindow(itemView.windowToken, 0)
-    }
+
 
 }
-
-private suspend fun runOnUiThread(context: Context, function: () -> Unit) {
-    withContext(Dispatchers.Main) {
-        function()
-    }
-}
-
 
 // picasso par mostrar imagenes
 // picasso.get().load(image).into(binding?.textViewUsername)
