@@ -10,6 +10,7 @@ import com.demo.sabilabapp.Usuarios.UsuariosResponse
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -40,9 +41,15 @@ interface ApiService {
     @GET("api/usuarios/true")
     suspend fun paginaUsuarios(@Query("page") pagina: Int): Response<UsuariosResponse>
 
+    @GET("api/usuarios/filtrar/{nombre}")
+    suspend fun listarUsuariosPorNombreYPage(@Path("nombre") nombre: String, @Query("page") pagina: Int): Response<UsuariosResponse>
+
     //Crear Usuarios
     @POST("api/usuarios")
     suspend fun createUser(@Body usuario: Usuario)
+    //Eliminar usuario(desactivar)
+    @DELETE("api/usuarios/desactivar/{id}")
+    suspend fun deleteUser(@Path("id") id: Int)
 
 
 

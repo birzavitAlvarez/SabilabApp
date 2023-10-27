@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background_color"
-    android:layout_marginStart="14dp"
     android:orientation="vertical">
     
     <LinearLayout
@@ -17,6 +16,7 @@
             android:id="@+id/tvAddUsuarioTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:text="@string/registrar_usuario"
             android:textSize="24sp"
             android:layout_marginTop="15dp"
@@ -36,6 +36,7 @@
     <View
         android:layout_width="290dp"
         android:layout_height="2dp"
+        android:layout_marginStart="10dp"
         android:background="@color/black" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -56,6 +57,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilAddUsuarioPassword"
         android:layout_gravity="center"
+        app:passwordToggleEnabled="true"
         android:layout_width="250dp"
         android:layout_marginTop="10dp"
         android:hint="@string/password"
@@ -63,39 +65,27 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tietAddUsuarioPassword"
-            android:singleLine="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="text|textPassword"
+            android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:id="@+id/tilAddUsuarioRol"-->
-<!--        android:layout_width="250dp"-->
-<!--        android:layout_height="40dp"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:hint="@string/rol2"-->
-<!--        android:layout_gravity="center">-->
-
-<!--        <Spinner-->
-<!--            android:id="@+id/spAddUsuarioRol"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content" />-->
-
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
-    <LinearLayout
-        android:id="@+id/llAddUsuarioRol"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAddUsuarioRol"
         android:layout_width="250dp"
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
+        android:hint="@string/rol2"
+        android:layout_gravity="center">
 
         <Spinner
             android:id="@+id/spAddUsuarioRol"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-    </LinearLayout>
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/btnAddUsuarioGuardar"
         android:layout_marginTop="10dp"

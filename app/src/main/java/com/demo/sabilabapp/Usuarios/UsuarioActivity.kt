@@ -5,7 +5,9 @@ import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageButton
@@ -17,7 +19,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.demo.sabilabapp.Adapters.UsuariosAdapter
 import com.demo.sabilabapp.Api.RetrofitClient.apiService
 import com.demo.sabilabapp.R
-import com.demo.sabilabapp.Roles.Data as DataRolesImport
 import com.demo.sabilabapp.databinding.ActivityUsuarioBinding
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -25,6 +26,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Locale
+import com.demo.sabilabapp.Roles.Data as DataRolesImport
 
 class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
 
@@ -34,6 +36,8 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
     private val datitos = mutableListOf<Result>()
     private var currentPage: Int = 0
     private var totalPages: Int = 0
+    private var currentPageSearch: Int = 0
+    private var totalPagesSearch: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +46,7 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
         //
         initRecyclerView()
         listaAlEntrar()
+        //
         binding?.svUsuarioBusqueda?.setOnQueryTextListener(this)
         //
         binding?.btnUsuarioBuscar?.setOnClickListener {
@@ -69,6 +74,7 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
             showDialog()
         }
 
+
     }
 
     @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
@@ -82,19 +88,17 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
                     datitos.clear()
                     datitos.addAll(dataUsuario)
                     adapter.notifyDataSetChanged()
-
                     val pagination = pruebita?.data?.pagination
                     if (pagination != null) {
                         val currentPage = pagination.currentPage
                         val totalPages = pagination.totalPages
                         binding?.tvUsuarioNumeroPagina?.text = "$currentPage/$totalPages"
                     } else {showError()}
-
                 } else { showError() }
             }
         }
     }
-
+    //------------------------------------------------------------------------------------------------------------------------------------------------
     @SuppressLint("NotifyDataSetChanged")
     private fun listaAlEntrar() {
         CoroutineScope(Dispatchers.IO).launch {
@@ -107,13 +111,10 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
                     datitos.addAll(dataUsuario)
                     adapter.notifyDataSetChanged()
                     getCurrentAndTotal()
-                } else {
-                    showError()
-                }
+                } else { showError() }
             }
         }
     }
-
     @SuppressLint("SetTextI18n")
     private fun getCurrentAndTotal(){
         CoroutineScope(Dispatchers.IO).launch {
@@ -125,16 +126,13 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
                     if (pagination != null) {
                         currentPage = pagination.currentPage
                         totalPages = pagination.totalPages
-
                         binding?.tvUsuarioNumeroPagina?.text = "$currentPage/$totalPages"
                     }
-                } else {
-                    showError()
-                }
+                } else { showError() }
             }
         }
     }
-
+    //------------------------------------------------------------------------------------------------------------------------------------------------
     @SuppressLint("NotifyDataSetChanged")
     private fun searchByUsuario(query: String) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -146,12 +144,28 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
                     datitos.clear()
                     datitos.addAll(dataUsuario)
                     adapter.notifyDataSetChanged()
+                    performSearch(query)
                 } else { showError() }
                 hideKeyboard()
+                getCurrentAndTotal()
             }
         }
     }
-
+    @SuppressLint("SetTextI18n")
+    private fun performSearch(query: String?) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = apiService.listarUsuariosPorFiltro(query ?: "").body()
+            runOnUiThread {
+                if (response != null && response.status == 200) {
+                    val pagination = response.data.pagination
+                    currentPage = pagination.currentPage
+                    totalPages = pagination.totalPages
+                    binding?.tvUsuarioNumeroPagina?.text = "$currentPage/$totalPages"
+                } else { showError() }
+            }
+        }
+    }
+    //------------------------------------------------------------------------------------------------------------------------------------------------
     private fun hideKeyboard() {
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding?.vistaUsuariosPadre?.windowToken,0)
@@ -188,75 +202,76 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
         val tietAddUsuarioNombre: TextInputEditText = dialog.findViewById(R.id.tietAddUsuarioNombre)
         val tilAddUsuarioPassword: TextInputLayout = dialog.findViewById(R.id.tilAddUsuarioPassword)
         val tietAddUsuarioPassword: TextInputEditText = dialog.findViewById(R.id.tietAddUsuarioPassword)
-        //val tilAddUsuarioRol: TextInputLayout = dialog.findViewById(R.id.tilAddUsuarioRol)
+        val tilAddUsuarioRol: TextInputLayout = dialog.findViewById(R.id.tilAddUsuarioRol)
         val spAddUsuarioRol: Spinner = dialog.findViewById(R.id.spAddUsuarioRol)
         val btnAddUsuarioGuardar: Button = dialog.findViewById(R.id.btnAddUsuarioGuardar)
-
+        //tvAddUsuarioTitle.text = "Actualizar Usuario"
+        tietAddUsuarioNombre.requestFocus()
         ibAddUsuarioClose.setOnClickListener{
             dialog.dismiss()
         }
         //
-        loadSpinner()
-
-        //
-        dialog.show()
-    }
-
-    //
-//    private fun loadSpinner() {
-//        val dialog = Dialog(this)
-//        dialog.setContentView(R.layout.item_add_usuario)
-//        val spAddUsuarioRol: Spinner = dialog.findViewById(R.id.spAddUsuarioRol)
-//
-//        CoroutineScope(Dispatchers.IO).launch {
-//            val call = apiService.listRoles()
-//            val response = call.body()
-//
-//            runOnUiThread {
-//                if (response != null && response.status == 200) {
-//                    val dataUsuario = response.data
-//
-//                    val adapterLoad = ArrayAdapter<DataRolesImport>(this@UsuarioActivity, android.R.layout.simple_spinner_item, dataUsuario)
-//                    adapterLoad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//                    spAddUsuarioRol.adapter = adapterLoad
-//                    Log.d("DataUsuario", dataUsuario.toString())
-////                    adapterLoad.clear()
-////                    adapterLoad.addAll(dataUsuario)
-//                    adapterLoad.notifyDataSetChanged()
-//                } else {
-//                    showError()
-//                }
-//            }
-//        }
-//    }
-
-    private fun loadSpinner() {
-        val dialog = Dialog(this)
-        dialog.setContentView(R.layout.item_add_usuario)
-        val spAddUsuarioRol: Spinner = dialog.findViewById(R.id.spAddUsuarioRol)
-
         CoroutineScope(Dispatchers.IO).launch {
-            val call = apiService.listRoles()
-            val response = call.body()
-
+            val response = apiService.listRoles().body()
             runOnUiThread {
                 if (response != null && response.status == 200) {
-                    val dataUsuario = response.data
-
-                    val rolesList = dataUsuario.map { it.rol }
-
-                    val adapterLoad = ArrayAdapter<String>(this@UsuarioActivity, android.R.layout.simple_spinner_item, rolesList)
+                    val rolesList = response.data?.map { it.rol } ?: emptyList()
+                    val rolesWithSelect = listOf("Seleccionar") + rolesList
+                    val adapterLoad = ArrayAdapter(this@UsuarioActivity, android.R.layout.simple_spinner_item, rolesWithSelect)
                     adapterLoad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     spAddUsuarioRol.adapter = adapterLoad
-
                     Log.d("DataUsuario", rolesList.toString())
+                    adapterLoad.notifyDataSetChanged()
                 } else {
                     showError()
                 }
             }
         }
+        // -----------------------------
+        var selectedRoleId: Int? = null
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = apiService.listRoles().body()
+            spAddUsuarioRol.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    selectedRoleId = if (position > 0) {
+                        response?.data?.get(position - 1)?.id_roles
+                    } else { null }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) { selectedRoleId = null }
+            }
+        }
+
+        btnAddUsuarioGuardar.setOnClickListener{
+            val nombreUsuario = tietAddUsuarioNombre.text.toString()
+            val contrasena = tietAddUsuarioPassword.text.toString()
+
+            CoroutineScope(Dispatchers.IO).launch {
+
+                if (selectedRoleId != null) {
+                    val usuario = Usuario(nombreUsuario, contrasena, 1, selectedRoleId!!)
+                    apiService.createUser(usuario)
+                    hideKeyboard()
+                    nextPage(currentPage)
+                    dialog.dismiss()
+                } else {
+                    runOnUiThread {
+                        Toast.makeText(this@UsuarioActivity, "Error: Debe seleccionar un rol", Toast.LENGTH_SHORT).show()
+                    }
+
+                }
+            }
+        }
+        //
+        dialog.show()
     }
-    //
+    //---------------------------------------------------------------------------
+
+    // Listener para el SearchView
+
+
+
 
 
 }
