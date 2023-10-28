@@ -81,4 +81,9 @@
     <string name="agregar_producto">Agregar Producto</string>
     <string name="registrar_usuario">Registrar Usuario</string>
     <string name="guardar">Guardar</string>
+    <string name="actualizar_usuario">Actualizar Usuario</string>
+    <string name="confirmaci_n">Confirmación</string>
+    <string name="context_confirm">¿Seguro que quieres eliminar al usuario admin?</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="cancelar">Cancelar</string>
 </resources>

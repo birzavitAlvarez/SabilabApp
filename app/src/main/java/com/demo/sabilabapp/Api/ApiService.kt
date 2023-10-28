@@ -31,7 +31,7 @@ interface ApiService {
     @GET("api/compras/{id}")
     fun obtenerPorId(@Path("id") id: Long): Call<ComprasResponse>
 
-    // USUARIOS
+    // TODO USUARIOS
     // Lista all por true
     @GET("api/usuarios/true")
     suspend fun listUsuariosTrue(): Response<UsuariosResponse>
@@ -54,7 +54,7 @@ interface ApiService {
     //Actualizar Usuario
     @PUT("api/usuarios/{id}")
     suspend fun updateUser(@Body usuario:Usuario, @Path("id") id: Int)
-
+    // TODO FIN DE USUARIOS
 
 
     // Lista de Roles

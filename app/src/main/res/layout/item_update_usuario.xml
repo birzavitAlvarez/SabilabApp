@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background_color"
     android:orientation="vertical">
-    
+
     <LinearLayout
         android:layout_gravity="center"
         android:layout_width="match_parent"
@@ -13,17 +13,17 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tvAddUsuarioTitle"
+            android:id="@+id/tvUpdateUsuarioTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="@string/registrar_usuario"
+            android:text="@string/actualizar_usuario"
             android:textSize="24sp"
             android:layout_marginTop="15dp"
             android:textStyle="bold"
             />
         <ImageButton
-            android:id="@+id/ibAddUsuarioClose"
+            android:id="@+id/ibAUpdateUsuarioClose"
             android:backgroundTint="@color/background_color"
             android:layout_marginStart="55dp"
             android:layout_marginTop="6dp"
@@ -40,7 +40,7 @@
         android:background="@color/black" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilAddUsuarioNombre"
+        android:id="@+id/tilUpdateUsuarioNombre"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:layout_width="250dp"
@@ -48,14 +48,14 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tietAddUsuarioNombre"
+            android:id="@+id/tietUpdateUsuarioNombre"
             android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilAddUsuarioPassword"
+        android:id="@+id/tilUpdateUsuarioPassword"
         android:layout_gravity="center"
         app:passwordToggleEnabled="true"
         android:layout_width="250dp"
@@ -64,37 +64,21 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tietAddUsuarioPassword"
+            android:id="@+id/tietUpdateUsuarioPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text|textPassword"
             android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilAddUsuarioRol"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:hint="@string/rol2"
-        android:layout_gravity="center">
-
-        <Spinner
-            android:id="@+id/spAddUsuarioRol"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="visible"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
     <Button
-        android:id="@+id/btnAddUsuarioGuardar"
+        android:id="@+id/btnUpdateUsuarioGuardar"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginStart="36dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:textStyle="bold"
+        android:layout_height="wrap_content"
         android:text="@string/guardar"
         android:backgroundTint="@color/primary_color"/>
 

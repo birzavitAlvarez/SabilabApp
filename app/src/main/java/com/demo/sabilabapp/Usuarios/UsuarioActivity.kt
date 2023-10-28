@@ -35,10 +35,9 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
     private val datitos = mutableListOf<Result>()
     private var currentPage: Int = 1
     private var totalPages: Int = 1
-    private var currentPageSearch: Int = 1
-    private var totalPagesSearch: Int = 1
+
     private var verdura: Boolean = false
-    //private var getPala: String = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +64,6 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
                     if (!query.isNullOrBlank()) {
                         nextPageSearch(query,currentPage)
                     }
-                    Toast.makeText(this,"tu Gfa",Toast.LENGTH_SHORT).show()
                 } else {
                     nextPage(currentPage)
                 }
@@ -80,7 +78,6 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
                     if (!query.isNullOrBlank()) {
                         nextPageSearch(query,currentPage)
                     }
-                    Toast.makeText(this,"tu Gfa",Toast.LENGTH_SHORT).show()
                 } else {
                     nextPage(currentPage)
                 }
@@ -250,7 +247,6 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
         //val tilAddUsuarioRol: TextInputLayout = dialog.findViewById(R.id.tilAddUsuarioRol)
         val spAddUsuarioRol: Spinner = dialog.findViewById(R.id.spAddUsuarioRol)
         val btnAddUsuarioGuardar: Button = dialog.findViewById(R.id.btnAddUsuarioGuardar)
-        //tvAddUsuarioTitle.text = "Actualizar Usuario"
         tietAddUsuarioNombre.requestFocus()
         ibAddUsuarioClose.setOnClickListener{
             dialog.dismiss()
@@ -265,7 +261,8 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
                     val adapterLoad = ArrayAdapter(this@UsuarioActivity, android.R.layout.simple_spinner_item, rolesWithSelect)
                     adapterLoad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     spAddUsuarioRol.adapter = adapterLoad
-                    Log.d("DataUsuario", rolesList.toString())
+                    // el log lo uso para ver la impresion de datos en consola :v
+                    //Log.d("DataUsuario", rolesList.toString())
                     adapterLoad.notifyDataSetChanged()
                 } else {
                     showError()
@@ -291,31 +288,31 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
         btnAddUsuarioGuardar.setOnClickListener{
             val nameUser = tietAddUsuarioNombre.text.toString()
             val passwordUser = tietAddUsuarioPassword.text.toString()
-
             CoroutineScope(Dispatchers.IO).launch {
-
                 if (selectedRoleId != null) {
                     val usuario = Usuario(nameUser, passwordUser, 1, selectedRoleId!!)
                     apiService.createUser(usuario)
-                    hideKeyboard()
-                    dialog.dismiss()
+                    // Después de agregar el usuario Actualizo la lista
+                    val updatedData = apiService.listUsuariosTrue().body()?.data?.results
+                    runOnUiThread {
+                        if (updatedData != null) {
+                            adapter.updateUserList(updatedData)
+                        }
+                        hideKeyboard()
+                        dialog.dismiss()
+                    }
                 } else {
                     runOnUiThread {
-                        Toast.makeText(this@UsuarioActivity, "Error: Debe seleccionar un rol", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@UsuarioActivity, "Error: Debe seleccionar un Rol", Toast.LENGTH_SHORT).show()
                     }
 
                 }
             }
+            getCurrentAndTotal()
         }
         //
         dialog.show()
     }
-    //---------------------------------------------------------------------------
-
-    // Listener para el SearchView
-
-
-
 
 
 }

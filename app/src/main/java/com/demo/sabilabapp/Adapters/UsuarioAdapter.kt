@@ -1,6 +1,5 @@
 package com.demo.sabilabapp.Adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -27,13 +26,11 @@ class UsuariosAdapter(private val usuariosList: MutableList<Result>) : RecyclerV
             notifyItemRemoved(position)
         }
     }
-
-    fun updateUser(user: Result) {
-        val position = usuariosList.indexOfFirst { it.id_usuarios == user.id_usuarios }
-        if (position != -1) {
-            usuariosList[position] = user
-            notifyItemChanged(position)
-        }
+    //
+    fun updateUserList(newData: List<Result>) {
+        usuariosList.clear()
+        usuariosList.addAll(newData)
+        notifyDataSetChanged()
     }
 
 }

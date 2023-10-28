@@ -49,6 +49,68 @@ class UsuarioViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
 
         binding.ibUsuarioDelete.setOnClickListener {
+            showDialog2(itemView.context,query.id_usuarios,query.usuario)
+        }
+
+
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun showDialog(context: Context,id:Int,user:String,password:String,id_roles:Int){
+        val dialog = Dialog(context)
+        dialog.setContentView(R.layout.item_update_usuario)
+
+        val tvUpdateUsuarioTitle: TextView = dialog.findViewById(R.id.tvUpdateUsuarioTitle)
+        val ibAUpdateUsuarioClose: ImageButton = dialog.findViewById(R.id.ibAUpdateUsuarioClose)
+        val tilUpdateUsuarioNombre: TextInputLayout = dialog.findViewById(R.id.tilUpdateUsuarioNombre)
+        val tietUpdateUsuarioNombre: TextInputEditText = dialog.findViewById(R.id.tietUpdateUsuarioNombre)
+        val tilUpdateUsuarioPassword: TextInputLayout = dialog.findViewById(R.id.tilUpdateUsuarioPassword)
+        val tietUpdateUsuarioPassword: TextInputEditText = dialog.findViewById(R.id.tietUpdateUsuarioPassword)
+        val btnUpdateUsuarioGuardar: Button = dialog.findViewById(R.id.btnUpdateUsuarioGuardar)
+        tietUpdateUsuarioNombre.setText(user)
+        tietUpdateUsuarioPassword.setText(password)
+        tietUpdateUsuarioNombre.requestFocus()
+        ibAUpdateUsuarioClose.setOnClickListener{
+            dialog.dismiss()
+        }
+
+        btnUpdateUsuarioGuardar.setOnClickListener{
+            val nameUser = tietUpdateUsuarioNombre.text.toString()
+            val passwordUser = tietUpdateUsuarioPassword.text.toString()
+            CoroutineScope(Dispatchers.IO).launch {
+                val usuario = Usuario(nameUser, passwordUser, 1, id_roles)
+                apiService.updateUser(usuario, id)
+
+                val updatedData = apiService.listUsuariosTrue().body()?.data?.results
+
+                (itemView.context as? AppCompatActivity)?.runOnUiThread {
+                    if (updatedData != null) {
+                        (itemView.context as? AppCompatActivity)?.let {
+                            val adapter = it.findViewById<RecyclerView>(R.id.rvUsuarios)
+                            (adapter?.adapter as? UsuariosAdapter)?.updateUserList(updatedData)
+                        }
+                    }
+                    dialog.dismiss()
+                }
+            }
+        }
+
+        dialog.show()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun showDialog2(context: Context,id:Int,usuario:String){
+        val dialog = Dialog(context)
+        dialog.setContentView(R.layout.item_confirm)
+
+        val tvConfirmMessage: TextView = dialog.findViewById(R.id.tvConfirmMessage)
+        val btnConfirmCancelar: Button = dialog.findViewById(R.id.btnConfirmCancelar)
+        val btnConfirmConfirmar: Button = dialog.findViewById(R.id.btnConfirmConfirmar)
+        tvConfirmMessage.text = "¿Seguro que quieres eliminar al usuario $usuario?"
+        btnConfirmCancelar.setOnClickListener{
+            dialog.dismiss()
+        }
+        btnConfirmConfirmar.setOnClickListener{
             val position = adapterPosition
             if (position != RecyclerView.NO_POSITION) {
                 (itemView.context as? AppCompatActivity)?.runOnUiThread {
@@ -58,60 +120,13 @@ class UsuarioViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                     }
                 }
             }
-            val id_usuarios = query.id_usuarios
             CoroutineScope(Dispatchers.IO).launch {
-                apiService.deleteUser(id_usuarios)
+                apiService.deleteUser(id)
             }
-        }
-
-
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun showDialog(context: Context,id:Int,user:String,password:String,id_roles:Int){
-        val dialog = Dialog(context)
-        dialog.setContentView(R.layout.item_add_usuario)
-
-        val tvAddUsuarioTitle: TextView = dialog.findViewById(R.id.tvAddUsuarioTitle)
-        val ibAddUsuarioClose: ImageButton = dialog.findViewById(R.id.ibAddUsuarioClose)
-        val tilAddUsuarioNombre: TextInputLayout = dialog.findViewById(R.id.tilAddUsuarioNombre)
-        val tietAddUsuarioNombre: TextInputEditText = dialog.findViewById(R.id.tietAddUsuarioNombre)
-        val tilAddUsuarioPassword: TextInputLayout = dialog.findViewById(R.id.tilAddUsuarioPassword)
-        val tietAddUsuarioPassword: TextInputEditText = dialog.findViewById(R.id.tietAddUsuarioPassword)
-        val tilAddUsuarioRol: TextInputLayout = dialog.findViewById(R.id.tilAddUsuarioRol)
-        val spAddUsuarioRol: Spinner = dialog.findViewById(R.id.spAddUsuarioRol)
-        val btnAddUsuarioGuardar: Button = dialog.findViewById(R.id.btnAddUsuarioGuardar)
-        tvAddUsuarioTitle.text = "Actualizar Usuario"
-        tietAddUsuarioNombre.setText(user)
-        tietAddUsuarioPassword.setText(password)
-        spAddUsuarioRol.visibility = View.GONE
-        tietAddUsuarioNombre.requestFocus()
-        ibAddUsuarioClose.setOnClickListener{
             dialog.dismiss()
         }
-
-        btnAddUsuarioGuardar.setOnClickListener{
-            val nameUser = tietAddUsuarioNombre.text.toString()
-            val passwordUser = tietAddUsuarioPassword.text.toString()
-
-            CoroutineScope(Dispatchers.IO).launch {
-                val usuario = Usuario(nameUser, passwordUser, 1, id_roles)
-                apiService.updateUser(usuario, id)
-
-                (itemView.context as? AppCompatActivity)?.runOnUiThread {
-                    val intent = Intent(itemView.context, UsuarioActivity::class.java)
-                    itemView.context.startActivity(intent)
-                    dialog.dismiss()
-                }
-
-            }
-        }
-
-
-        //
         dialog.show()
     }
-
 
 }
 
