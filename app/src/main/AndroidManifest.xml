@@ -16,16 +16,8 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".Productos.ProductoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Compras.ComprasActivity"
-            android:exported="false"
-            android:label="@string/title_activity_compras"
-            android:theme="@style/Theme.SabilabApp"></activity>
-        <activity
-            android:name=".Usuarios.UsuarioActivity"
-            android:exported="true">
+            android:name=".Categorias.CategoriasActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,8 +25,21 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".Productos.ProductoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Compras.ComprasActivity"
+            android:exported="false"
+            android:label="@string/title_activity_compras"
+            android:theme="@style/Theme.SabilabApp" />
+        <activity
+            android:name=".Usuarios.UsuarioActivity"
+            android:exported="false">
+
+        </activity>
+        <activity
             android:name=".Login.LoginActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />

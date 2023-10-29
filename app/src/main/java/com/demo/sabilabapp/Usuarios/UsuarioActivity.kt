@@ -46,16 +46,16 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
         //
         initRecyclerView()
         listaAlEntrar()
-        //
+        // buscador
         binding?.svUsuarioBusqueda?.setOnQueryTextListener(this)
-        //
+        // boton buscar xd
         binding?.btnUsuarioBuscar?.setOnClickListener {
             val query = binding?.svUsuarioBusqueda?.query?.toString()
             if (!query.isNullOrBlank()) {
                 searchByUsuario(query)
             }
         }
-
+        // pagina siguiente
         binding?.ibUsuarioNext?.setOnClickListener {
             if (currentPage < totalPages) {
                 currentPage += 1
@@ -69,7 +69,7 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
                 }
             }
         }
-
+        // pagina anterior
         binding?.ibUsuarioBefore?.setOnClickListener {
             if (currentPage > 1) {
                 currentPage -= 1
@@ -83,7 +83,7 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
                 }
             }
         }
-
+        // boton agregar
         binding?.btnUsuarioAgregar?.setOnClickListener {
             showDialog()
         }

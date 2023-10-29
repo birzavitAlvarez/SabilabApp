@@ -3,32 +3,23 @@ package com.demo.sabilabapp.Adapters
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
-import android.content.Intent
-import android.util.Log
 import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageButton
-import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.RecyclerView
 import com.demo.sabilabapp.Api.RetrofitClient.apiService
 import com.demo.sabilabapp.R
 import com.demo.sabilabapp.Usuarios.Result
-import com.demo.sabilabapp.Usuarios.Usuario
-import com.demo.sabilabapp.Usuarios.UsuarioActivity
+import com.demo.sabilabapp.Usuarios.Usuario //para agregar
 import com.demo.sabilabapp.databinding.ItemUsuarioBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import kotlinx.coroutines.withContext
+
 
 
 class UsuarioViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

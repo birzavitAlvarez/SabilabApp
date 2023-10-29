@@ -86,4 +86,10 @@
     <string name="context_confirm">¿Seguro que quieres eliminar al usuario admin?</string>
     <string name="confirmar">Confirmar</string>
     <string name="cancelar">Cancelar</string>
+    <string name="categoria_speach">Formulación y preparación de medicamentos según principios farmacéuticos, incluyendo ingredientes, dosificación y formas de administración.</string>
+    <string name="registrar_categoria">Registrar Categoría</string>
+    <string name="tipo">TIPO</string>
+    <string name="descripcion">DESCRIPCION</string>
+    <string name="categor_as">Categorías</string>
+    <string name="nueva_categoria">Nueva Categoria</string>
 </resources>

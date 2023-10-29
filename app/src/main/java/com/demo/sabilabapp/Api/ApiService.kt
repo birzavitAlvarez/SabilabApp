@@ -1,5 +1,7 @@
 package com.demo.sabilabapp.Api
 
+import com.demo.sabilabapp.Categorias.Categoria
+import com.demo.sabilabapp.Categorias.CategoriasResponse
 import com.demo.sabilabapp.Compras.Compras
 import com.demo.sabilabapp.Compras.ComprasResponse
 import com.demo.sabilabapp.Login.LoginRequest
@@ -42,24 +44,49 @@ interface ApiService {
     @GET("api/usuarios/true")
     suspend fun paginaUsuarios(@Query("page") pagina: Int): Response<UsuariosResponse>
 
+    // buscar por nombre
     @GET("api/usuarios/filtrar/{nombre}")
     suspend fun listarUsuariosPorNombreYPage(@Path("nombre") nombre: String, @Query("page") pagina: Int): Response<UsuariosResponse>
 
     //Crear Usuarios
     @POST("api/usuarios")
     suspend fun createUser(@Body usuario: Usuario)
-    //Eliminar usuario(desactivar)
-    @DELETE("api/usuarios/desactivar/{id}")
-    suspend fun deleteUser(@Path("id") id: Int)
+
     //Actualizar Usuario
     @PUT("api/usuarios/{id}")
     suspend fun updateUser(@Body usuario:Usuario, @Path("id") id: Int)
+
+    //Eliminar usuario(desactivar)
+    @DELETE("api/usuarios/desactivar/{id}")
+    suspend fun deleteUser(@Path("id") id: Int)
     // TODO FIN DE USUARIOS
 
 
+    // TODO ROLES
     // Lista de Roles
     @GET("api/roles")
     suspend fun listRoles(): Response<RolesResponse>
+    // TODO FIN ROLES
+
+
+    // TODO CATEGORIAS
+    // LISTAR TODO
+    @GET("api/categoria")
+    suspend fun listCategory(): Response<CategoriasResponse>
+
+    //Crear Usuarios
+    @POST("api/categoria")
+    suspend fun createCategory(@Body categoria: Categoria)
+
+    // Actualizar
+    @PUT("api/categoria/{id}")
+    suspend fun updateCategory(@Body categoria:Categoria, @Path("id") id: Int)
+
+    // ELIMINAR
+    @DELETE("api/categoria/{id}")
+    suspend fun deleteCategory(@Path("id") id: Int)
+
+    //TODO FIN CATEGORIAS
 
 }
 
