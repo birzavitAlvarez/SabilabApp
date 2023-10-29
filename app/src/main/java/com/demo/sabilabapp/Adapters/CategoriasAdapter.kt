@@ -34,3 +34,7 @@ class CategoriasAdapter(private val itemsList: MutableList<Data>) : RecyclerView
     }
 
 }
+
+
+
+
