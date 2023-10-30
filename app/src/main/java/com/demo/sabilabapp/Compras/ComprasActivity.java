@@ -18,19 +18,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ComprasActivity extends AppCompatActivity {
-    Button btnListar,btnListarPorFecha;
-    TextView txtDatos,txtDatos2;
-    EditText etxFecha;
+    //Button btnListar,btnListarPorFecha;
+    //TextView txtDatos,txtDatos2;
+    //EditText etxFecha;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compras);
-        btnListar=findViewById(R.id.btnListar);
-        txtDatos=findViewById(R.id.txtDatos);
-        btnListarPorFecha=findViewById(R.id.btnListarPorFecha);
-        txtDatos2=findViewById(R.id.txtDatos2);
-        etxFecha=findViewById(R.id.etxFecha);
-        btnListar.setOnClickListener(new View.OnClickListener() {
+        //btnListar=findViewById(R.id.btnListar);
+        //txtDatos=findViewById(R.id.txtDatos);
+        //btnListarPorFecha=findViewById(R.id.btnListarPorFecha);
+        //txtDatos2=findViewById(R.id.txtDatos2);
+        //etxFecha=findViewById(R.id.etxFecha);
+        /*btnListar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listar();
@@ -41,10 +41,10 @@ public class ComprasActivity extends AppCompatActivity {
             public void onClick(View view) {
                 listarPorFecha(etxFecha.getText().toString());
             }
-        });
+        });*/
     }
 
-    private void listarPorFecha(String fecha) {
+    /*private void listarPorFecha(String fecha) {
         Call<ComprasResponse> call=RetrofitClient.INSTANCE.getApiService().listarPorFecha(fecha);
         call.enqueue(new Callback<ComprasResponse>() {
             @Override
@@ -94,6 +94,6 @@ public class ComprasActivity extends AppCompatActivity {
                 Toast.makeText(ComprasActivity.this, "Error de conexion", Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    }*/
 
 }

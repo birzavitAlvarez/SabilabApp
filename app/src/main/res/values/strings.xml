@@ -24,7 +24,11 @@
     <string name="reportes">Reportes</string>
     <string name="logout">Logout</string>
     <string name="agregar_usuario">Agregar Usuario</string>
+    <string name="agregar_aprovisionamiento">Nueva Compra</string>
     <string name="buscar">Buscar</string>
+    <string name="proveedor">PROVEEDOR</string>
+    <string name="cantidad2">CANTIDAD</string>
+    <string name="fecha2">FECHA</string>
     <string name="title_activity_compras">ComprasActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
