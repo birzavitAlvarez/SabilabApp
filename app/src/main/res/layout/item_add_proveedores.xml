@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="380dp"
+    android:layout_height="wrap_content"
+    android:background="@color/background_color"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvAddProveedorTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/registrar_proveedor"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/ibAddProveedorClose"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="55dp"
+            android:layout_marginTop="6dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/background_color"
+            android:src="@drawable/ic_rounded_red_vector" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="340dp"
+        android:layout_height="2dp"
+        android:layout_marginStart="20dp"
+        android:background="@color/black" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAddProveedorRuc"
+        android:layout_width="340dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:hint="@string/ruc">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietAddProveedorRuc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:maxLength="11"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAddProveedorRazonSocial"
+        android:layout_width="340dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:hint="@string/razon_social">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietAddProveedorRazonSocial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLength="50"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAddProveedorNombreContacto"
+        android:layout_width="340dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:hint="@string/nombre_contacto">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietAddProveedorNombreContacto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLength="50"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAddProveedorTelefono"
+        android:layout_width="340dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:hint="@string/telefono">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietAddProveedorTelefono"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:maxLength="16"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAddProveedorCorreo"
+        android:layout_width="340dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:hint="@string/correo">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietAddProveedorCorreo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text|textEmailAddress"
+            android:maxLength="50"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnAddProveedorGuardar"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@color/primary_color"
+        android:text="@string/guardar"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+
+</LinearLayout>

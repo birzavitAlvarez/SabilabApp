@@ -6,6 +6,8 @@ import com.demo.sabilabapp.Compras.Compras
 import com.demo.sabilabapp.Compras.ComprasResponse
 import com.demo.sabilabapp.Login.LoginRequest
 import com.demo.sabilabapp.Login.LoginResponse
+import com.demo.sabilabapp.Proveedores.Proveedor
+import com.demo.sabilabapp.Proveedores.ProveedorResponse
 import com.demo.sabilabapp.Roles.RolesResponse
 import com.demo.sabilabapp.Usuarios.Usuario
 import com.demo.sabilabapp.Usuarios.UsuariosResponse
@@ -40,11 +42,11 @@ interface ApiService {
     // Filtrar por nombre usuario
     @GET("api/usuarios/filtrar/{nombre}")
     suspend fun listarUsuariosPorFiltro(@Path("nombre") nombre: String): Response<UsuariosResponse>
-    // Paginacion
+    // Paginacion de true
     @GET("api/usuarios/true")
     suspend fun paginaUsuarios(@Query("page") pagina: Int): Response<UsuariosResponse>
 
-    // buscar por nombre
+    // Paginacion de filtrar
     @GET("api/usuarios/filtrar/{nombre}")
     suspend fun listarUsuariosPorNombreYPage(@Path("nombre") nombre: String, @Query("page") pagina: Int): Response<UsuariosResponse>
 
@@ -85,9 +87,36 @@ interface ApiService {
     // ELIMINAR
     @DELETE("api/categoria/{id}")
     suspend fun deleteCategory(@Path("id") id: Int)
-
     //TODO FIN CATEGORIAS
 
+    //TODO PROVEEDOR
+    // Lista all true
+    @GET("api/proveedores/true")
+    suspend fun listProveedorTrue(): Response<ProveedorResponse>
+    // Filtrar por razon_social
+    @GET("api/proveedores/filtrar/{nombre}")
+    suspend fun listarProveedorPorFiltro(@Path("nombre") nombre: String): Response<ProveedorResponse>
+    // Paginacion de true
+    @GET("api/proveedores/true")
+    suspend fun paginaProveedor(@Query("page") pagina: Int): Response<ProveedorResponse>
+
+    //Paginacion de filtrar
+    @GET("api/proveedores/filtrar/{nombre}")
+    suspend fun listarProveedorPorNombreYPage(@Path("nombre") nombre: String, @Query("page") pagina: Int): Response<ProveedorResponse>
+
+    //Crear Proveedor
+    @POST("api/proveedores")
+    suspend fun createProveedor(@Body proveedor: Proveedor)
+
+    //Actualizar Proveedor
+    @PUT("api/proveedores/{id}")
+    suspend fun updateProveedor(@Body proveedor: Proveedor, @Path("id") id: Int)
+
+    //Eliminar Proveedor(desactivar)
+    @DELETE("api/proveedores/desactivar/{id}")
+    suspend fun deleteProveedor(@Path("id") id: Int)
+
+    //TODO FIN PROVEEDOR
 }
 
 

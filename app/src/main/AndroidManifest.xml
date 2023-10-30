@@ -16,13 +16,17 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".Categorias.CategoriasActivity"
+            android:name=".Proveedores.ProveedorActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".Categorias.CategoriasActivity"
+            android:exported="false">
         </activity>
         <activity
             android:name=".Productos.ProductoActivity"
@@ -34,9 +38,7 @@
             android:theme="@style/Theme.SabilabApp" />
         <activity
             android:name=".Usuarios.UsuarioActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".Login.LoginActivity"
             android:exported="false" />
