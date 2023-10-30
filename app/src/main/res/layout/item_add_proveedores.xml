@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="380dp"
+    android:layout_width="340dp"
     android:layout_height="wrap_content"
     android:background="@color/background_color"
     android:orientation="vertical">
@@ -16,7 +16,7 @@
             android:id="@+id/tvAddProveedorTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="15dp"
             android:text="@string/registrar_proveedor"
             android:textSize="24sp"
@@ -26,7 +26,7 @@
             android:id="@+id/ibAddProveedorClose"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="55dp"
+            android:layout_marginStart="45dp"
             android:layout_marginTop="6dp"
             android:layout_weight="1"
             android:backgroundTint="@color/background_color"
@@ -35,14 +35,14 @@
     </LinearLayout>
 
     <View
-        android:layout_width="340dp"
+        android:layout_width="300dp"
         android:layout_height="2dp"
         android:layout_marginStart="20dp"
         android:background="@color/black" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilAddProveedorRuc"
-        android:layout_width="340dp"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
@@ -59,7 +59,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilAddProveedorRazonSocial"
-        android:layout_width="340dp"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
@@ -76,7 +76,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilAddProveedorNombreContacto"
-        android:layout_width="340dp"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
@@ -93,7 +93,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilAddProveedorTelefono"
-        android:layout_width="340dp"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
@@ -110,7 +110,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilAddProveedorCorreo"
-        android:layout_width="340dp"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
