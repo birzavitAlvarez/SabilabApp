@@ -4,18 +4,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.demo.sabilabapp.R
-import com.demo.sabilabapp.Proveedores.Result
+import com.demo.sabilabapp.Productos.Result
 
-class ProveedorAdapter(private val itemsList: MutableList<Result>) : RecyclerView.Adapter<ProveedorViewHolder>() {
+class ProductosAdapter(private val itemsList: MutableList<Result>) : RecyclerView.Adapter<ProductosViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProveedorViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_proveedor, parent, false)
-        return ProveedorViewHolder(itemView)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductosViewHolder {
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_productos, parent, false)
+        return ProductosViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: ProveedorViewHolder, position: Int) {
-        val proveedor = itemsList[position]
-        holder.bind(proveedor)
+    override fun onBindViewHolder(holder: ProductosViewHolder, position: Int) {
+        val productos = itemsList[position]
+        holder.bind(productos)
     }
 
     override fun getItemCount() = itemsList.size

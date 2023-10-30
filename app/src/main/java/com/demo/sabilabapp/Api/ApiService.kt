@@ -6,6 +6,8 @@ import com.demo.sabilabapp.Compras.Compras
 import com.demo.sabilabapp.Compras.ComprasResponse
 import com.demo.sabilabapp.Login.LoginRequest
 import com.demo.sabilabapp.Login.LoginResponse
+import com.demo.sabilabapp.Productos.Productos
+import com.demo.sabilabapp.Productos.ProductosResponse
 import com.demo.sabilabapp.Proveedores.Proveedor
 import com.demo.sabilabapp.Proveedores.ProveedorResponse
 import com.demo.sabilabapp.Roles.RolesResponse
@@ -115,8 +117,39 @@ interface ApiService {
     //Eliminar Proveedor(desactivar)
     @DELETE("api/proveedores/desactivar/{id}")
     suspend fun deleteProveedor(@Path("id") id: Int)
-
     //TODO FIN PROVEEDOR
+
+
+    //TODO PRODUCTOS
+    // Lista all true
+    @GET("api/productos/true")
+    suspend fun listProductosTrue(): Response<ProductosResponse>
+    // Filtrar por nombre producto
+    @GET("api/productos/filtrar/{nombre}")
+    suspend fun listarProductosPorFiltro(@Path("nombre") nombre: String): Response<ProductosResponse>
+    // Paginacion de true
+    @GET("api/productos/true")
+    suspend fun paginaProductos(@Query("page") pagina: Int): Response<ProductosResponse>
+
+    //Paginacion de filtrar
+    @GET("api/productos/filtrar/{nombre}")
+    suspend fun listarProductosPorNombreYPage(@Path("nombre") nombre: String, @Query("page") pagina: Int): Response<ProductosResponse>
+
+    //Crear Producto
+    @POST("api/productos")
+    suspend fun createProductos(@Body productos: Productos)
+
+    //Actualizar Producto
+    @PUT("api/productos/{id}")
+    suspend fun updateProductos(@Body productos: Productos, @Path("id") id: Int)
+
+    //Eliminar Proveedor(desactivar)
+    @DELETE("api/productos/desactivar/{id}")
+    suspend fun deleteProductos(@Path("id") id: Int)
+    //TODO FIN PRODUCTOS
+
+
+
 }
 
 

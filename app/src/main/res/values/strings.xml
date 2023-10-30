@@ -104,4 +104,20 @@
     <string name="telefono">TELEFONO</string>
     <string name="correo">CORREO</string>
     <string name="nuevo_proveedor">Nuevo Proveedor</string>
+    <string name="nuevo_producto">Nuevo Producto</string>
+    <string name="productos_upper">PRODUCTOS</string>
+    <string name="laboratorio">LABORATORIO</string>
+    <string name="precio">PRECIO</string>
+    <string name="lote">LOTE</string>
+    <string name="fecha_caducidad">FECHA CADUCIDAD</string>
+    <string name="productos_speach1">3-GEL SUSPENSIÓN ORAL X 20 SOBRES</string>
+    <string name="productos_speach2">DRGP</string>
+    <string name="productos_speach3">19.80</string>
+    <string name="productos_speach4">Lote VLL1</string>
+    <string name="productos_speach5">2024-10-19</string>
+    <string name="productos_speach6">Medicina</string>
+    <string name="categoria">CATEGORIA</string>
+    <string name="registrar_producto">Registrar Producto</string>
+    <string name="nombre">NOMBRE</string>
+    <string name="caducidad">CADUCIDAD</string>
 </resources>
