@@ -18,14 +18,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.demo.sabilabapp.Adapters.UsuariosAdapter
 import com.demo.sabilabapp.Api.RetrofitClient.apiService
 import com.demo.sabilabapp.R
-import com.demo.sabilabapp.databinding.ActivityUsuarioBinding
+import com.demo.sabilabapp.databinding.ActivityUsuarioBinding  // OTRO
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Locale
-//import com.demo.sabilabapp.Roles.Data as DataRolesImport
 
 class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
 
@@ -113,7 +112,7 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
                 } else { showError() }
             }
         }
-    }//
+    }
     @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     private fun nextPageSearch(query:String,np: Int){
         CoroutineScope(Dispatchers.IO).launch {
@@ -129,7 +128,6 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
                     pagination?.currentPage!!.also { currentPage = it }
                     pagination.totalPages.also { totalPages = it }
                     binding?.tvUsuarioNumeroPagina?.text = "$currentPage/$totalPages"
-                    // Procesa la respuesta aquí
                 } else {
                     showError()
                 }

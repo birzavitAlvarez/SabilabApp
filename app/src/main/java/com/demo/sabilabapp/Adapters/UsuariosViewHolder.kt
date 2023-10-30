@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.demo.sabilabapp.Api.RetrofitClient.apiService
 import com.demo.sabilabapp.R
-import com.demo.sabilabapp.Usuarios.Result
+import com.demo.sabilabapp.Usuarios.Result // otro
 import com.demo.sabilabapp.Usuarios.Usuario //para agregar
 import com.demo.sabilabapp.databinding.ItemUsuarioBinding
 import kotlinx.coroutines.CoroutineScope

@@ -96,4 +96,16 @@
     <string name="descripcion">DESCRIPCION</string>
     <string name="categor_as">Categorías</string>
     <string name="nueva_categoria">Nueva Categoria</string>
+    <string name="proveedores_speach1">20403553201</string>
+    <string name="proveedores_speach2">BOTIFARMA SALUD SOCIEDAD ANONIMA CERRADA</string>
+    <string name="proveedores_speach3">Botifarma</string>
+    <string name="proveedores_speach4">960147987</string>
+    <string name="proveedores_speach5">grupodialexfactura@hotmail.com</string>
+    <string name="registrar_proveedor">Registrar Proveedor</string>
+    <string name="ruc">RUC</string>
+    <string name="razon_social">RAZON SOCIAL</string>
+    <string name="nombre_contacto">NOMBRE CONTACTO</string>
+    <string name="telefono">TELEFONO</string>
+    <string name="correo">CORREO</string>
+    <string name="nuevo_proveedor">Nuevo Proveedor</string>
 </resources>
