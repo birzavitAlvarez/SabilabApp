@@ -52,7 +52,7 @@
             android:id="@+id/tietAddProductosNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:inputType="text|textAutoComplete"
             android:maxLength="150"
             android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -67,23 +67,6 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tietAddProductosLaboratorio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:maxLength="50"
-            android:singleLine="true" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilAddProductosLote"
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:hint="@string/lote">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tietAddProductosLote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -109,6 +92,23 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAddProductosLote"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:hint="@string/lote">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietAddProductosLote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLength="50"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilAddProductosCaducidad"
         android:layout_width="300dp"
         android:layout_height="match_parent"
@@ -120,9 +120,11 @@
             android:id="@+id/tietAddProductosCaducidad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="datetime|date"
-            android:maxLength="50"
-            android:singleLine="true" />
+            android:inputType="none"
+            android:singleLine="true"
+            android:clickable="true"
+            android:focusable="false"
+            android:focusableInTouchMode="false" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

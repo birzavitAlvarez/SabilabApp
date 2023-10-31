@@ -1,13 +1,17 @@
 package com.demo.sabilabapp.Adapters
 
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Context
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.demo.sabilabapp.Api.RetrofitClient.apiService
@@ -20,7 +24,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-
+import java.util.Calendar
+import java.util.Locale
 
 
 class ProductosViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -48,7 +53,8 @@ class ProductosViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun showDialog(context: Context,id_productos:Int,nombre:String,laboratorio:String, lote:String, precio:Double, fecha_caducidad:String, activo:Boolean, id_categoria:Int){
+    private fun showDialog(context: Context,id_productos:Int,nombre:String,laboratorio:String, lote:String,
+                                    precio:Double, fecha_caducidad:String, activo:Boolean, id_categoria:Int){
         val dialog = Dialog(context)
         dialog.setContentView(R.layout.item_add_productos)
 
@@ -74,28 +80,72 @@ class ProductosViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         tietAddProductosLote.setText(lote)
         tietAddProductosPrecio.setText(precio.toString())
         tietAddProductosCaducidad.setText(fecha_caducidad)
-        spAddProductosCategoria.setSelection(id_categoria)
         tietAddProductosNombre.requestFocus()
 
         ibAddProductosClose.setOnClickListener{
             dialog.dismiss()
         }
 
+        var selectedDate: String = fecha_caducidad
+
+        tietAddProductosCaducidad.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(context, { _, year, month, dayOfMonth ->
+                selectedDate = String.format(Locale.US, "%04d-%02d-%02d", year, month + 1, dayOfMonth)
+                tietAddProductosCaducidad.setText(selectedDate)
+            }, year, month, day)
+            datePickerDialog.show()
+        }
+
+        //
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = apiService.listCategory().body()
+            (itemView.context as? AppCompatActivity)?.runOnUiThread {
+                if (response != null && response.status == 200) {
+                    val categoriasList = response.data.map { it.tipo }
+                    val categoriasWithSelect = listOf("Seleccionar") + categoriasList
+                    val adapterLoad = ArrayAdapter(context, android.R.layout.simple_spinner_item, categoriasWithSelect)
+                    adapterLoad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    spAddProductosCategoria.adapter = adapterLoad
+                    adapterLoad.notifyDataSetChanged()
+                    // lleno el spinner y establezco posicion
+                    spAddProductosCategoria.setSelection(id_categoria)
+                } else {
+                    Toast.makeText(context, "Ha ocurrido un error", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        // -----------------------------
+        var selectedCategoriaId: Int? = id_categoria
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = apiService.listCategory().body()
+            spAddProductosCategoria.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    selectedCategoriaId = if (position > 0) {
+                        response?.data?.get(position - 1)?.id_categoria
+                    } else { null }
+                }
+                override fun onNothingSelected(parent: AdapterView<*>?) { selectedCategoriaId = null }
+            }
+        }
+
+        //
         btnAddProductosGuardar.setOnClickListener{
-            var actVal = 0
+            var actPro = 0
             val nomPro = tietAddProductosNombre.text.toString()
             val labPro = tietAddProductosLaboratorio.text.toString()
             val prePro = tietAddProductosPrecio.text.toString().toDouble()
             val lotPro = tietAddProductosLote.text.toString()
-            val cadPro = tietAddProductosCaducidad.text.toString()
-            if (activo){ // si es true
-                actVal = 1
-            }
-            val catPro = spAddProductosCategoria.selectedItem
-//            actualizar id_categoria
+            val cadPro = selectedDate
+            if (activo){ actPro = 1 } // si es true manda 1 para el active true xd
 
             CoroutineScope(Dispatchers.IO).launch {
-                val producto = Productos(nomPro, labPro, prePro, lotPro, cadPro,actVal,id_categoria)
+                val producto = Productos(nomPro, labPro, prePro, lotPro, cadPro, actPro, selectedCategoriaId!!)
                 apiService.updateProductos(producto, id_productos)
 
                 val updatedData = apiService.listProductosTrue().body()?.data?.results

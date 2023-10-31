@@ -61,7 +61,10 @@
                 android:id="@+id/btnProductosAgregar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="10dp"
                 android:backgroundTint="@color/primary_color"
                 android:text="@string/nuevo_producto"
                 android:textColor="@color/texto_boton"
@@ -115,7 +118,7 @@
 
                     <LinearLayout
                         android:id="@+id/llHeaderProductos"
-                        android:layout_width="1200dp"
+                        android:layout_width="1350dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center"
                         android:background="@color/primary_color"

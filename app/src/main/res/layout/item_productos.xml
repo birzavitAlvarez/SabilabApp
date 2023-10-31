@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="1200dp"
+        android:layout_width="1350dp"
         android:layout_height="70dp"
         android:background="@color/background_color"
         android:orientation="horizontal"

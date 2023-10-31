@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
@@ -15,7 +14,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.demo.sabilabapp.Adapters.UsuariosAdapter
+import com.demo.sabilabapp.Adapters.UsuariosAdapter // OTRO
 import com.demo.sabilabapp.Api.RetrofitClient.apiService
 import com.demo.sabilabapp.R
 import com.demo.sabilabapp.databinding.ActivityUsuarioBinding  // OTRO
