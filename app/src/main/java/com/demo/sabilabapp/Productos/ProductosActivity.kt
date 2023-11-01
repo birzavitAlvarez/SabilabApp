@@ -2,7 +2,6 @@ package com.demo.sabilabapp.Productos
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-
 import com.demo.sabilabapp.R
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -38,7 +37,6 @@ class ProductosActivity : AppCompatActivity(), OnQueryTextListener {
     private val datitos = mutableListOf<Result>()
     private var currentPage: Int = 1
     private var totalPages: Int = 1
-
     private var verdura: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
