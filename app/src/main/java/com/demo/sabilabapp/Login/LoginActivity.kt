@@ -23,21 +23,17 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding?.root)
-        //setContentView(R.layout.activity_login)
 
         binding?.btnLogin?.setOnClickListener {
-            //val username = findViewById<TextInputEditText>(R.id.tiet_user_login).text.toString()
             val username = binding?.tietUserLogin?.text.toString()
-            //val password = findViewById<TextInputEditText>(R.id.tiet_password_login).text.toString()
             val password = binding?.tietPasswordLogin?.text.toString()
 
             if (username.isNotEmpty() && password.isNotEmpty()) {
                 CoroutineScope(Dispatchers.IO).launch {
                     loginUser(username, password)
                 }
-//                Toast.makeText(this, "DATOS INGRESADOS", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(this, "Por favor, complete ambos campos.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Por favor, complete los 2 campos campos.", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -50,17 +46,19 @@ class LoginActivity : AppCompatActivity() {
             if (response.isSuccessful) {
                 val loginResponse = response.body()
                 if (loginResponse != null && loginResponse.status == 200) {
-                    val userDataList = loginResponse.data
-                    if (userDataList.isNotEmpty()) {
-                        val userData = userDataList[0]
+                    val itemList = loginResponse.data
+                    if (itemList.isNotEmpty()) {
+                        val datos = itemList[0]
                         // aqui recupero datos para mandarlos como put extra
-                        val id_usuarios = userData.id_usuarios
-                        val id_roles = userData.id_roles
-                        val id_vendedor = userData.id_vendedor
-                        val nombre = userData.nombre
+                        val id_usuarios = datos.id_usuarios
+                        val id_roles = datos.id_roles
+                        val id_vendedor = datos.id_vendedor
+                        val nombre = datos.nombre
 
+                        val userData  = UserData(id_usuarios, id_roles, id_vendedor, nombre)
                         Log.d("LoginActivity", "Inicio de sesión EXITOSO id_usuarios: $id_usuarios id_roles: $id_roles id_vendedor: $id_vendedor nombre: $nombre")
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        intent.putExtra("userData", userData )
                         startActivity(intent)
 
                     } else {

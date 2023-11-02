@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/vistaProductosPadre"
+    android:id="@+id/vistaClientes2Padre"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color"
     android:orientation="vertical"
-    tools:context=".Productos.ProductosActivity">
+    tools:context=".Clientes.Clientes2Activity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,12 +16,12 @@
 
 
         <TextView
-            android:id="@+id/tvProductosTitulo"
+            android:id="@+id/tvClientes2Titulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:text="@string/productos"
+            android:text="@string/clientes"
             android:textColor="@color/text"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -34,14 +34,14 @@
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.SearchView
-                android:id="@+id/svProductosBusqueda"
+                android:id="@+id/svClientes2Busqueda"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp" />
 
             <Button
-                android:id="@+id/btnProductosBuscar"
+                android:id="@+id/btnClientes2Buscar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -58,7 +58,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnProductosAgregar"
+                android:id="@+id/btnClientes2Agregar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -66,12 +66,12 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="@color/primary_color"
-                android:text="@string/nuevo_producto"
+                android:text="@string/nuevo_cliente"
                 android:textColor="@color/texto_boton"
                 tools:ignore="TextContrastCheck" />
 
             <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/ibProductosBefore"
+                android:id="@+id/ibClientes2Before"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -81,7 +81,7 @@
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <TextView
-                android:id="@+id/tvProductosNumeroPagina"
+                android:id="@+id/tvClientes2NumeroPagina"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -90,7 +90,7 @@
                 tools:ignore="HardcodedText,TextContrastCheck" />
 
             <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/ibProductosNext"
+                android:id="@+id/ibClientes2Next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -117,9 +117,9 @@
                     android:orientation="vertical"  >
 
                     <LinearLayout
-                        android:id="@+id/llHeaderProductos"
-                        android:layout_width="1600dp"
-                        android:layout_height="60dp"
+                        android:id="@+id/llHeaderClientes2"
+                        android:layout_width="1500dp"
+                        android:layout_height="70dp"
                         android:layout_gravity="center"
                         android:background="@color/primary_color"
                         android:gravity="center"
@@ -132,7 +132,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="@string/productos_upper"
+                            android:text="@string/ruc"
                             android:textColor="@color/texto_boton"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -142,7 +142,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="@string/laboratorio"
+                            android:text="@string/razon_social"
                             android:textColor="@color/texto_boton"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -152,7 +152,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="@string/precio"
+                            android:text="@string/nombre_comercial"
                             android:textColor="@color/texto_boton"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -162,7 +162,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="@string/lote"
+                            android:text="@string/direccion"
                             android:textColor="@color/texto_boton"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -172,7 +172,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="@string/fecha_caducidad"
+                            android:text="@string/distrito"
                             android:textColor="@color/texto_boton"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -182,7 +182,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="@string/categoria"
+                            android:text="@string/contacto"
                             android:textColor="@color/texto_boton"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -192,14 +192,14 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="@string/opciones"
+                            android:text="@string/telefono"
                             android:textColor="@color/texto_boton"
                             android:textSize="20sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvProductos"
+                        android:id="@+id/rvClientes2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/background_color" />

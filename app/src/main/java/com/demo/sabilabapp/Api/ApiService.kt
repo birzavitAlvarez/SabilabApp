@@ -2,6 +2,8 @@ package com.demo.sabilabapp.Api
 
 import com.demo.sabilabapp.Categorias.Categoria
 import com.demo.sabilabapp.Categorias.CategoriasResponse
+import com.demo.sabilabapp.Clientes.Clientes
+import com.demo.sabilabapp.Clientes.ClientesResponse
 import com.demo.sabilabapp.Compras.Compras
 import com.demo.sabilabapp.Compras.ComprasResponse
 import com.demo.sabilabapp.Login.LoginRequest
@@ -124,12 +126,14 @@ interface ApiService {
     // Lista all true
     @GET("api/productos/true")
     suspend fun listProductosTrue(): Response<ProductosResponse>
-    // Filtrar por nombre producto
-    @GET("api/productos/filtrar/{nombre}")
-    suspend fun listarProductosPorFiltro(@Path("nombre") nombre: String): Response<ProductosResponse>
+
     // Paginacion de true
     @GET("api/productos/true")
     suspend fun paginaProductos(@Query("page") pagina: Int): Response<ProductosResponse>
+
+    // Filtrar por nombre producto
+    @GET("api/productos/filtrar/{nombre}")
+    suspend fun listarProductosPorFiltro(@Path("nombre") nombre: String): Response<ProductosResponse>
 
     //Paginacion de filtrar
     @GET("api/productos/filtrar/{nombre}")
@@ -147,6 +151,38 @@ interface ApiService {
     @DELETE("api/productos/desactivar/{id}")
     suspend fun deleteProductos(@Path("id") id: Int)
     //TODO FIN PRODUCTOS
+
+
+
+    // TODO CLIENTES
+    // Lista all true por id_vendedor  lista todos los clientes pertenicientes al id_vendedor
+    @GET("api/clientes/vendedor/true/{id}")
+    suspend fun listClientesTrue(@Path("id") id: Int): Response<ClientesResponse>
+
+    // Paginacion de all true por id_vendedor
+    @GET("api/clientes/vendedor/true/{id}")
+    suspend fun paginaClientes(@Path("id") id: Int, @Query("page") pagina: Int): Response<ClientesResponse>
+
+    // Filtrar por NOMBRE COMERCIAL + id_vendedor
+    @GET("api/clientes/filtrar2/{nombre}/{id}")
+    suspend fun listarClientesPorFiltro(@Path("nombre") nombre: String, @Path("id") id: Int ): Response<ClientesResponse>
+
+    //Paginacion de filtrar por NOMBRE COMERCIAL + id_vendedor
+    @GET("api/clientes/filtrar2/{nombre}/{id}")
+    suspend fun listarClientesPorNombreYPage(@Path("nombre") nombre: String, @Path("id") id: Int, @Query("page") pagina: Int): Response<ClientesResponse>
+
+    //Crear clientes
+    @POST("api/clientes")
+    suspend fun createClientes(@Body clientes: Clientes)
+
+    //Actualizar clientes
+    @PUT("api/clientes/{id}")
+    suspend fun updateProductos(@Body clientes: Clientes, @Path("id") id: Int)
+
+    //Eliminar clientes(desactivar)
+    @DELETE("api/clientes/desactivar/{id}")
+    suspend fun deleteClientes(@Path("id") id: Int)
+//    //TODO FIN CLIENTES
 
 
 

@@ -124,4 +124,24 @@
     <string name="registrar_producto">Registrar Producto</string>
     <string name="nombre">NOMBRE</string>
     <string name="caducidad">CADUCIDAD</string>
+    <string name="pedidos">Pedidos</string>
+    <string name="nuevo_cliente">Nuevo cliente</string>
+    <string name="nombre_comercial">NOMBRE COMERCIAL</string>
+    <string name="direccion">DIRECCION</string>
+    <string name="distrito">DISTRITO</string>
+    <string name="contacto">CONTACTO</string>
+    <string name="clientes_speach1">10405225919</string>
+    <string name="clientes_speach2">GONZALES ABAD ELSA MARIBEL</string>
+    <string name="clientes_speach3">BOTICA ELSYFARMA</string>
+    <string name="clientes_speach4">AV CESAR VALLEJO 1479 URB TAYACAJA</string>
+    <string name="clientes_speach5">EL AGUSTINO</string>
+    <string name="clientes_speach6">CINTHIA</string>
+    <string name="clientes_speach7">915224830</string>
+    <string name="registrar_cliente">Registrar Cliente</string>
+    <string name="direccion_1">DIRECCION 1</string>
+    <string name="direccion_2">DIRECCION 2</string>
+    <string name="telefono_empresa">TELEFONO EMP.</string>
+    <string name="telefono_2">TELEFONO 2</string>
+    <string name="telefono_1">TELEFONO 1</string>
+    <string name="provincia">PROVINCIA</string>
 </resources>

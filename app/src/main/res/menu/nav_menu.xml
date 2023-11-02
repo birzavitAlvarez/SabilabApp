@@ -24,6 +24,12 @@
             />
 
         <item
+            android:id="@+id/nav_pedidos"
+            android:title="@string/pedidos"
+            android:icon="@drawable/ic_pedidos"
+            android:padding="30dp" />
+
+        <item
             android:id="@+id/nav_clientes"
             android:title="@string/clientes"
             android:icon="@drawable/ic_clientes"

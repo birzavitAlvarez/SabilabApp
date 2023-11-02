@@ -1,5 +1,6 @@
 package com.demo.sabilabapp
 
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,8 +13,14 @@ import android.widget.Toast
 import androidx.core.view.GravityCompat
 import android.view.MenuItem
 import android.content.res.Configuration
+import android.widget.TextView
+import com.demo.sabilabapp.Categorias.CategoriasActivity
 import com.demo.sabilabapp.Compras.ComprasActivity
 import com.demo.sabilabapp.Login.LoginActivity
+import com.demo.sabilabapp.Login.UserData  // Class que almacena data
+import com.demo.sabilabapp.Productos.Productos2Activity
+import com.demo.sabilabapp.Productos.ProductosActivity
+import com.demo.sabilabapp.Proveedores.ProveedorActivity
 import com.demo.sabilabapp.Usuarios.UsuarioActivity
 
 class MainActivity : AppCompatActivity() {
@@ -24,20 +31,38 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navigationView: NavigationView
     private lateinit var toggle: ActionBarDrawerToggle
 
+    var id_usuarios: Int? = null
+    var id_roles:Int? = null
+    var id_vendedor:Int? = null
+    var nombre: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
-        //setContentView(R.layout.activity_main)
+        //--------------------------------------------------------------------------------------------
+        // TODO RECUPERANDO DATOS DE INICIO DE SESION
+        val userData = intent.getSerializableExtra("userData") as? UserData
+        if (userData != null) {
+            id_usuarios = userData.id_usuarios
+            id_roles = userData.id_roles
+            id_vendedor = userData.id_vendedor
+            nombre = userData.nombre
+        }
+        //--------------------------------------------------------------------------------------------
+        binding?.tvMainIdUsuario?.text = id_usuarios.toString()
+        binding?.tvMainIdRol?.text = id_roles.toString()
+        binding?.tvMainIdVendedor?.text = id_vendedor.toString()
+        binding?.tvMainNombre?.text = nombre.toString()
 
         //--------------------------------------------------------------------------------------------
         drawerLayout = findViewById(R.id.drawer_layout)
-
 
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         navigationView = findViewById(R.id.nav_view)
+        changueNameOfHeader()
 
         toggle = ActionBarDrawerToggle(
             this,
@@ -51,6 +76,25 @@ class MainActivity : AppCompatActivity() {
         //--------------------------------------------------------------------------------------------
 
         val navigationView = binding?.navView //findViewById<NavigationView>(R.id.nav_view)
+
+        val menu = navigationView?.menu
+        val dashboardItem = menu?.findItem(R.id.nav_dashboard)
+        val usuariosItem = menu?.findItem(R.id.nav_usuarios)
+        val aprovisionamientoItem = menu?.findItem(R.id.nav_aprovisionamiento)
+        val vendedoresItem = menu?.findItem(R.id.nav_vendedores)
+        val categoriasItem = menu?.findItem(R.id.nav_categorias)
+        val proveedoresItem = menu?.findItem(R.id.nav_proveedores)
+        val reportesItem = menu?.findItem(R.id.nav_reportes)
+        if (id_roles == 2) {
+            dashboardItem?.isVisible = false
+            usuariosItem?.isVisible = false
+            aprovisionamientoItem?.isVisible = false
+            vendedoresItem?.isVisible = false
+            categoriasItem?.isVisible = false
+            proveedoresItem?.isVisible = false
+            reportesItem?.isVisible = false
+        }
+
         navigationView?.setNavigationItemSelectedListener { menuItem ->
 
             when (menuItem.itemId) {
@@ -61,10 +105,8 @@ class MainActivity : AppCompatActivity() {
                     true
                     //val anny = Intent(this@MainActivity, LoginActivity::class.java)
                     //startActivity(anny)
-
                 }
                 R.id.nav_usuarios -> {
-                    Toast.makeText(applicationContext, "Usuarios clicked", Toast.LENGTH_SHORT).show()
                     drawerLayout.closeDrawer(GravityCompat.START)
                     drawerLayout.closeDrawers()
                     true
@@ -79,6 +121,11 @@ class MainActivity : AppCompatActivity() {
                     val anny = Intent(this@MainActivity, ComprasActivity::class.java)
                     startActivity(anny)
                 }
+                R.id.nav_pedidos -> {
+                    Toast.makeText(applicationContext, "Pedidos clicked", Toast.LENGTH_SHORT).show()
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
                 R.id.nav_clientes -> {
                     Toast.makeText(applicationContext, "Clientes clicked", Toast.LENGTH_SHORT).show()
                     drawerLayout.closeDrawer(GravityCompat.START)
@@ -89,25 +136,32 @@ class MainActivity : AppCompatActivity() {
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
-                R.id.nav_logout -> {
-                    Toast.makeText(applicationContext, "Logout clicked", Toast.LENGTH_SHORT).show()
-                    drawerLayout.closeDrawer(GravityCompat.START)
-                    true
-                }
                 R.id.nav_productos -> {
-                    Toast.makeText(applicationContext, "Productos clicked", Toast.LENGTH_SHORT).show()
                     drawerLayout.closeDrawer(GravityCompat.START)
+                    drawerLayout.closeDrawers()
                     true
+                    if (id_roles == 2){
+                        val anny = Intent(this@MainActivity, Productos2Activity::class.java)
+                        startActivity(anny)
+                    } else {
+                        val anny = Intent(this@MainActivity, ProductosActivity::class.java)
+                        startActivity(anny)
+                    }
+
                 }
                 R.id.nav_categorias -> {
-                    Toast.makeText(applicationContext, "Categorias clicked", Toast.LENGTH_SHORT).show()
                     drawerLayout.closeDrawer(GravityCompat.START)
+                    drawerLayout.closeDrawers()
                     true
+                    val anny = Intent(this@MainActivity, CategoriasActivity::class.java)
+                    startActivity(anny)
                 }
                 R.id.nav_proveedores -> {
-                    Toast.makeText(applicationContext, "Proveedores clicked", Toast.LENGTH_SHORT).show()
                     drawerLayout.closeDrawer(GravityCompat.START)
+                    drawerLayout.closeDrawers()
                     true
+                    val anny = Intent(this@MainActivity, ProveedorActivity::class.java)
+                    startActivity(anny)
                 }
                 R.id.nav_reportes -> {
                     Toast.makeText(applicationContext, "Reporte clicked", Toast.LENGTH_SHORT).show()
@@ -115,8 +169,10 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_logout -> {
-                    Toast.makeText(applicationContext, "Logout clicked", Toast.LENGTH_SHORT).show()
-                    drawerLayout.closeDrawer(GravityCompat.START)
+                    val intent = Intent(this@MainActivity, LoginActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
+                    finish()
                     true
                 }
                 else -> false
@@ -127,6 +183,15 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+    private fun changueNameOfHeader() {
+        val headerView = navigationView.getHeaderView(0)
+        val tvNombreUser = headerView.findViewById<TextView>(R.id.tv_nombre_user)
+        if (nombre != null) {
+            tvNombreUser.text = nombre
+        }
+    }
+
 
     //--------------------------------------------------------------------------------------------
     override fun onPostCreate(savedInstanceState: Bundle?) {

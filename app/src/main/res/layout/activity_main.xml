@@ -45,18 +45,62 @@
 
         <!-- Add your app's content here -->
 
-
-
-        <TextView
-            android:text="SABILAB"
-            android:textSize="50dp"
-            android:layout_marginTop="300dp"
-            android:textColor="@color/black"
-            android:textAlignment="center"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </TextView>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <TextView
+                android:text="SABILAB"
+                android:textSize="50dp"
+                android:layout_marginTop="100dp"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tvMainIdUsuario"
+                android:text="ID USUARIO"
+                android:textSize="20dp"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tvMainIdRol"
+                android:text="ID ROL"
+                android:textSize="20dp"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tvMainIdVendedor"
+                android:text="ID VENDEDOR"
+                android:textSize="20dp"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tvMainNombre"
+                android:text="NOMBRE"
+                android:textSize="20dp"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
