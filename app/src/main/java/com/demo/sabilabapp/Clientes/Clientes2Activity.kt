@@ -6,6 +6,9 @@ import com.demo.sabilabapp.R
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +18,8 @@ import com.demo.sabilabapp.Api.RetrofitClient.apiService
 import com.demo.sabilabapp.Clientes.Result // OTRO
 import com.demo.sabilabapp.Clientes.Clientes // OTRO
 import com.demo.sabilabapp.databinding.ActivityClientes2Binding // OTRO
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -78,18 +83,75 @@ class Clientes2Activity : AppCompatActivity(), OnQueryTextListener {
         }
         // boton nuevo cliente
         binding?.btnClientes2Agregar?.setOnClickListener{
-            showDialog()
+            showDialogCli(id_vendedor)
         }
 
 
 
     }
-
-    private fun showDialog() {
+    private fun showDialogCli(id: Int) {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.item_add_clientes)
 
-        Toast.makeText(this, "PRONTO PODRAS AGREGAR RAAA", Toast.LENGTH_SHORT).show()
+        val tvAddClientesTitle: TextView = dialog.findViewById(R.id.tvAddClientesTitle)
+        val ibAddClientesClose: ImageButton = dialog.findViewById(R.id.ibAddClientesClose)
+        val tilAddClientesRuc: TextInputLayout = dialog.findViewById(R.id.tilAddClientesRuc)
+        val tietAddClientesRuc: TextInputEditText = dialog.findViewById(R.id.tietAddClientesRuc)
+        val tilAddClientesRazonSocial: TextInputLayout = dialog.findViewById(R.id.tilAddClientesRazonSocial)
+        val tietAddClientesRazonSocial: TextInputEditText = dialog.findViewById(R.id.tietAddClientesRazonSocial)
+        val tilAddClientesNombreComercial: TextInputLayout = dialog.findViewById(R.id.tilAddClientesNombreComercial)
+        val tietAddClientesNombreComercial: TextInputEditText = dialog.findViewById(R.id.tietAddClientesNombreComercial)
+        val tilAddClientesDireccion1: TextInputLayout = dialog.findViewById(R.id.tilAddClientesDireccion1)
+        val tietAddClientesDireccion1: TextInputEditText = dialog.findViewById(R.id.tietAddClientesDireccion1)
+        val tilAddClientesDireccion2: TextInputLayout = dialog.findViewById(R.id.tilAddClientesDireccion2)
+        val tietAddClientesDireccion2: TextInputEditText = dialog.findViewById(R.id.tietAddClientesDireccion2)
+        val tilAddClientesTelefonoEmpresa: TextInputLayout = dialog.findViewById(R.id.tilAddClientesTelefonoEmpresa)
+        val tietAddClientesTelefonoEmpresa: TextInputEditText = dialog.findViewById(R.id.tietAddClientesTelefonoEmpresa)
+        val tilAddClientesContacto: TextInputLayout = dialog.findViewById(R.id.tilAddClientesContacto)
+        val tietAddClientesContacto: TextInputEditText = dialog.findViewById(R.id.tietAddClientesContacto)
+        val tilAddClientesTelefono1: TextInputLayout = dialog.findViewById(R.id.tilAddClientesTelefono1)
+        val tietAddClientesTelefono1: TextInputEditText = dialog.findViewById(R.id.tietAddClientesTelefono1)
+        val tilAddClientesTelefono2: TextInputLayout = dialog.findViewById(R.id.tilAddClientesTelefono2)
+        val tietAddClientesTelefono2: TextInputEditText = dialog.findViewById(R.id.tietAddClientesTelefono2)
+        val tilAddClientesDistrito: TextInputLayout = dialog.findViewById(R.id.tilAddClientesDistrito)
+        val tietAddClientesDistrito: TextInputEditText = dialog.findViewById(R.id.tietAddClientesDistrito)
+        val tilAddClientesProvincia: TextInputLayout = dialog.findViewById(R.id.tilAddClientesProvincia)
+        val tietAddClientesProvincia: TextInputEditText = dialog.findViewById(R.id.tietAddClientesProvincia)
+        val btnAddClientesGuardar: Button = dialog.findViewById(R.id.btnAddClientesGuardar)
+
+        ibAddClientesClose.setOnClickListener{
+            dialog.dismiss()
+        }
+
+        btnAddClientesGuardar.setOnClickListener{
+            val rucCli = tietAddClientesRuc.text.toString()
+            val razCli = tietAddClientesRazonSocial.text.toString()
+            val nomCli = tietAddClientesNombreComercial.text.toString()
+            val conCli = tietAddClientesContacto.text.toString()
+            val di1Cli = tietAddClientesDireccion1.text.toString()
+            val di2Cli = tietAddClientesDireccion2.text.toString()
+            val te1Cli = tietAddClientesTelefono1.text.toString()
+            val te2Cli = tietAddClientesTelefono2.text.toString()
+            val empCli = tietAddClientesTelefonoEmpresa.text.toString()
+            val proCli = tietAddClientesProvincia.text.toString()
+            val disCli = tietAddClientesDistrito.text.toString()
+
+
+            CoroutineScope(Dispatchers.IO).launch {
+                val clients = Clientes(rucCli,razCli,nomCli,conCli,di1Cli,di2Cli,te1Cli,te2Cli,empCli,proCli,disCli,1,id)
+                apiService.createClientes(clients)
+                // Después de agregar el cliente Actualizo la lista
+                val updatedData = apiService.listClientesTrue(id).body()?.data?.results
+                runOnUiThread {
+                    if (updatedData != null) {
+                        adapter.updateList(updatedData)
+                    }
+                    hideKeyboard()
+                    dialog.dismiss()
+                }
+            }
+            getCurrentAndTotal(id)
+        }
         //
         dialog.show()
     }

@@ -20,4 +20,10 @@ class Clientes2Adapter(private val itemsList: MutableList<Result>) : RecyclerVie
 
     override fun getItemCount() = itemsList.size
 
+    fun updateList(newData: List<Result>) {
+        itemsList.clear()
+        itemsList.addAll(newData)
+        notifyDataSetChanged()
+    }
+
 }

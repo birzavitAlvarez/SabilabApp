@@ -115,7 +115,7 @@ class ProductosActivity : AppCompatActivity(), OnQueryTextListener {
             dialog.dismiss()
         }
         //---------------------------------------------------------------------------------------
-
+        // fecha de calendario
         var selectedDate: String = ""
 
         tietAddProductosCaducidad.setOnClickListener {
@@ -131,7 +131,7 @@ class ProductosActivity : AppCompatActivity(), OnQueryTextListener {
             datePickerDialog.show()
         }
 
-        //
+        // categorias para escoger id_Categorias
         CoroutineScope(Dispatchers.IO).launch {
             val response = apiService.listCategory().body()
             runOnUiThread {

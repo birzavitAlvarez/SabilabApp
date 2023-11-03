@@ -123,8 +123,8 @@ class ProveedorActivity : AppCompatActivity(), OnQueryTextListener {
             val corProv = tietAddProveedorCorreo.text.toString()
 
             CoroutineScope(Dispatchers.IO).launch {
-                val usuario = Proveedor(rucProv, razProv, nomProv,telProv,corProv,1)
-                    apiService.createProveedor(usuario)
+                val prov = Proveedor(rucProv, razProv, nomProv,telProv,corProv,1)
+                    apiService.createProveedor(prov)
                     // Después de agregar el usuario Actualizo la lista
                     val updatedData = apiService.listProveedorTrue().body()?.data?.results
                     runOnUiThread {
@@ -134,7 +134,6 @@ class ProveedorActivity : AppCompatActivity(), OnQueryTextListener {
                         hideKeyboard()
                         dialog.dismiss()
                     }
-
             }
             getCurrentAndTotal()
         }
