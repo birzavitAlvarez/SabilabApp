@@ -120,30 +120,27 @@ https://sabilab11.onrender.com/api/vendedor/desactivar/2
 ```
 
 # CLIENTES
-Listar Todos los clientes metodo GET
-```
-https://sabilab11.onrender.com/api/clientes
-```
-Listar los clientes activos true metodo GET
-```
-https://sabilab11.onrender.com/api/clientes/true
-```
-Filtro de busqueda de los clientes por parametro metodo GET
-```
-https://sabilab11.onrender.com/api/clientes/filtrar/parametro
-```
-Listar clientes por id metodo GET
-```
-https://sabilab11.onrender.com/api/clientes/5
-```
-Listar TODOS los clientes por id de vendedor metodo GET
-```
-https://sabilab11.onrender.com/api/clientes/vendedor/2
-```
+
 Listar los clientes Activos true por id de vendedor metodo GET
 ```
-https://sabilab11.onrender.com/api/clientes/vendedor/true/2
+https://sabilab11.onrender.com/api/clientes/vendedor/true/4
 ```
+
+Listar los clientes Activos true por id de vendedor metodo GET PAGINACION
+```
+https://sabilab11.onrender.com/api/clientes/vendedor/true/4?page=2
+```
+
+Filtro de busqueda de los clientes por parametro {nombre} + {id_vendedor} metodo GET
+```
+https://sabilab11.onrender.com/api/clientes/filtrar2/FARMACIA CRISTO REY E.I.R.L./4
+```
+
+Filtro de busqueda de los clientes por parametro {nombre} + {id_vendedor} metodo GET PAGINACION
+```
+https://sabilab11.onrender.com/api/clientes/filtrar2/FARMACIA CRISTO REY E.I.R.L./4?page=4
+```
+
 Registrar clientes Metodo POST / Actualizar clientes metodo PUT  +/id
 ```
 https://sabilab11.onrender.com/api/clientes
