@@ -35,19 +35,19 @@ class ProveedorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         binding.tvCorreoProveedores.text = query.correo
 
         binding.ibProveedorEdit.setOnClickListener{
-            showDialog(itemView.context,query.id_proveedores,query.ruc,query.razon_social,
+            showDialogEditProveedor(itemView.context,query.id_proveedores,query.ruc,query.razon_social,
                                         query.nombre_contacto,query.telefono,query.correo)
         }
 
         binding.ibProveedorDelete.setOnClickListener {
-            showDialog2(itemView.context,query.id_proveedores,query.razon_social)
+            showDialogDeleteProveedor(itemView.context,query.id_proveedores,query.razon_social)
         }
 
 
     }
 
     @SuppressLint("SetTextI18n")
-    private fun showDialog(context: Context,id:Int,ruc:String,razon_social:String, nombre_contacto:String, telefono:String, correo:String ){
+    private fun showDialogEditProveedor(context: Context,id:Int,ruc:String,razon_social:String, nombre_contacto:String, telefono:String, correo:String ){
         val dialog = Dialog(context)
         dialog.setContentView(R.layout.item_add_proveedores)
 
@@ -106,7 +106,7 @@ class ProveedorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun showDialog2(context: Context,id:Int,razon_social:String){
+    private fun showDialogDeleteProveedor(context: Context,id:Int,razon_social:String){
         val dialog = Dialog(context)
         dialog.setContentView(R.layout.item_confirm)
 

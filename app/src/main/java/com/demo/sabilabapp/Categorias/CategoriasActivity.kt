@@ -36,11 +36,11 @@ class CategoriasActivity : AppCompatActivity() {
         listaAlEntrar()
         //
         binding?.btnCategoriaNueva?.setOnClickListener{
-            showDialog()
+            showDialogAddCategory()
         }
     }
 
-    private fun showDialog() {
+    private fun showDialogAddCategory() {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.item_add_categoria)
 

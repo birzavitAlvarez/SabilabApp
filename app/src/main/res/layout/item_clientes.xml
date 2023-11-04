@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/itemClientes2Padre"
+    android:id="@+id/itemClientesPadre"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="1500dp"
+        android:layout_width="1600dp"
         android:layout_height="70dp"
         android:background="@color/background_color"
         android:orientation="horizontal"
-        android:weightSum="7">
+        android:weightSum="8">
 
         <TextView
-            android:id="@+id/tvRucClientes2"
+            android:id="@+id/tvRucClientes"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -25,7 +25,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/tvRazonSocialClientes2"
+            android:id="@+id/tvRazonSocialClientes"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -36,7 +36,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/tvNombreComercialClientes2"
+            android:id="@+id/tvNombreComercialClientes"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -47,7 +47,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/tvDireccionClientes2"
+            android:id="@+id/tvDireccionClientes"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -58,7 +58,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/tvDistritoClientes2"
+            android:id="@+id/tvDistritoClientes"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -69,7 +69,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/tvContactoClientes2"
+            android:id="@+id/tvContactoClientes"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -80,7 +80,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/tvTelefonoClientes2"
+            android:id="@+id/tvTelefonoClientes"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -89,6 +89,33 @@
             android:text="@string/clientes_speach7"
             android:textColor="@color/text"
             android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/background_color"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/ibClientesEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/primary_color"
+                android:src="@drawable/ic_edit"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <ImageButton
+                android:id="@+id/ibClientesDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/error_color"
+                android:src="@drawable/ic_delete"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        </LinearLayout>
 
     </LinearLayout>
 

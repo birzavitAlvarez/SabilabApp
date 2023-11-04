@@ -144,4 +144,5 @@
     <string name="telefono_2">TELEFONO 2</string>
     <string name="telefono_1">TELEFONO 1</string>
     <string name="provincia">PROVINCIA</string>
+    <string name="escoger_vendedor">ESCOGER VENDEDOR</string>
 </resources>

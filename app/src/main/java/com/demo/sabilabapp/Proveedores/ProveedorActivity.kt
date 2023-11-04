@@ -5,23 +5,16 @@ import android.os.Bundle
 import com.demo.sabilabapp.R
 import android.annotation.SuppressLint
 import android.app.Dialog
-import android.util.Log
-import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageButton
-import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.demo.sabilabapp.Adapters.ProveedorAdapter
-import com.demo.sabilabapp.Adapters.UsuariosAdapter
+import com.demo.sabilabapp.Adapters.ProveedorAdapter // OTRO
 import com.demo.sabilabapp.Api.RetrofitClient.apiService
 import com.demo.sabilabapp.Proveedores.Result // OTRO
-import com.demo.sabilabapp.Usuarios.Usuario
 import com.demo.sabilabapp.databinding.ActivityProveedorBinding  // OTRO
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -86,12 +79,12 @@ class ProveedorActivity : AppCompatActivity(), OnQueryTextListener {
         }
         // boton agregar
         binding?.btnProveedorAgregar?.setOnClickListener {
-            showDialog()
+            showDialogAddProveedor()
         }
 
     }
 
-    private fun showDialog(){
+    private fun showDialogAddProveedor(){
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.item_add_proveedores)
 

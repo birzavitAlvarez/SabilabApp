@@ -83,10 +83,8 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
         }
         // boton agregar
         binding?.btnUsuarioAgregar?.setOnClickListener {
-            showDialog()
+            showDialogAddUser()
         }
-
-
     }
 
 
@@ -231,7 +229,7 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
         return true
     }
 
-    private fun showDialog(){
+    private fun showDialogAddUser(){
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.item_add_usuario)
 

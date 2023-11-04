@@ -32,18 +32,18 @@ class CategoriasViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         binding.tvDescripcion.text = query.descripcion
 
         binding.ibCategoriasEdit.setOnClickListener{
-            showDialog(itemView.context,query.id_categoria,query.tipo,query.descripcion)
+            showDialogEditCategory(itemView.context,query.id_categoria,query.tipo,query.descripcion)
         }
 
         binding.ibCategoriasDelete.setOnClickListener {
-            showDialog2(itemView.context,query.id_categoria,query.tipo)
+            showDialogDeleteCategory(itemView.context,query.id_categoria,query.tipo)
         }
 
 
     }
 
     @SuppressLint("SetTextI18n")
-    private fun showDialog(context: Context,id:Int,tipo:String,descripcion:String){
+    private fun showDialogEditCategory(context: Context,id:Int,tipo:String,descripcion:String){
         val dialog = Dialog(context)
         dialog.setContentView(R.layout.item_add_categoria)
 
@@ -87,7 +87,7 @@ class CategoriasViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun showDialog2(context: Context,id:Int,tipo:String){
+    private fun showDialogDeleteCategory(context: Context,id:Int,tipo:String){
         val dialog = Dialog(context)
         dialog.setContentView(R.layout.item_confirm)
 

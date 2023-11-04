@@ -41,19 +41,19 @@ class ProductosViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         binding.tvCategoriaProductos.text = query.tipo
 
         binding.ibProductosEdit.setOnClickListener{
-            showDialog(itemView.context,query.id_productos,query.nombre,query.laboratorio,query.lote,
+            showDialogEditProductos(itemView.context,query.id_productos,query.nombre,query.laboratorio,query.lote,
                 query.precio,query.fecha_caducidad,query.activo,query.id_categoria)
         }
 
         binding.ibProductosDelete.setOnClickListener {
-            showDialog2(itemView.context,query.id_productos,query.nombre)
+            showDialogDeleteProductos(itemView.context,query.id_productos,query.nombre)
         }
 
 
     }
 
     @SuppressLint("SetTextI18n")
-    private fun showDialog(context: Context,id_productos:Int,nombre:String,laboratorio:String, lote:String,
+    private fun showDialogEditProductos(context: Context,id_productos:Int,nombre:String,laboratorio:String, lote:String,
                                     precio:Double, fecha_caducidad:String, activo:Boolean, id_categoria:Int){
         val dialog = Dialog(context)
         dialog.setContentView(R.layout.item_add_productos)
@@ -166,7 +166,7 @@ class ProductosViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun showDialog2(context: Context,id:Int,nombre:String){
+    private fun showDialogDeleteProductos(context: Context,id:Int,nombre:String){
         val dialog = Dialog(context)
         dialog.setContentView(R.layout.item_confirm)
 

@@ -85,12 +85,12 @@ class ProductosActivity : AppCompatActivity(), OnQueryTextListener {
         }
         // boton agregar
         binding?.btnProductosAgregar?.setOnClickListener {
-            showDialog()
+            showDialogAddProductos()
         }
 
     }
     //
-    private fun showDialog(){
+    private fun showDialogAddProductos(){
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.item_add_productos)
 

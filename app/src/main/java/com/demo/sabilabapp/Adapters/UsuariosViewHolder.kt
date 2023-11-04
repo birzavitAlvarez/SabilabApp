@@ -36,18 +36,18 @@ class UsuarioViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             if (query.rol == "Administrador"){ idRoles = 1 }
             else if (query.rol == "Trabajador"){ idRoles = 2 }
             else if (query.rol == "Soporte"){ idRoles = 3 }
-            showDialog(itemView.context,query.id_usuarios,query.usuario,query.password,idRoles)
+            showDialogEditUser(itemView.context,query.id_usuarios,query.usuario,query.password,idRoles)
         }
 
         binding.ibUsuarioDelete.setOnClickListener {
-            showDialog2(itemView.context,query.id_usuarios,query.usuario)
+            showDialogDeleteUser(itemView.context,query.id_usuarios,query.usuario)
         }
 
 
     }
 
     @SuppressLint("SetTextI18n")
-    private fun showDialog(context: Context,id:Int,user:String,password:String,id_roles:Int){
+    private fun showDialogEditUser(context: Context,id:Int,user:String,password:String,id_roles:Int){
         val dialog = Dialog(context)
         dialog.setContentView(R.layout.item_update_usuario)
 
@@ -90,7 +90,7 @@ class UsuarioViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun showDialog2(context: Context,id:Int,usuario:String){
+    private fun showDialogDeleteUser(context: Context,id:Int,usuario:String){
         val dialog = Dialog(context)
         dialog.setContentView(R.layout.item_confirm)
 

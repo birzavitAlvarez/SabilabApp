@@ -15,6 +15,7 @@ import com.demo.sabilabapp.Proveedores.ProveedorResponse
 import com.demo.sabilabapp.Roles.RolesResponse
 import com.demo.sabilabapp.Usuarios.Usuario
 import com.demo.sabilabapp.Usuarios.UsuariosResponse
+import com.demo.sabilabapp.Vendedores.VendedoresResponse
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
@@ -177,14 +178,17 @@ interface ApiService {
 
     //Actualizar clientes
     @PUT("api/clientes/{id}")
-    suspend fun updateProductos(@Body clientes: Clientes, @Path("id") id: Int)
+    suspend fun updateClientes(@Body clientes: Clientes, @Path("id") id: Int)
 
     //Eliminar clientes(desactivar)
     @DELETE("api/clientes/desactivar/{id}")
     suspend fun deleteClientes(@Path("id") id: Int)
-//    //TODO FIN CLIENTES
+    //TODO FIN CLIENTES
 
-
+    //TODO PRODUCTOS
+    // Lista all true
+    @GET("api/vendedor/true")
+    suspend fun listVendedoresTrue(): Response<VendedoresResponse>
 
 }
 

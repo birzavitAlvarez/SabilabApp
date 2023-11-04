@@ -5,63 +5,94 @@ import android.os.Bundle
 import com.demo.sabilabapp.R
 import android.annotation.SuppressLint
 import android.app.Dialog
-import android.util.Log
+import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.demo.sabilabapp.Adapters.Clientes2Adapter // OTRO
-import com.demo.sabilabapp.Api.RetrofitClient.apiService
-import com.demo.sabilabapp.Clientes.Result // OTRO
-import com.demo.sabilabapp.Clientes.Clientes // OTRO
-import com.demo.sabilabapp.databinding.ActivityClientes2Binding // OTRO
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Locale
+import com.demo.sabilabapp.Api.RetrofitClient.apiService
+import com.demo.sabilabapp.Adapters.ClientesAdapter // OTRO
+import com.demo.sabilabapp.Clientes.Result // OTRO
+import com.demo.sabilabapp.Clientes.Clientes // OTRO
+import com.demo.sabilabapp.databinding.ActivityClientesBinding // OTRO
 
-class Clientes2Activity : AppCompatActivity(), OnQueryTextListener {
+class ClientesActivity : AppCompatActivity(), OnQueryTextListener {
 
-    var id_vendedor: Int = 0
+    private var binding: ActivityClientesBinding? = null
 
-    private var binding: ActivityClientes2Binding? = null
-
-    private lateinit var adapter: Clientes2Adapter
+    private lateinit var adapter: ClientesAdapter
     private val datitos = mutableListOf<Result>()
     private var currentPage: Int = 1
     private var totalPages: Int = 1
     private var verdura: Boolean = false
+    var id_vendedor: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityClientes2Binding.inflate(layoutInflater)
+        binding = ActivityClientesBinding.inflate(layoutInflater)
         setContentView(binding?.root)
-
-        id_vendedor = intent.getIntExtra("id_vendedor", 0)
-
-        Log.d("MiApp", "Valor de id_vendedor antes de iniciar actividad: $id_vendedor")
+        //
         initRecyclerView()
+        // debo llenar el spiner y obtener el id_vendedor para irlo pasando
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = apiService.listVendedoresTrue().body()
+            runOnUiThread {
+                if (response != null && response.status == 200) {
+                    val vendedoresList = response.data.results.map { it.nombres } // TODO waaaaaaa
+                    val categoriasWithSelect = listOf("Seleccionar") + vendedoresList
+                    val adapterLoad = ArrayAdapter(this@ClientesActivity, android.R.layout.simple_spinner_item, categoriasWithSelect)
+                    adapterLoad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    binding?.spClientesVendedor?.adapter = adapterLoad
+                    adapterLoad.notifyDataSetChanged()
+                } else {
+                    showError()
+                }
+            }
+        }
+        // -----------------------------
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = apiService.listVendedoresTrue().body()
+            binding?.spClientesVendedor?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    if (position > 0) {
+                        val selectedVendedor = response?.data?.results?.get(position - 1)
+                        id_vendedor = selectedVendedor?.id_vendedor ?: 0
+                        listaAlEntrar(id_vendedor)
+                    }
+                }
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    // No hacer nada :v
+                }
+            }
+        }
         listaAlEntrar(id_vendedor)
+        //
 
-        binding?.svClientes2Busqueda?.setOnQueryTextListener(this)
+        binding?.svClientesBusqueda?.setOnQueryTextListener(this)
 
-        binding?.btnClientes2Buscar?.setOnClickListener {
-            val query = binding?.svClientes2Busqueda?.query?.toString()
+        binding?.btnClientesBuscar?.setOnClickListener {
+            val query = binding?.svClientesBusqueda?.query?.toString()
             if (!query.isNullOrBlank()) {
                 searchByItem(query, id_vendedor)
             }
         }
-
         // pagina siguiente
-        binding?.ibClientes2Next?.setOnClickListener {
+        binding?.ibClientesNext?.setOnClickListener {
             if (currentPage < totalPages) {
                 currentPage += 1
                 if (verdura) {
-                    val query = binding?.svClientes2Busqueda?.query?.toString()
+                    val query = binding?.svClientesBusqueda?.query?.toString()
                     if (!query.isNullOrBlank()) {
                         nextPageSearch(query,id_vendedor ,currentPage)
                     }
@@ -71,11 +102,11 @@ class Clientes2Activity : AppCompatActivity(), OnQueryTextListener {
             }
         }
         // pagina anterior
-        binding?.ibClientes2Before?.setOnClickListener {
+        binding?.ibClientesBefore?.setOnClickListener {
             if (currentPage > 1) {
                 currentPage -= 1
                 if (verdura) {
-                    val query = binding?.svClientes2Busqueda?.query?.toString()
+                    val query = binding?.svClientesBusqueda?.query?.toString()
                     if (!query.isNullOrBlank()) {
                         nextPageSearch(query,id_vendedor ,currentPage)
                     }
@@ -85,14 +116,13 @@ class Clientes2Activity : AppCompatActivity(), OnQueryTextListener {
             }
         }
         // boton nuevo cliente
-        binding?.btnClientes2Agregar?.setOnClickListener{
-            showDialogAddClientes2(id_vendedor)
+        binding?.btnClientesAgregar?.setOnClickListener{
+            showDialogAddClientes(id_vendedor)
         }
 
-
-
     }
-    private fun showDialogAddClientes2(id: Int) {
+
+    private fun showDialogAddClientes(id: Int) {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.item_add_clientes)
 
@@ -174,7 +204,7 @@ class Clientes2Activity : AppCompatActivity(), OnQueryTextListener {
                     if (pagination != null) {
                         currentPage = pagination.currentPage
                         totalPages = pagination.totalPages
-                        binding?.tvClientes2NumeroPagina?.text = "$currentPage/$totalPages"
+                        binding?.tvClientesNumeroPagina?.text = "$currentPage/$totalPages"
                     } else {showError()}
                 } else { showError() }
             }
@@ -195,7 +225,7 @@ class Clientes2Activity : AppCompatActivity(), OnQueryTextListener {
                     val pagination = response0?.data?.pagination
                     pagination?.currentPage!!.also { currentPage = it }
                     pagination.totalPages.also { totalPages = it }
-                    binding?.tvClientes2NumeroPagina?.text = "$currentPage/$totalPages"
+                    binding?.tvClientesNumeroPagina?.text = "$currentPage/$totalPages"
                 } else {
                     showError()
                 }
@@ -224,7 +254,7 @@ class Clientes2Activity : AppCompatActivity(), OnQueryTextListener {
 
     private fun hideKeyboard() {
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(binding?.vistaClientes2Padre?.windowToken,0)
+        imm.hideSoftInputFromWindow(binding?.vistaClientesPadre?.windowToken,0)
     }
 
     @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
@@ -236,7 +266,7 @@ class Clientes2Activity : AppCompatActivity(), OnQueryTextListener {
                     val pagination = response.data.pagination
                     currentPage = pagination.currentPage
                     totalPages = pagination.totalPages
-                    binding?.tvClientes2NumeroPagina?.text = "$currentPage/$totalPages"
+                    binding?.tvClientesNumeroPagina?.text = "$currentPage/$totalPages"
                     verdura = true
                     adapter.notifyDataSetChanged() //TODO
                 } else { showError() }
@@ -277,7 +307,7 @@ class Clientes2Activity : AppCompatActivity(), OnQueryTextListener {
                     if (pagination != null) {
                         currentPage = pagination.currentPage
                         totalPages = pagination.totalPages
-                        binding?.tvClientes2NumeroPagina?.text = "$currentPage/$totalPages"
+                        binding?.tvClientesNumeroPagina?.text = "$currentPage/$totalPages"
                     }
                     adapter.notifyDataSetChanged()
                 } else { showError() }
@@ -285,10 +315,11 @@ class Clientes2Activity : AppCompatActivity(), OnQueryTextListener {
         }
     }
 
+
     private fun initRecyclerView() {
-        adapter = Clientes2Adapter(datitos)
-        binding?.rvClientes2?.layoutManager = LinearLayoutManager(this)
-        binding?.rvClientes2?.adapter = adapter
+        adapter = ClientesAdapter(datitos)
+        binding?.rvClientes?.layoutManager = LinearLayoutManager(this)
+        binding?.rvClientes?.adapter = adapter
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -301,4 +332,5 @@ class Clientes2Activity : AppCompatActivity(), OnQueryTextListener {
     override fun onQueryTextChange(newText: String?): Boolean {
         return true
     }
+
 }

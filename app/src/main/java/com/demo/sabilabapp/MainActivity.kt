@@ -15,6 +15,8 @@ import android.view.MenuItem
 import android.content.res.Configuration
 import android.widget.TextView
 import com.demo.sabilabapp.Categorias.CategoriasActivity
+import com.demo.sabilabapp.Clientes.Clientes2Activity
+import com.demo.sabilabapp.Clientes.ClientesActivity
 import com.demo.sabilabapp.Compras.ComprasActivity
 import com.demo.sabilabapp.Login.LoginActivity
 import com.demo.sabilabapp.Login.UserData  // Class que almacena data
@@ -127,9 +129,17 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_clientes -> {
-                    Toast.makeText(applicationContext, "Clientes clicked", Toast.LENGTH_SHORT).show()
                     drawerLayout.closeDrawer(GravityCompat.START)
+                    drawerLayout.closeDrawers()
                     true
+                    if (id_roles == 2){
+                        val anny = Intent(this@MainActivity, Clientes2Activity::class.java)
+                        anny.putExtra("id_vendedor", id_vendedor)
+                        startActivity(anny)
+                    } else {
+                        val anny = Intent(this@MainActivity, ClientesActivity::class.java)
+                        startActivity(anny)
+                    }
                 }
                 R.id.nav_vendedores -> {
                     Toast.makeText(applicationContext, "Vendedores clicked", Toast.LENGTH_SHORT).show()
@@ -147,7 +157,6 @@ class MainActivity : AppCompatActivity() {
                         val anny = Intent(this@MainActivity, ProductosActivity::class.java)
                         startActivity(anny)
                     }
-
                 }
                 R.id.nav_categorias -> {
                     drawerLayout.closeDrawer(GravityCompat.START)
