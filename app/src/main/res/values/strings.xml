@@ -145,4 +145,13 @@
     <string name="telefono_1">TELEFONO 1</string>
     <string name="provincia">PROVINCIA</string>
     <string name="escoger_vendedor">ESCOGER VENDEDOR</string>
+    <string name="nuevo_vendedor">Nuevo Vendedor</string>
+    <string name="fecha_nacimiento">FECHA NACIMIENTO</string>
+    <string name="vendedores_speach1">birzavit Alvarez</string>
+    <string name="vendedores_speach2">birzavit</string>
+    <string name="vendedores_speach3">Birzavit@sabilab.com</string>
+    <string name="vendedores_speach4">Norte</string>
+    <string name="vendedores_speach5">928343202</string>
+    <string name="vendedores_speach6">1995-12-25</string>
+    <string name="registrar_vendedor">Registrar Vendedor</string>
 </resources>

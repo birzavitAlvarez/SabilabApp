@@ -13,8 +13,10 @@ import com.demo.sabilabapp.Productos.ProductosResponse
 import com.demo.sabilabapp.Proveedores.Proveedor
 import com.demo.sabilabapp.Proveedores.ProveedorResponse
 import com.demo.sabilabapp.Roles.RolesResponse
+import com.demo.sabilabapp.Usuarios.UserNotUse.UserNotUseResponse
 import com.demo.sabilabapp.Usuarios.Usuario
 import com.demo.sabilabapp.Usuarios.UsuariosResponse
+import com.demo.sabilabapp.Vendedores.Vendedores
 import com.demo.sabilabapp.Vendedores.VendedoresResponse
 import retrofit2.Call
 import retrofit2.Response
@@ -185,10 +187,40 @@ interface ApiService {
     suspend fun deleteClientes(@Path("id") id: Int)
     //TODO FIN CLIENTES
 
-    //TODO PRODUCTOS
+    //TODO VENDEDORES
     // Lista all true
     @GET("api/vendedor/true")
     suspend fun listVendedoresTrue(): Response<VendedoresResponse>
+
+    // Paginacion de true
+    @GET("api/vendedor/true")
+    suspend fun paginaVendedores(@Query("page") pagina: Int): Response<VendedoresResponse>
+
+    // Filtrar por nombres vendedor
+    @GET("api/vendedor/filtrar/{nombres}")
+    suspend fun listarVendedoresPorFiltro(@Path("nombres") nombres: String): Response<VendedoresResponse>
+
+    //Paginacion de filtrar por nombres vendedor
+    @GET("api/vendedor/filtrar/{nombres}")
+    suspend fun listarVendedoresPorNombreYPage(@Path("nombres") nombres: String, @Query("page") pagina: Int): Response<VendedoresResponse>
+
+    //Crear Vendedor
+    @POST("api/vendedor")
+    suspend fun createVendedores(@Body vendedores: Vendedores)
+
+    //Actualizar Vendedor
+    @PUT("api/vendedor/{id}")
+    suspend fun updateVendedores(@Body vendedores: Vendedores, @Path("id") id: Int)
+
+    //Eliminar Vendedor(desactivar)
+    @DELETE("api/vendedor/desactivar/{id}")
+    suspend fun deleteVendedores(@Path("id") id: Int)
+    //TODO FIN PRODUCTOS
+
+    // TODO USUARIOS SIN USAR
+    @GET("api/usuarios/usu")
+    suspend fun listUserNotUse(): Response<UserNotUseResponse>
+    // TODO FIN DE USUARIOS SIN USAR
 
 }
 

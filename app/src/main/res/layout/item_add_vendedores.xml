@@ -14,17 +14,17 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tvAddProductosTitle"
+            android:id="@+id/tvAddVendedoresTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
+            android:layout_marginStart="22dp"
             android:layout_marginTop="15dp"
-            android:text="@string/registrar_producto"
+            android:text="@string/registrar_vendedor"
             android:textSize="24sp"
             android:textStyle="bold" />
 
         <ImageButton
-            android:id="@+id/ibAddProductosClose"
+            android:id="@+id/ibAddVendedoresClose"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
@@ -42,7 +42,7 @@
         android:background="@color/black" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilAddProductosNombre"
+        android:id="@+id/tilAddVendedoresNombre"
         android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
@@ -50,24 +50,41 @@
         android:hint="@string/nombre">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tietAddProductosNombre"
+            android:id="@+id/tietAddVendedoresNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text|textAutoComplete"
-            android:maxLength="150"
+            android:maxLength="50"
             android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilAddProductosLaboratorio"
+        android:id="@+id/tilAddVendedoresCorreo"
         android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:hint="@string/laboratorio">
+        android:hint="@string/correo">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tietAddProductosLaboratorio"
+            android:id="@+id/tietAddVendedoresCorreo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text|textEmailAddress"
+            android:maxLength="50"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAddVendedoresDireccion"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:hint="@string/direccion">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietAddVendedoresDireccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -76,49 +93,15 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilAddProductosPrecio"
+        android:id="@+id/tilAddVendedoresFechaNacimiento"
         android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:hint="@string/precio">
+        android:hint="@string/fecha_nacimiento">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tietAddProductosPrecio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number|numberDecimal"
-            android:maxLength="11"
-            android:singleLine="true" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilAddProductosLote"
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:hint="@string/lote">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tietAddProductosLote"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:maxLength="50"
-            android:singleLine="true" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilAddProductosCaducidad"
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:hint="@string/caducidad">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tietAddProductosCaducidad"
+            android:id="@+id/tietAddVendedoresFechaNacimiento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"
@@ -130,7 +113,42 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilAddProductosCategoria"
+        android:id="@+id/tilAddVendedoresTelefono1"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:hint="@string/telefono_1">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietAddVendedoresTelefono1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:maxLength="15"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAddVendedoresTelefono2"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:hint="@string/telefono_2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietAddVendedoresTelefono2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:maxLength="15"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAddVendedoresUsuarios"
         android:layout_width="300dp"
         android:layout_height="45dp"
         android:layout_gravity="center"
@@ -138,7 +156,7 @@
         android:hint="@string/categoria">
 
         <Spinner
-            android:id="@+id/spAddProductosCategoria"
+            android:id="@+id/spAddVendedoresUsuarios"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -146,7 +164,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btnAddProductosGuardar"
+        android:id="@+id/btnAddVendedoresGuardar"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
