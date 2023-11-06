@@ -6,8 +6,13 @@ import com.demo.sabilabapp.Clientes.Clientes
 import com.demo.sabilabapp.Clientes.ClientesResponse
 import com.demo.sabilabapp.Compras.Compras
 import com.demo.sabilabapp.Compras.ComprasResponse
+import com.demo.sabilabapp.Comprobante.ComprobanteResponse
 import com.demo.sabilabapp.Login.LoginRequest
 import com.demo.sabilabapp.Login.LoginResponse
+import com.demo.sabilabapp.Pedidos.Pedidos
+import com.demo.sabilabapp.Pedidos.PedidosResponse
+import com.demo.sabilabapp.Pedidos.PedidosUpdate1
+import com.demo.sabilabapp.Pedidos.PedidosUpdate4
 import com.demo.sabilabapp.Productos.Productos
 import com.demo.sabilabapp.Productos.ProductosResponse
 import com.demo.sabilabapp.Proveedores.Proveedor
@@ -221,6 +226,54 @@ interface ApiService {
     @GET("api/usuarios/usu")
     suspend fun listUserNotUse(): Response<UserNotUseResponse>
     // TODO FIN DE USUARIOS SIN USAR
+
+    // TODO COMPROBANTE
+    // Lista de Comprobantes
+    @GET("api/comprobante")
+    suspend fun lisComprobante(): Response<ComprobanteResponse>
+    // TODO FIN COMPROBANTE
+
+
+
+    // TODO PEDIDOS
+    // lista por id vendedor y fecha al entrar
+    @GET("api/pedido/vendedor/{id}")
+    suspend fun listPedidosVendedorTrue(@Path("id") id: Int, @Query("fecha") fecha: String): Response<PedidosResponse>
+
+    // paginacion de lista por id vendedor y fecha al entrar
+    @GET("api/pedido/vendedor/{id}")
+    suspend fun paginaPedidosVendedor(@Path("id") id: Int, @Query("fecha") fecha: String, @Query("page") pagina: Int): Response<PedidosResponse>
+
+    // Filtrar por fecha y nombre
+    @GET("api/pedido/vendedor/{id}")
+    suspend fun listarPedidosPorFiltro(@Path("id") id: Int, @Query("fecha") fecha: String, @Query("nomcome") nomcome: String): Response<PedidosResponse>
+
+    //Paginacion de filtrar por fecha y nombre
+    @GET("api/pedido/vendedor/{id}")
+    suspend fun listarPedidosPorNombreYPage(@Path("id") id: Int, @Query("fecha") fecha: String, @Query("nomcome") nomcome: String, @Query("page") pagina: Int): Response<PedidosResponse>
+
+    //Crear Pedido
+    @POST("api/pedido")
+    suspend fun createPedido(@Body pedido: Pedidos)
+
+    //Actualizar Pedido en 4 campos
+    @PUT("api/pedido/up/{id}")
+    suspend fun updatePedido4(@Body pedidosUpdate4: PedidosUpdate4, @Path("id") id: Int)
+
+    //Actualizar Pedido en 4 campos
+    @PUT("api/pedido/{id}")
+    suspend fun updatePedido1(@Body pedidosUpdate1: PedidosUpdate1, @Path("id") id: Int)
+
+    //Eliminar Vendedor(desactivar)
+    @DELETE("api/pedido/desactivar/{id}")
+    suspend fun deletePedido(@Path("id") id: Int)
+
+    // ADMIN LISTA al entrar
+    @GET("api/pedido/filtrar")
+    suspend fun listPedidosVendedorTrue(@Query("fecha") fecha: String): Response<PedidosResponse>
+
+
+    // TODO FIN PEDIDOS
 
 }
 

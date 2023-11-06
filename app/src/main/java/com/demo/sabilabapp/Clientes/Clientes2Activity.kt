@@ -42,8 +42,8 @@ class Clientes2Activity : AppCompatActivity(), OnQueryTextListener {
         setContentView(binding?.root)
 
         id_vendedor = intent.getIntExtra("id_vendedor", 0)
-
         Log.d("MiApp", "Valor de id_vendedor antes de iniciar actividad: $id_vendedor")
+
         initRecyclerView()
         listaAlEntrar(id_vendedor)
 

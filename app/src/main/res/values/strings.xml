@@ -154,4 +154,17 @@
     <string name="vendedores_speach5">928343202</string>
     <string name="vendedores_speach6">1995-12-25</string>
     <string name="registrar_vendedor">Registrar Vendedor</string>
+    <string name="pedidos_speach1">125</string>
+    <string name="pedidos_speach2">BOTICA ELSYFARMA</string>
+    <string name="pedidos_speach3">AV CESAR VALLEJO 1479 URB TAYACAJA</string>
+    <string name="pedidos_speach4">EL AGUSTINO</string>
+    <string name="pedidos_speach5">2023-11-05</string>
+    <string name="pedidos_speach6">2023-11-05</string>
+    <string name="pedidos_speach7">114.2</string>
+    <string name="nuevo_pedido">Nuevo Pedido</string>
+    <string name="nro">NRO</string>
+    <string name="cliente">CLIENTE</string>
+    <string name="fecha_pedido">FECHA PEDIDO</string>
+    <string name="fecha_entrega">FECHA ENTREGA</string>
+    <string name="total">TOTAL</string>
 </resources>
