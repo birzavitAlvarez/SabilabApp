@@ -141,8 +141,6 @@ class ProductosActivity : AppCompatActivity(), OnQueryTextListener {
                     val adapterLoad = ArrayAdapter(this@ProductosActivity, android.R.layout.simple_spinner_item, categoriasWithSelect)
                     adapterLoad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     spAddProductosCategoria.adapter = adapterLoad
-                    // el log lo uso para ver la impresion de datos en consola :v
-                    //Log.d("DataUsuario", rolesList.toString())
                     adapterLoad.notifyDataSetChanged()
                 } else {
                     showError()

@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -10,7 +11,8 @@ android {
     defaultConfig {
         applicationId = "com.demo.sabilabapp"
         minSdk = 24
-        targetSdk = 33
+        //noinspection EditedTargetSdkVersion
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -61,10 +63,17 @@ dependencies {
 
     // menu
     implementation ("de.hdodenhof:circleimageview:3.1.0")
+    // fragments birza
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
+
+    //NavComponent
+    val navVersion = "2.7.5"
+    implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
+    implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
 
     // ema :v
-    implementation("androidx.annotation:annotation:1.6.0")
-    implementation("androidx.navigation:navigation-fragment:2.5.3")
-    implementation("androidx.navigation:navigation-ui:2.5.3")
+//    implementation("androidx.annotation:annotation:1.6.0")
+//    implementation("androidx.navigation:navigation-fragment:2.5.3")
+//    implementation("androidx.navigation:navigation-ui:2.5.3")
 
 }

@@ -58,6 +58,7 @@ class CategoriasViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         tietAddCategoriaTipo.setText(tipo)
         tietAddCategoriaDescripcion.setText(descripcion)
         tietAddCategoriaTipo.requestFocus()
+
         ibAddCategoriaClose.setOnClickListener{
             dialog.dismiss()
         }

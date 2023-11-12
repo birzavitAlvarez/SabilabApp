@@ -6,6 +6,7 @@ import com.demo.sabilabapp.R
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.Intent
 import android.os.Build
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
@@ -36,7 +37,7 @@ import java.util.Calendar
 
 class Pedidos2Activity : AppCompatActivity() {
 
-    var id_vendedor: Int = 4
+    var id_vendedor: Int = 4 // pasar al activity
 
 
     private var binding: ActivityPedidos2Binding? = null
@@ -47,6 +48,7 @@ class Pedidos2Activity : AppCompatActivity() {
     private var totalPages: Int = 1
     private var verdura: Boolean = false
 
+    @SuppressLint("SuspiciousIndentation")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,7 +110,9 @@ class Pedidos2Activity : AppCompatActivity() {
         }
         // boton nuevo cliente
         binding?.btnPedidos2NuevoPedido?.setOnClickListener{
-            //showDialogAddClientes2(id_vendedor)
+            val anny = Intent(this@Pedidos2Activity, Pedidos2scActivity::class.java)
+            anny.putExtra("id_vendedor", id_vendedor)
+            startActivity(anny)
         }
 
 

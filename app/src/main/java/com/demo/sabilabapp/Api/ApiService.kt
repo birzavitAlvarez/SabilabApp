@@ -230,7 +230,7 @@ interface ApiService {
     // TODO COMPROBANTE
     // Lista de Comprobantes
     @GET("api/comprobante")
-    suspend fun lisComprobante(): Response<ComprobanteResponse>
+    suspend fun listComprobante(): Response<ComprobanteResponse>
     // TODO FIN COMPROBANTE
 
 

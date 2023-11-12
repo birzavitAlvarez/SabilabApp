@@ -167,4 +167,22 @@
     <string name="fecha_pedido">FECHA PEDIDO</string>
     <string name="fecha_entrega">FECHA ENTREGA</string>
     <string name="total">TOTAL</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cancelar2">CANCELAR</string>
+    <string name="seleccionar_cliente">Seleccionar Cliente</string>
+    <string name="buscador">BUSCADOR</string>
+    <string name="seleccionar">Seleccionar</string>
+    <string name="datos_de_env_o">Datos de envío</string>
+    <string name="siguiente">Siguiente</string>
+    <string name="productos_seleccionados">Productos Seleccionados</string>
+    <string name="agregar_productos">Agregar Productos</string>
+    <string name="total_s_39_6">Total: S/ 39.6</string>
+    <string name="regresar">REGRESAR</string>
+    <string name="cancelar_">CANCELAR</string>
+    <string name="finalizar_pedido">Finalizar Pedido</string>
+    <string name="_2">2</string>
+    <string name="_39_6">39.6</string>
+    <string name="cantidad_producto">Cantidad Producto</string>
+    <string name="seleccionar2">SELECCIONAR</string>
 </resources>
