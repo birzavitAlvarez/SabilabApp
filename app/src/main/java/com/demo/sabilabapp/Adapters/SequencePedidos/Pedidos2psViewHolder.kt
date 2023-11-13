@@ -15,7 +15,8 @@ import com.demo.sabilabapp.databinding.ItemPedidos2psBinding
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
-    class Pedidos2psViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+//class Pedidos2psViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class Pedidos2psViewHolder(itemView: View, private val adapter: Pedidos2psAdapter) : RecyclerView.ViewHolder(itemView) {
 
     private val binding: ItemPedidos2psBinding = ItemPedidos2psBinding.bind(itemView)
 
@@ -64,6 +65,7 @@ import com.google.android.material.textfield.TextInputLayout
 
             adapter.updateItem(productosSeleccionados)
 
+            (context as? OnItemUpdateListener)?.onItemUpdated()
             dialog.dismiss()
         }
 

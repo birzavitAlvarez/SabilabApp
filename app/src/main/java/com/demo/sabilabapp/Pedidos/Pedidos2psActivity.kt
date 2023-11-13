@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+
 import com.demo.sabilabapp.R
 import com.demo.sabilabapp.databinding.ActivityPedidos2psBinding
 // para la lista de productos seleccionados
@@ -23,8 +24,9 @@ import kotlinx.coroutines.launch
 import com.demo.sabilabapp.Productos.Result as ResultProductos
 //
 import com.demo.sabilabapp.databinding.ItemDialogPedidos2spProductosBinding
+import com.demo.sabilabapp.Adapters.SequencePedidos.OnItemUpdateListener
 
-class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener {
+class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, OnItemUpdateListener {
 
     private var binding: ActivityPedidos2psBinding? = null
     private var bindingDialog: ItemDialogPedidos2spProductosBinding? = null
@@ -298,9 +300,13 @@ class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener {
 
 
     private fun initRecyclerView() {
-        adapter = Pedidos2psAdapter(datitos)
+        adapter = Pedidos2psAdapter(datitos,this)
         binding?.rvPedidos2ps?.layoutManager = LinearLayoutManager(this)
         binding?.rvPedidos2ps?.adapter = adapter
+    }
+
+    override fun onItemUpdated() {
+        actualizarTotal()
     }
 
 

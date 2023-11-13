@@ -6,11 +6,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.demo.sabilabapp.R
 import com.demo.sabilabapp.Pedidos.ProductosSeleccionados
 // private val itemsList
-class Pedidos2psAdapter(internal val itemsList: MutableList<ProductosSeleccionados>) : RecyclerView.Adapter<Pedidos2psViewHolder>() {
+class Pedidos2psAdapter(
+    internal val itemsList: MutableList<ProductosSeleccionados>,
+    private val listener: OnItemUpdateListener
+) : RecyclerView.Adapter<Pedidos2psViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Pedidos2psViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_pedidos2ps, parent, false)
-        return Pedidos2psViewHolder(itemView)
+        return Pedidos2psViewHolder(itemView,this)
     }
 
     override fun onBindViewHolder(holder: Pedidos2psViewHolder, position: Int) {
