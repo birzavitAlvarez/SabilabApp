@@ -6,20 +6,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.demo.sabilabapp.R
 import com.demo.sabilabapp.databinding.ActivityPedidos2psBinding
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 // para la lista de productos seleccionados
 import com.demo.sabilabapp.Adapters.SequencePedidos.Pedidos2psAdapter
-import com.demo.sabilabapp.Pedidos.ProductosSeleccionados
 import com.demo.sabilabapp.Adapters.SequencePedidos.OnProductoSeleccionadoListener // interface
 // dialog data
 import com.demo.sabilabapp.Adapters.SequencePedidos.Pedidos2spProductosAdapter
@@ -30,9 +23,8 @@ import kotlinx.coroutines.launch
 import com.demo.sabilabapp.Productos.Result as ResultProductos
 //
 import com.demo.sabilabapp.databinding.ItemDialogPedidos2spProductosBinding
-import com.demo.sabilabapp.Adapters.SequencePedidos.EditClickListener // para update
 
-class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, EditClickListener {
+class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener {
 
     private var binding: ActivityPedidos2psBinding? = null
     private var bindingDialog: ItemDialogPedidos2spProductosBinding? = null
@@ -94,10 +86,6 @@ class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, 
             // TODO MANDAR POST A PEDIDOS Y DETALLEPEDIDO
         }
 
-    }
-
-    override fun onEditClicked(productosSeleccionados: ProductosSeleccionados) {
-        // Maneja el evento de edición aquí
     }
 
     @SuppressLint("NotifyDataSetChanged")
