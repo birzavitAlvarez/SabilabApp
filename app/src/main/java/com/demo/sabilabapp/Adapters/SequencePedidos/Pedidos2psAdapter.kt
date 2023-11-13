@@ -35,6 +35,7 @@ class Pedidos2psAdapter(
         if (position >= 0 && position < itemsList.size) {
             itemsList.removeAt(position)
             notifyItemRemoved(position)
+            listener.onItemUpdated()
         }
     }
 

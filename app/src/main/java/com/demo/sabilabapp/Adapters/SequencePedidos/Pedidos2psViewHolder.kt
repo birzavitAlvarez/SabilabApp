@@ -31,7 +31,10 @@ class Pedidos2psViewHolder(itemView: View, private val adapter: Pedidos2psAdapte
         }
 
         binding.ibPedidos2psDelete.setOnClickListener {
-
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                adapter.removeItem(position)
+            }
         }
     }
 
