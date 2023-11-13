@@ -177,7 +177,7 @@
     <string name="siguiente">Siguiente</string>
     <string name="productos_seleccionados">Productos Seleccionados</string>
     <string name="agregar_productos">Agregar Productos</string>
-    <string name="total_s_39_6">Total: S/ 39.6</string>
+    <string name="total_s_39_6">0</string>
     <string name="regresar">REGRESAR</string>
     <string name="cancelar_">CANCELAR</string>
     <string name="finalizar_pedido">Finalizar Pedido</string>
