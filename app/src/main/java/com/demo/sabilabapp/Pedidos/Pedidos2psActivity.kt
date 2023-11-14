@@ -7,9 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import com.demo.sabilabapp.R
 import com.demo.sabilabapp.databinding.ActivityPedidos2psBinding
 // para la lista de productos seleccionados
@@ -25,6 +25,10 @@ import com.demo.sabilabapp.Productos.Result as ResultProductos
 //
 import com.demo.sabilabapp.databinding.ItemDialogPedidos2spProductosBinding
 import com.demo.sabilabapp.Adapters.SequencePedidos.OnItemUpdateListener
+// para post
+import com.demo.sabilabapp.Pedidos.Pedidos
+import com.demo.sabilabapp.DetallePedido.DetallePedidoPost
+import com.demo.sabilabapp.Productos.Productos
 
 class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, OnItemUpdateListener {
 
@@ -81,14 +85,81 @@ class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, 
             showDialogPedidos2psProductos()
         }
 
-        val totalEntrada:String = "Total: S/ 0.0"
-        binding?.tvPedidos2psTotal?.text = totalEntrada
-
         binding?.btnPedidos2psFinalizarPedido?.setOnClickListener {
-            // TODO MANDAR POST A PEDIDOS Y DETALLEPEDIDO
+            postParaPedidos(
+                direccion.toString(),
+                distrito.toString(),
+                fecha_entrega.toString(),
+                binding?.tvPedidos2psTotal?.text.toString().toDouble(),
+                id_comprobante.toString().toInt(),
+                id_vendedor.toString().toInt(),
+                id_cliente.toString().toInt()
+            )
         }
 
     }
+
+    private fun postParaPedidos(
+        direccionp: String,
+        distritop: String,
+        fecha_entregap: String,
+        totalFinalp: Double,
+        id_comprobantep: Int,
+        id_vendedorp: Int,
+        id_clientep: Int
+    ) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val orders = Pedidos(direccionp, distritop, fecha_entregap, "", totalFinalp, 1, id_comprobantep, id_vendedorp, id_clientep)
+                val response = apiService.createPedido(orders)
+
+                if (response.isSuccessful) {
+                    val idPedido = response.body()?.data?.id_pedido
+                    runOnUiThread {
+                        if (idPedido != null) {
+                            lifecycleScope.launch {
+                                for (productoSeleccionado in datitos) {
+                                    val detallePedido = DetallePedidoPost(
+                                        cantidad_objetiva = productoSeleccionado.cantidad,
+                                        total_detalle = productoSeleccionado.total,
+                                        id_pedido = idPedido,
+                                        id_productos = productoSeleccionado.id_productos
+                                    )
+                                    apiService.createDetallePedido(detallePedido)
+                                }
+                            }
+                            // TODO poner intent a pedidos de vendedor xd
+                        } else {
+                            Toast.makeText(
+                                this@Pedidos2psActivity,
+                                "Error al obtener el ID del pedido",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                } else {
+                    runOnUiThread {
+                        Toast.makeText(
+                            this@Pedidos2psActivity,
+                            "Error al crear el pedido: ${response.message()}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                runOnUiThread {
+                    Toast.makeText(
+                        this@Pedidos2psActivity,
+                        "Error al crear el pedido: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
+
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onProductoSeleccionado(productosSeleccionados: ProductosSeleccionados) {
@@ -103,7 +174,7 @@ class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, 
             totalps += producto.total
         }
         val totalFormateado = String.format("%.2f", totalps)
-        binding?.tvPedidos2psTotal?.text = "Total: S/ $totalFormateado"
+        binding?.tvPedidos2psTotal?.text = totalFormateado
     }
 
 

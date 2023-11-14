@@ -185,4 +185,5 @@
     <string name="_39_6">39.6</string>
     <string name="cantidad_producto">Cantidad Producto</string>
     <string name="seleccionar2">SELECCIONAR</string>
+    <string name="total_s">Total: S/</string>
 </resources>

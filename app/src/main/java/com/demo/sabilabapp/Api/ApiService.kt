@@ -7,12 +7,16 @@ import com.demo.sabilabapp.Clientes.ClientesResponse
 import com.demo.sabilabapp.Compras.Compras
 import com.demo.sabilabapp.Compras.ComprasResponse
 import com.demo.sabilabapp.Comprobante.ComprobanteResponse
+import com.demo.sabilabapp.DetallePedido.DetallePedidoCantidad
+import com.demo.sabilabapp.DetallePedido.DetallePedidoPost
+import com.demo.sabilabapp.DetallePedido.DetallePedidoResponse
 import com.demo.sabilabapp.Login.LoginRequest
 import com.demo.sabilabapp.Login.LoginResponse
 import com.demo.sabilabapp.Pedidos.Pedidos
 import com.demo.sabilabapp.Pedidos.PedidosResponse
 import com.demo.sabilabapp.Pedidos.PedidosUpdate1
 import com.demo.sabilabapp.Pedidos.PedidosUpdate4
+import com.demo.sabilabapp.Pedidos.RespuestaPedido
 import com.demo.sabilabapp.Productos.Productos
 import com.demo.sabilabapp.Productos.ProductosResponse
 import com.demo.sabilabapp.Proveedores.Proveedor
@@ -254,7 +258,7 @@ interface ApiService {
 
     //Crear Pedido
     @POST("api/pedido")
-    suspend fun createPedido(@Body pedido: Pedidos)
+    suspend fun createPedido(@Body pedido: Pedidos): Response<RespuestaPedido>
 
     //Actualizar Pedido en 4 campos
     @PUT("api/pedido/up/{id}")
@@ -271,9 +275,22 @@ interface ApiService {
     // ADMIN LISTA al entrar
     @GET("api/pedido/filtrar")
     suspend fun listPedidosVendedorTrue(@Query("fecha") fecha: String): Response<PedidosResponse>
-
-
     // TODO FIN PEDIDOS
+
+    // TODO DETALLEPEDIDO
+    //LISTAR TODOS LOS DETALLES PEDIDO POR ID_PEDIDO
+    @GET("api/detallepedido/pedido/{id}")
+    suspend fun listDetallePedidoByIdPedido(@Path("id") id: Int): Response<DetallePedidoResponse>
+
+    // CREAR DETALLE PEDIDO
+    @POST("api/detallepedido")
+    suspend fun createDetallePedido(@Body detallePedidoPost: DetallePedidoPost)
+
+
+    //Actualizar Cantidad_obtenida
+    @PUT("api/detallepedido/{id}")
+    suspend fun updateDetallePedido(@Body detallePedidoCantidad: DetallePedidoCantidad, @Path("id") id: Int)
+    // TODO FIN DETALLEPEDIDO
 
 }
 

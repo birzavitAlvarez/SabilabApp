@@ -15,7 +15,6 @@ import com.demo.sabilabapp.databinding.ItemPedidos2psBinding
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
-//class Pedidos2psViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 class Pedidos2psViewHolder(itemView: View, private val adapter: Pedidos2psAdapter) : RecyclerView.ViewHolder(itemView) {
 
     private val binding: ItemPedidos2psBinding = ItemPedidos2psBinding.bind(itemView)
@@ -64,7 +63,8 @@ class Pedidos2psViewHolder(itemView: View, private val adapter: Pedidos2psAdapte
         btnCantidadPedidosPsGuardar.setOnClickListener {
             val cantidad: Int = tietCantidadPedidosPsCantidad.text.toString().toInt()
             val nuevoTotal = cantidad * precio
-            productosSeleccionados.updateCantidadAndTotal(cantidad, nuevoTotal)
+            val totalFormateado = String.format("%.2f", nuevoTotal)
+            productosSeleccionados.updateCantidadAndTotal(cantidad, totalFormateado.toDouble())
 
             adapter.updateItem(productosSeleccionados)
 

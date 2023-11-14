@@ -174,7 +174,7 @@ class ProductosActivity : AppCompatActivity(), OnQueryTextListener {
                 if (selectedCategoriaId != null) {
                     val productos = Productos(nomPro,labPro,prePro,lotPro,cadPro,actPro, selectedCategoriaId!!)
                     apiService.createProductos(productos)
-                    // Después de agregar el usuario Actualizo la lista
+                    // Después de agregar el producto Actualizo la lista
                     val updatedData = apiService.listProductosTrue().body()?.data?.results
                     runOnUiThread {
                         if (updatedData != null) {
