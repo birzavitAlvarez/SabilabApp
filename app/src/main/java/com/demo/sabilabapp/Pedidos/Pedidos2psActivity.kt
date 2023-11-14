@@ -128,7 +128,9 @@ class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, 
                                     apiService.createDetallePedido(detallePedido)
                                 }
                             }
-                            // TODO poner intent a pedidos de vendedor xd
+                            val anny = Intent(this@Pedidos2psActivity, Pedidos2Activity::class.java)
+                            anny.putExtra("id_vendedor", id_vendedorp)
+                            startActivity(anny)
                         } else {
                             Toast.makeText(
                                 this@Pedidos2psActivity,

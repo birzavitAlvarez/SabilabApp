@@ -30,7 +30,7 @@ class Pedidos2scActivity : AppCompatActivity() {
 
     var binding: ActivityPedidos2scBinding? = null
 
-    var id_vendedor:Int = 4
+    var id_vendedor:Int = 0
     //var id_vendedor:Int? = null
     var nomcome: String = ""
 
@@ -44,10 +44,10 @@ class Pedidos2scActivity : AppCompatActivity() {
         binding = ActivityPedidos2scBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-//        val extras = intent.extras
-//        if (extras != null) {
-//            id_vendedor = extras.getInt("id_vendedor")
-//        }
+        val extras = intent.extras
+        if (extras != null) {
+            id_vendedor = extras.getInt("id_vendedor")
+        }
 
         initRecyclerView()
         listaAlEntrar(id_vendedor)

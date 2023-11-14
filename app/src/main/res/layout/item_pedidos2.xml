@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="1300dp"
-        android:layout_height="70dp"
+        android:layout_height="100dp"
         android:background="@color/background_color"
         android:orientation="horizontal"
         android:weightSum="7">
