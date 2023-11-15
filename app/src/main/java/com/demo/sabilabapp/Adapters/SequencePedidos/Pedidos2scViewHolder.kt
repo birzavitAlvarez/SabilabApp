@@ -4,6 +4,9 @@ import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -13,6 +16,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.demo.sabilabapp.Api.RetrofitClient
 import com.demo.sabilabapp.Clientes.Result
@@ -76,6 +80,8 @@ class Pedidos2scViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 selectedDate = String.format(Locale.US, "%04d-%02d-%02d", year, month + 1, dayOfMonth)
                 tietDatosEnvioFechaEntrega.setText(selectedDate)
             }, year, month, day)
+            // corrgiendo error del TIL
+            tilDatosEnvioFechaEntrega.error = null
             datePickerDialog.show()
         }
 
@@ -103,25 +109,67 @@ class Pedidos2scViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             spDatosEnvioComprobante.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     selectedComprobanteId = if (position > 0) {
+                        // corrgiendo error del TIL
+                        tilDatosEnvioComprobante.error = null
                         response?.data?.get(position - 1)?.id_categoria
                     } else { null }
                 }
                 override fun onNothingSelected(parent: AdapterView<*>?) { selectedComprobanteId = null }
             }
         }
-        // -----------------------------
+        // ------limpiando error mandado
+        //
+        tietDatosEnvioDireccion.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilDatosEnvioDireccion.error = null
+            }
+            override fun afterTextChanged(s: Editable?) {
+                if (s.isNullOrEmpty()) { tilDatosEnvioDireccion.error = "Este campo es requerido" }
+            }
+        })
+        //
+        tietDatosEnvioDistrito.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilDatosEnvioDistrito.error = null
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (s.isNullOrEmpty()) { tilDatosEnvioDistrito.error = "Este campo es requerido" }
+            }
+        })
+
+        //----
 
         btnDatosEnvioSiguiente.setOnClickListener {
-            val intent = Intent(context, Pedidos2psActivity::class.java)
-            intent.putExtra("id_cliente", id_cliente)
-            intent.putExtra("direccion", tietDatosEnvioDireccion.text.toString())
-            intent.putExtra("distrito", tietDatosEnvioDistrito.text.toString())
-            intent.putExtra("fecha_entrega", selectedDate)
-            intent.putExtra("id_comprobante", selectedComprobanteId)
-            intent.putExtra("id_vendedor", id_vendedor)
+            val comprobanteSeleccionado = spDatosEnvioComprobante.selectedItem.toString()
 
-            context.startActivity(intent)
-            dialog.dismiss()
+            if (tietDatosEnvioDireccion.text.toString().isEmpty()){
+                tilDatosEnvioDireccion.error = "Este campo es requerido"
+                return@setOnClickListener
+            } else if (tietDatosEnvioDistrito.text.toString().isEmpty()) {
+                tilDatosEnvioDistrito.error = "Este campo es requerido"
+                return@setOnClickListener
+            } else if (selectedDate.isEmpty()) {
+                tilDatosEnvioFechaEntrega.error = "Este campo es requerido"
+                return@setOnClickListener
+            } else if (comprobanteSeleccionado == "Seleccionar") {
+                tilDatosEnvioComprobante.error = "Este campo es requerido"
+            } else {
+                val intent = Intent(context, Pedidos2psActivity::class.java)
+                intent.putExtra("id_cliente", id_cliente)
+                intent.putExtra("direccion", tietDatosEnvioDireccion.text.toString())
+                intent.putExtra("distrito", tietDatosEnvioDistrito.text.toString())
+                intent.putExtra("fecha_entrega", selectedDate)
+                intent.putExtra("id_comprobante", selectedComprobanteId)
+                intent.putExtra("id_vendedor", id_vendedor)
+                context.startActivity(intent)
+                dialog.dismiss()
+            }
         }
         dialog.show()
     }

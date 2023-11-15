@@ -54,7 +54,11 @@ class Pedidos2scActivity : AppCompatActivity() {
 
         binding?.btnPedidos2scBuscar?.setOnClickListener {
             nomcome = binding?.tietPedidos2scnomcome?.text.toString()
-            searchByItem(nomcome, id_vendedor)
+            if (nomcome.isEmpty()){
+                listaAlEntrar(id_vendedor)
+            } else {
+                searchByItem(nomcome, id_vendedor)
+            }
         }
 
         // pagina siguiente

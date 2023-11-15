@@ -2,6 +2,8 @@ package com.demo.sabilabapp.Adapters.SequencePedidos
 
 import android.app.Dialog
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 
 import android.widget.Button
@@ -60,16 +62,40 @@ class Pedidos2psViewHolder(itemView: View, private val adapter: Pedidos2psAdapte
             dialog.dismiss()
         }
 
+        tietCantidadPedidosPsCantidad.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val input = s?.toString() ?: ""
+                if (input.isEmpty()) {
+                    tilCantidadPedidosPsCantidad.error = "La cantidad no puede estar vacía"
+                }else if(input.toInt() <= 0){
+                    tilCantidadPedidosPsCantidad.error = "La cantidad debe ser mayor a 0"
+                } else { tilCantidadPedidosPsCantidad.error = null }
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
         btnCantidadPedidosPsGuardar.setOnClickListener {
-            val cantidad: Int = tietCantidadPedidosPsCantidad.text.toString().toInt()
-            val nuevoTotal = cantidad * precio
-            val totalFormateado = String.format("%.2f", nuevoTotal)
-            productosSeleccionados.updateCantidadAndTotal(cantidad, totalFormateado.toDouble())
+            val cantidadInput = tietCantidadPedidosPsCantidad.text.toString()
+            if (cantidadInput.isNotEmpty()) {
+                val cantidad: Int = cantidadInput.toInt()
+                if (cantidad <= 0) {
+                    tilCantidadPedidosPsCantidad.error = "La cantidad debe ser mayor a 0"
+                    return@setOnClickListener
+                }
+                val nuevoTotal = cantidad * precio
+                val totalFormateado = String.format("%.2f", nuevoTotal)
+                productosSeleccionados.updateCantidadAndTotal(cantidad, totalFormateado.toDouble())
 
-            adapter.updateItem(productosSeleccionados)
+                adapter.updateItem(productosSeleccionados)
 
-            (context as? OnItemUpdateListener)?.onItemUpdated()
-            dialog.dismiss()
+                (context as? OnItemUpdateListener)?.onItemUpdated()
+                dialog.dismiss()
+            } else {
+                tilCantidadPedidosPsCantidad.error = "La cantidad no puede estar vacía"
+            }
+
         }
 
         dialog.show()

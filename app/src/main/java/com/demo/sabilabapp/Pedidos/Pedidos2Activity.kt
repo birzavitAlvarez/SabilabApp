@@ -63,10 +63,6 @@ class Pedidos2Activity : AppCompatActivity() {
         initRecyclerView()
         listaAlEntrar(id_vendedor, fecha_del_dia)
         //
-        binding?.ibPedidos2Refresh?.setOnClickListener {
-            listaAlEntrar(id_vendedor, fecha_del_dia)
-        }
-
         binding?.tietPedidos2Fecha?.setOnClickListener {
             val calendar = Calendar.getInstance()
             val year = calendar.get(Calendar.YEAR)
@@ -79,10 +75,26 @@ class Pedidos2Activity : AppCompatActivity() {
             }, year, month, day)
             datePickerDialog.show()
         }
+        //
+        binding?.ibPedidos2Refresh?.setOnClickListener {
+            listaAlEntrar(id_vendedor, fecha_del_dia)
+            binding?.tietPedidos2Fecha?.setText("")
+            binding?.tietPedidos2nomcme?.setText("")
+            selectedDate = ""
+        }
 
         binding?.btnPedidos2Buscar?.setOnClickListener {
-                nomcome = binding?.tietPedidos2nomcme?.text.toString()
+            nomcome = binding?.tietPedidos2nomcme?.text.toString()
+            //searchByItem(id_vendedor,selectedDate,nomcome)
+            if (nomcome.isEmpty() && selectedDate.isEmpty()){
+                listaAlEntrar(id_vendedor, fecha_del_dia)
+            } else if (selectedDate.isEmpty() && nomcome.isNotEmpty()) {
+                searchByItem(id_vendedor,fecha_del_dia,nomcome)
+            } else if (selectedDate.isNotEmpty() && nomcome.isEmpty()){
                 searchByItem(id_vendedor,selectedDate,nomcome)
+            } else {
+                searchByItem(id_vendedor,selectedDate,nomcome)
+            }
         }
         // pagina siguiente
         binding?.ibPedidos2Next?.setOnClickListener {
@@ -197,7 +209,7 @@ class Pedidos2Activity : AppCompatActivity() {
     @SuppressLint("NotifyDataSetChanged")
     private fun searchByItem(id: Int,query: String, query2: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            val request0 = apiService.listarPedidosPorFiltro(id, query,query2) //query ?: ""
+            val request0 = apiService.listarPedidosPorFiltro(id, query?:"",query2?:"") //query ?: ""
             val response0 = request0.body()
             runOnUiThread {
                 if (request0.isSuccessful) {

@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -122,15 +124,13 @@ class VendedoresViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                     adapterLoad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     spAddVendedoresUsuarios.adapter = adapterLoad
                     adapterLoad.notifyDataSetChanged()
-                    // lleno el spinner y establezco posicion
-                    //spAddVendedoresUsuarios.setSelection(id_usuarios)
                 } else {
                     Toast.makeText(context, "Ha ocurrido un error", Toast.LENGTH_SHORT).show()
                 }
             }
         }
         // -----------------------------
-        var selectedUserId: Int? = id_usuarios
+        var selectedUserId: Int? = 0
 
         CoroutineScope(Dispatchers.IO).launch {
             val response = apiService.listUserNotUse().body()
@@ -143,9 +143,48 @@ class VendedoresViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 override fun onNothingSelected(parent: AdapterView<*>?) { selectedUserId = null }
             }
         }
+        //
+        tietAddVendedoresNombre.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilAddVendedoresNombre.error = if (s.isNullOrBlank()) "Este campo es requerido" else null
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+
+        tietAddVendedoresTelefono1.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilAddVendedoresTelefono1.error = if (s.isNullOrBlank()) "Este campo es requerido" else null
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
 
         //
         btnAddVendedoresGuardar.setOnClickListener{
+            var IdUserVen:Int = 0
+            val vendedoresUsuarios = spAddVendedoresUsuarios.selectedItem.toString()
+
+            if (tietAddVendedoresNombre.text.toString().isEmpty()){
+                tilAddVendedoresNombre.error = "Este campo es requerido"
+                return@setOnClickListener
+            } else if (tietAddVendedoresTelefono1.text.toString().isEmpty()){
+                tilAddVendedoresTelefono1.error = "Este campo es requerido"
+                return@setOnClickListener
+            } else if (vendedoresUsuarios == "Seleccionar"){
+                IdUserVen = id_usuarios
+            } else if(selectedUserId!! > 0){
+                IdUserVen = selectedUserId!!
+            }
+
             var actVen = 0
             val nomVen = tietAddVendedoresNombre.text.toString()
             val te1Ven = tietAddVendedoresTelefono1.text.toString()
@@ -153,12 +192,14 @@ class VendedoresViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val corVen = tietAddVendedoresCorreo.text.toString()
             val dirVen = tietAddVendedoresDireccion.text.toString()
             val fecVen = selectedDate
-            if (activo){ actVen = 1 } // si es true manda 1 para el active true xd
-            val idUserVen = selectedUserId
-
+            if (activo){ actVen = 1 }
 
             CoroutineScope(Dispatchers.IO).launch {
-                val vendedor = Vendedores(nomVen,te1Ven,te2Ven,corVen,dirVen,fecVen,actVen,idUserVen!!)
+                val vendedor = Vendedores(
+                    nomVen, te1Ven, te2Ven, corVen, dirVen,
+                    if (fecVen.isNullOrBlank()) "" else fecVen,
+                    actVen, IdUserVen
+                )
                 apiService.updateVendedores(vendedor, id_vendedor)
 
                 val updatedData = apiService.listVendedoresTrue().body()?.data?.results
@@ -174,6 +215,8 @@ class VendedoresViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 }
             }
         }
+
+
 
         dialog.show()
     }

@@ -6,6 +6,8 @@ import com.demo.sabilabapp.R
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
@@ -52,6 +54,8 @@ class VendedoresActivity : AppCompatActivity(), OnQueryTextListener {
             val query = binding?.svVendedoresBusqueda?.query?.toString()
             if (!query.isNullOrBlank()) {
                 searchByItem(query)
+            } else {
+                listaAlEntrar()
             }
         }
         // pagina siguiente
@@ -89,6 +93,7 @@ class VendedoresActivity : AppCompatActivity(), OnQueryTextListener {
 
         binding?.ibVendedoresRefresh?.setOnClickListener{
             listaAlEntrar()
+            binding?.svVendedoresBusqueda?.setQuery("", false)
         }
 
     }
@@ -146,13 +151,11 @@ class VendedoresActivity : AppCompatActivity(), OnQueryTextListener {
             val response = apiService.listUserNotUse().body()
             runOnUiThread {
                 if (response != null && response.status == 200) {
-                    val userNotUseList = response.data.map { it.usuario } // TODO Escoger el campo a mostrar
+                    val userNotUseList = response.data.map { it.usuario }
                     val userNotUseWithSelect = listOf("Seleccionar") + userNotUseList
                     val adapterLoad = ArrayAdapter(this@VendedoresActivity, android.R.layout.simple_spinner_item, userNotUseWithSelect)
                     adapterLoad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     spAddVendedoresUsuarios.adapter = adapterLoad
-                    // el log lo uso para ver la impresion de datos en consola :v
-                    //Log.d("DataUsuario", rolesList.toString())
                     adapterLoad.notifyDataSetChanged()
                 } else {
                     showError()
@@ -167,6 +170,7 @@ class VendedoresActivity : AppCompatActivity(), OnQueryTextListener {
             spAddVendedoresUsuarios.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     selectedUserId = if (position > 0) {
+                        tilAddVendedoresUsuarios.error = null
                         response?.data?.get(position - 1)?.id_usuarios
                     } else { null }
                 }
@@ -174,36 +178,64 @@ class VendedoresActivity : AppCompatActivity(), OnQueryTextListener {
             }
         }
 
+        tietAddVendedoresNombre.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilAddVendedoresNombre.error = if (s.isNullOrBlank()) "Este campo es requerido" else null
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+
+        tietAddVendedoresTelefono1.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilAddVendedoresTelefono1.error = if (s.isNullOrBlank()) "Este campo es requerido" else null
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+
         btnAddVendedoresGuardar.setOnClickListener{
-            val nomVen = tietAddVendedoresNombre.text.toString()
-            val te1Ven = tietAddVendedoresTelefono1.text.toString()
-            val te2Ven = tietAddVendedoresTelefono2.text.toString()
-            val corVen = tietAddVendedoresCorreo.text.toString()
-            val dirVen = tietAddVendedoresDireccion.text.toString()
-            val fecVen = selectedDate
-            val actVen = 1
-            val idUserVen = selectedUserId
+            val vendedoresUsuarios = spAddVendedoresUsuarios.selectedItem.toString()
 
+            if (tietAddVendedoresNombre.text.toString().isEmpty()){
+                tilAddVendedoresNombre.error = "Este campo es requerido"
+                return@setOnClickListener
+            } else if (tietAddVendedoresTelefono1.text.toString().isEmpty()){
+                tilAddVendedoresTelefono1.error = "Este campo es requerido"
+                return@setOnClickListener
+            } else if (vendedoresUsuarios == "Seleccionar") {
+                tilAddVendedoresUsuarios.error = "Este campo es requerido"
+                return@setOnClickListener
+            } else {
 
-            CoroutineScope(Dispatchers.IO).launch {
-                if (selectedUserId != null) {
-                    val vendedor = Vendedores(nomVen,te1Ven,te2Ven,corVen,dirVen,fecVen,actVen,idUserVen!!) // ,selectedUserId!!
-                    apiService.createVendedores(vendedor)
-                    // Después de agregar el usuario Actualizo la lista
-                    val updatedData = apiService.listVendedoresTrue().body()?.data?.results
-                    runOnUiThread {
-                        if (updatedData != null) {
-                            adapter.updateList(updatedData)
+                val nomVen = tietAddVendedoresNombre.text.toString()
+                val te1Ven = tietAddVendedoresTelefono1.text.toString()
+                val te2Ven = tietAddVendedoresTelefono2.text.toString()
+                val corVen = tietAddVendedoresCorreo.text.toString()
+                val dirVen = tietAddVendedoresDireccion.text.toString()
+                val fecVen = selectedDate
+                val actVen = 1
+                val idUserVen = selectedUserId
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    if (selectedUserId != null) {
+                        val vendedor = Vendedores(nomVen,te1Ven,te2Ven,corVen,dirVen,fecVen,actVen,idUserVen!!) // ,selectedUserId!!
+                        apiService.createVendedores(vendedor)
+                        val updatedData = apiService.listVendedoresTrue().body()?.data?.results
+                        runOnUiThread {
+                            if (updatedData != null) { adapter.updateList(updatedData) }
+                            hideKeyboard()
+                            dialog.dismiss()
                         }
-                        hideKeyboard()
-                        dialog.dismiss()
                     }
-                } else {
-                    runOnUiThread {
-                        Toast.makeText(this@VendedoresActivity, "Error: Debe seleccionar un usuario", Toast.LENGTH_SHORT).show()
-                        tilAddVendedoresUsuarios.requestFocus()
-                    }
-
                 }
             }
             getCurrentAndTotal()

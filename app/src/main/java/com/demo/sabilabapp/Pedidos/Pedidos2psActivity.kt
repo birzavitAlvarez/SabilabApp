@@ -204,7 +204,11 @@ class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, 
 
         bindingDialog?.btnPedidos2spProductosBuscar?.setOnClickListener {
             nombrepro = bindingDialog?.tietPedidos2spProductosNombre?.text.toString()
-            searchByItemDialog(nombrepro)
+            if (nombrepro.isEmpty()){
+                listaAlEntrarDialog(rvPedidos2spProductos, adapterProductosDialog)
+            } else {
+                searchByItemDialog(nombrepro)
+            }
         }
 
         // pagina siguiente
