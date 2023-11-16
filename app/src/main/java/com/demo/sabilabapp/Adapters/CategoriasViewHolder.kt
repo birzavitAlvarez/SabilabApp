@@ -3,6 +3,8 @@ package com.demo.sabilabapp.Adapters
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
@@ -62,8 +64,40 @@ class CategoriasViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         ibAddCategoriaClose.setOnClickListener{
             dialog.dismiss()
         }
+        // TODO VALIDAR
+        tietAddCategoriaTipo.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilAddCategoriaTipo.error = if (s?.any { it.isLetterOrDigit() } == true) null else "ES REQUERIDO"
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+
+        tietAddCategoriaDescripcion.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilAddCategoriaDescripcion.error = if (s?.any { it.isLetterOrDigit() } == true) null else "ES REQUERIDO"
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+        // TODO FIN VALIDAR
 
         btnAddCategoriaGuardar.setOnClickListener{
+            // TODO VALIDAR
+            if (tietAddCategoriaTipo.text.toString().isEmpty()){
+                tilAddCategoriaTipo.error = "ES REQUERIDO"
+                return@setOnClickListener
+            } else if(tietAddCategoriaDescripcion.text.toString().isEmpty()){
+                tilAddCategoriaDescripcion.error = "ES REQUERIDO"
+                return@setOnClickListener
+            }
+            // TODO FIN VALIDAR
             val texTipo = tietAddCategoriaTipo.text.toString()
             val textDescripcion = tietAddCategoriaDescripcion.text.toString()
             CoroutineScope(Dispatchers.IO).launch {

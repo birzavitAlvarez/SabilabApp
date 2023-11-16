@@ -202,6 +202,22 @@ class VendedoresActivity : AppCompatActivity(), OnQueryTextListener {
             }
         })
 
+        tietAddVendedoresCorreo.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                //validateEmail(s?.toString())
+                if (s.isNullOrBlank()) {
+                    tilAddVendedoresCorreo.error = null
+                } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(s).matches()) {
+                    tilAddVendedoresCorreo.error = "Formato no valido"
+                } else {
+                    tilAddVendedoresCorreo.error = null
+                }
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
         btnAddVendedoresGuardar.setOnClickListener{
             val vendedoresUsuarios = spAddVendedoresUsuarios.selectedItem.toString()
 
@@ -213,6 +229,10 @@ class VendedoresActivity : AppCompatActivity(), OnQueryTextListener {
                 return@setOnClickListener
             } else if (vendedoresUsuarios == "Seleccionar") {
                 tilAddVendedoresUsuarios.error = "Este campo es requerido"
+                return@setOnClickListener
+            } else if (tietAddVendedoresCorreo.text.toString().isNotEmpty() &&
+                !android.util.Patterns.EMAIL_ADDRESS.matcher(tietAddVendedoresCorreo.text.toString()).matches()){
+                tilAddVendedoresCorreo.error = "Formato no válido"
                 return@setOnClickListener
             } else {
 

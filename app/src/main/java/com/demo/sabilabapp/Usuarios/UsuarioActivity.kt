@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
@@ -233,13 +235,12 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.item_add_usuario)
 
-        //val tvAddUsuarioTitle: TextView = dialog.findViewById(R.id.tvAddUsuarioTitle)
         val ibAddUsuarioClose: ImageButton = dialog.findViewById(R.id.ibAddUsuarioClose)
-        //val tilAddUsuarioNombre: TextInputLayout = dialog.findViewById(R.id.tilAddUsuarioNombre)
+        val tilAddUsuarioNombre: TextInputLayout = dialog.findViewById(R.id.tilAddUsuarioNombre)
         val tietAddUsuarioNombre: TextInputEditText = dialog.findViewById(R.id.tietAddUsuarioNombre)
-        //val tilAddUsuarioPassword: TextInputLayout = dialog.findViewById(R.id.tilAddUsuarioPassword)
+        val tilAddUsuarioPassword: TextInputLayout = dialog.findViewById(R.id.tilAddUsuarioPassword)
         val tietAddUsuarioPassword: TextInputEditText = dialog.findViewById(R.id.tietAddUsuarioPassword)
-        //val tilAddUsuarioRol: TextInputLayout = dialog.findViewById(R.id.tilAddUsuarioRol)
+        val tilAddUsuarioRol: TextInputLayout = dialog.findViewById(R.id.tilAddUsuarioRol)
         val spAddUsuarioRol: Spinner = dialog.findViewById(R.id.spAddUsuarioRol)
         val btnAddUsuarioGuardar: Button = dialog.findViewById(R.id.btnAddUsuarioGuardar)
         tietAddUsuarioNombre.requestFocus()
@@ -272,6 +273,7 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
             spAddUsuarioRol.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     selectedRoleId = if (position > 0) {
+                        tilAddUsuarioRol.error = null
                         response?.data?.get(position - 1)?.id_roles
                     } else { null }
                 }
@@ -280,7 +282,46 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
             }
         }
 
+        // TODO VALIDAR
+        tietAddUsuarioNombre.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilAddUsuarioNombre.error = if (s?.any { it.isLetterOrDigit() } == true) null else "ES REQUERIDO"
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+
+        tietAddUsuarioPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilAddUsuarioPassword.error = if (s?.any { it.isLetterOrDigit() } == true) null else "ES REQUERIDO"
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+        // TODO FIN VALIDAR
+
         btnAddUsuarioGuardar.setOnClickListener{
+            // TODO VALIDAR
+            val rolSelected = spAddUsuarioRol.selectedItem.toString()
+            if (tietAddUsuarioNombre.text.toString().isEmpty()){
+                tilAddUsuarioNombre.error = "ES REQUERIDO"
+                return@setOnClickListener
+            } else if(tietAddUsuarioPassword.text.toString().isEmpty()){
+                tilAddUsuarioPassword.error = "ES REQUERIDO"
+                return@setOnClickListener
+            } else if (rolSelected == "Seleccionar"){
+                tilAddUsuarioRol.error = "ES REQUERIDO"
+                return@setOnClickListener
+            }
+            // TODO FIN VALIDAR
+
+
             val nameUser = tietAddUsuarioNombre.text.toString()
             val passwordUser = tietAddUsuarioPassword.text.toString()
             CoroutineScope(Dispatchers.IO).launch {

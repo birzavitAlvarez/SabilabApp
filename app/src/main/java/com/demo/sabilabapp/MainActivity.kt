@@ -14,10 +14,10 @@ import androidx.core.view.GravityCompat
 import android.view.MenuItem
 import android.content.res.Configuration
 import android.widget.TextView
+import com.demo.sabilabapp.Aprovisionamiento.AprovisionamientoActivity
 import com.demo.sabilabapp.Categorias.CategoriasActivity
 import com.demo.sabilabapp.Clientes.Clientes2Activity
 import com.demo.sabilabapp.Clientes.ClientesActivity
-import com.demo.sabilabapp.Compras.ComprasActivity
 import com.demo.sabilabapp.Login.LoginActivity
 import com.demo.sabilabapp.Login.UserData  // Class que almacena data
 import com.demo.sabilabapp.Productos.Productos2Activity
@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
                     drawerLayout.closeDrawer(GravityCompat.START)
                     drawerLayout.closeDrawers()
                     true
-                    val anny = Intent(this@MainActivity, ComprasActivity::class.java)
+                    val anny = Intent(this@MainActivity, AprovisionamientoActivity::class.java)
                     startActivity(anny)
                 }
                 R.id.nav_pedidos -> {

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/vistaClientes2Padre"
+    android:id="@+id/vistaAprovisionamientoPadre"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color"
     android:orientation="vertical"
-    tools:context=".Clientes.Clientes2Activity">
+    tools:context=".Aprovisionamiento.AprovisionamientoActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,25 +18,26 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="3"
+            android:weightSum="2"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tvClientes2Titulo"
+                android:id="@+id/tvAprovisionamientoTitulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:text="@string/clientes"
+                android:text="@string/aprovisionamiento"
                 android:textColor="@color/text"
                 android:textSize="24sp"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/ibClientes2Refresh"
+                android:id="@+id/ibAprovisionamientoRefresh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:layout_weight="1"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/background_color"
@@ -45,27 +47,41 @@
         </LinearLayout>
 
 
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="65dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
 
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/svClientes2Busqueda"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilAprovisionamientoFecha"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp" />
+                android:layout_height="match_parent"
+                android:hint="@string/fecha2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tietAprovisionamientoFecha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:singleLine="true"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    tools:ignore="KeyboardInaccessibleWidget" />
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <Button
-                android:id="@+id/btnClientes2Buscar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/btnAprovisionamientoBuscar"
+                android:layout_width="130dp"
+                android:layout_height="50dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
                 android:backgroundTint="@color/primary_color"
                 android:text="@string/buscar"
+                android:textSize="18sp"
                 android:textColor="@color/texto_boton"
                 tools:ignore="TextContrastCheck" />
         </LinearLayout>
@@ -73,49 +89,44 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnClientes2Agregar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginBottom="10dp"
-                android:backgroundTint="@color/primary_color"
-                android:text="@string/nuevo_cliente"
-                android:textColor="@color/texto_boton"
-                tools:ignore="TextContrastCheck" />
-
             <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/ibClientes2Before"
+                android:id="@+id/ibAprovisionamientoBefore"
+                android:layout_marginStart="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="20dp"
                 android:backgroundTint="@color/background_color"
                 android:src="@drawable/ic_before"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <TextView
-                android:id="@+id/tvClientes2NumeroPagina"
+                android:id="@+id/tvAprovisionamientoNumeroPagina"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
                 android:hint="1/1"
                 tools:ignore="HardcodedText,TextContrastCheck" />
 
             <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/ibClientes2Next"
+                android:id="@+id/ibAprovisionamientoNext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
                 android:backgroundTint="@color/background_color"
                 android:src="@drawable/ic_next"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/btnAprovisionamientoNuevaCompra"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginStart="60dp"
+                android:backgroundTint="@color/primary_color"
+                android:text="@string/nueva_compra"
+                android:textSize="18sp"
+                android:textColor="@color/texto_boton"
+                tools:ignore="TextContrastCheck" />
 
 
         </LinearLayout>
@@ -135,14 +146,14 @@
                     android:orientation="vertical"  >
 
                     <LinearLayout
-                        android:id="@+id/llHeaderClientes2"
-                        android:layout_width="1500dp"
-                        android:layout_height="70dp"
+                        android:id="@+id/llHeaderAprovisionamiento"
+                        android:layout_width="900dp"
+                        android:layout_height="60dp"
                         android:layout_gravity="center"
                         android:background="@color/primary_color"
                         android:gravity="center"
                         android:orientation="horizontal"
-                        android:weightSum="7"
+                        android:weightSum="5"
                         tools:ignore="TextSizeCheck">
 
                         <TextView
@@ -150,7 +161,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="@string/ruc"
+                            android:text="@string/producto2"
                             android:textColor="@color/texto_boton"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -160,7 +171,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="@string/razon_social"
+                            android:text="@string/cantidad2"
                             android:textColor="@color/texto_boton"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -170,7 +181,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="@string/nombre_comercial"
+                            android:text="@string/proveedor"
                             android:textColor="@color/texto_boton"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -180,7 +191,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="@string/direccion"
+                            android:text="@string/fecha2"
                             android:textColor="@color/texto_boton"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -190,41 +201,27 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="@string/distrito"
+                            android:text="@string/opciones"
                             android:textColor="@color/texto_boton"
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/contacto"
-                            android:textColor="@color/texto_boton"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/telefono"
-                            android:textColor="@color/texto_boton"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvClientes2"
+                        android:id="@+id/rvAprovisionamiento"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/background_color" />
+
+
                 </LinearLayout>
+
             </HorizontalScrollView>
 
         </LinearLayout>
 
+
     </LinearLayout>
+
 </LinearLayout>

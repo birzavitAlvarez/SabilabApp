@@ -1,11 +1,12 @@
 package com.demo.sabilabapp.Api
 
+import com.demo.sabilabapp.Aprovisionamiento.AprovisionamientoGetAll
+import com.demo.sabilabapp.Aprovisionamiento.AprovisionamientoPost
 import com.demo.sabilabapp.Categorias.Categoria
 import com.demo.sabilabapp.Categorias.CategoriasResponse
 import com.demo.sabilabapp.Clientes.Clientes
 import com.demo.sabilabapp.Clientes.ClientesResponse
-import com.demo.sabilabapp.Compras.Compras
-import com.demo.sabilabapp.Compras.ComprasResponse
+
 import com.demo.sabilabapp.Comprobante.ComprobanteResponse
 import com.demo.sabilabapp.DetallePedido.DetallePedidoCantidad
 import com.demo.sabilabapp.DetallePedido.DetallePedidoPost
@@ -41,15 +42,7 @@ interface ApiService {
     // Login
     @POST("api/usuarios/login")
     suspend fun login(@Body request: LoginRequest): Response<LoginResponse>
-    // COMPRAS
-    @GET("api/compras")
-    fun listarCompras(): Call<ComprasResponse>
-    @GET("api/compras/buscar/{fecha}")
-    fun listarPorFecha(@Path("fecha") fecha: String): Call<ComprasResponse>
-    @POST("api/compras")
-    fun guardar(@Body compra: Compras): Call<ComprasResponse>
-    @GET("api/compras/{id}")
-    fun obtenerPorId(@Path("id") id: Long): Call<ComprasResponse>
+
 
     // TODO USUARIOS
     // Lista all por true
@@ -291,6 +284,37 @@ interface ApiService {
     @PUT("api/detallepedido/{id}")
     suspend fun updateDetallePedido(@Body detallePedidoCantidad: DetallePedidoCantidad, @Path("id") id: Int)
     // TODO FIN DETALLEPEDIDO
+
+    // TODO Aprovisionamiento (compras)
+    // GET ALL
+    @GET("api/compras")
+    suspend fun listAprovisionamiento(): Response<AprovisionamientoGetAll>
+
+    //Pagina de todos
+    @GET("api/compras")
+    suspend fun paginaAprovisionamiento(@Query("page") pagina: Int): Response<AprovisionamientoGetAll>
+
+    // GET ALL BY FECHA
+    @GET("api/compras/buscar/{fecha}")
+    suspend fun listAprovisionamientoByFecha(@Path("fecha") fecha: String): Response<AprovisionamientoGetAll>
+
+    //Pagina de buscar por fecha
+    @GET("api/compras/buscar/{fecha}")
+    suspend fun listarAprovisionamientoPorFechaYPage(@Path("fecha") fecha: String, @Query("page") pagina: Int): Response<AprovisionamientoGetAll>
+
+    // POST
+    @POST("api/compras")
+    suspend fun createAprovisionamiento(@Body aprovisionamiento: AprovisionamientoPost)
+
+    // PUT
+    @PUT("api/compras/{id}")
+    suspend fun updateAprovisionamiento(@Body aprovisionamiento: AprovisionamientoPost, @Path("id") id: Int)
+
+    //Eliminar COMPRAS
+    @DELETE("api/compras/{id}")
+    suspend fun deleteAprovisionamiento(@Path("id") id: Int)
+    // TODO FIN DE APROVISIONAMIENTO
+
 
 }
 

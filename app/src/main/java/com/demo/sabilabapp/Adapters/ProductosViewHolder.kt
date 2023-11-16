@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -98,6 +100,7 @@ class ProductosViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 selectedDate = String.format(Locale.US, "%04d-%02d-%02d", year, month + 1, dayOfMonth)
                 tietAddProductosCaducidad.setText(selectedDate)
             }, year, month, day)
+            tilAddProductosCaducidad.error = null
             datePickerDialog.show()
         }
 
@@ -127,15 +130,69 @@ class ProductosViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             spAddProductosCategoria.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     selectedCategoriaId = if (position > 0) {
+                        tilAddProductosCategoria.error = null
                         response?.data?.get(position - 1)?.id_categoria
                     } else { null }
                 }
                 override fun onNothingSelected(parent: AdapterView<*>?) { selectedCategoriaId = null }
             }
         }
+        //TODO VALIDAR
+        tietAddProductosNombre.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilAddProductosNombre.error = if (s?.any { it.isLetterOrDigit() } == true) null else "ES REQUERIDO"
+            }
 
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+
+        tietAddProductosLaboratorio.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilAddProductosLaboratorio.error = if (s?.any { it.isLetterOrDigit() } == true) null else "ES REQUERIDO"
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+
+        tietAddProductosPrecio.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilAddProductosPrecio.error = if (s?.any { it.isDigit() } == true) null else "ES REQUERIDO"
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+        //TODO FIN VALIDAR
         //
         btnAddProductosGuardar.setOnClickListener{
+
+            val categoriaSeleccionada = spAddProductosCategoria.selectedItem.toString()
+
+            if (tietAddProductosNombre.text.toString().isEmpty()){
+                tilAddProductosNombre.error = "ES REQUERIDO"
+                return@setOnClickListener
+            } else if (tietAddProductosLaboratorio.text.toString().isEmpty()){
+                tilAddProductosLaboratorio.error = "ES REQUERIDO"
+                return@setOnClickListener
+            } else if (tietAddProductosPrecio.text.toString().isEmpty()){
+                tilAddProductosPrecio.error = "ES REQUERIDO"
+                return@setOnClickListener
+            } else if (tietAddProductosCaducidad.text.toString().isEmpty()){
+                tilAddProductosCaducidad.error = "ES REQUERIDO"
+                return@setOnClickListener
+            } else if (categoriaSeleccionada == "Seleccionar"){
+                tilAddProductosCategoria.error = "ES REQUERIDO"
+                return@setOnClickListener
+            }
+
             var actPro = 0
             val nomPro = tietAddProductosNombre.text.toString()
             val labPro = tietAddProductosLaboratorio.text.toString()

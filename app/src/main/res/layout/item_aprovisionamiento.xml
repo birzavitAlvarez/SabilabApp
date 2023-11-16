@@ -1,51 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/itemCategoriasPadre"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemClientesPadre"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="600dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_width="900dp"
+        android:layout_height="80dp"
         android:background="@color/background_color"
-        android:layout_marginBottom="10dp"
-        android:weightSum="3">
+        android:orientation="horizontal"
+        android:weightSum="5">
 
         <TextView
-            android:id="@+id/tvTipo"
+            android:id="@+id/tvProductoAprovisionamiento"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
             android:layout_gravity="center"
-            android:text="@string/tipo"
-            android:textColor="@color/text"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/tvDescripcion"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/categoria_speach"
+            android:text="@string/productos_speach1"
             android:textColor="@color/text"
             android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvCantidadAprovisionamiento"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/cantidad_numero"
+            android:textColor="@color/text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvProveedorAprovisionamiento"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/proveedores_speach2"
+            android:textColor="@color/text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvFechaAprovisionamiento"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/productos_speach5"
+            android:textColor="@color/text"
+            android:textSize="16sp" />
+
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="horizontal"
             android:background="@color/background_color"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/ibCategoriasEdit"
+                android:id="@+id/ibEditAprovisionamiento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -54,7 +76,7 @@
                 tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <ImageButton
-                android:id="@+id/ibCategoriasDelete"
+                android:id="@+id/ibDeleteAprovisionamiento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -62,6 +84,7 @@
                 android:src="@drawable/ic_delete"
                 tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
         </LinearLayout>
+
     </LinearLayout>
 
     <View

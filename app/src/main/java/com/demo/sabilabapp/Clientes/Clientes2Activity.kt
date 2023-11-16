@@ -5,6 +5,8 @@ import android.os.Bundle
 import com.demo.sabilabapp.R
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
@@ -42,7 +44,7 @@ class Clientes2Activity : AppCompatActivity(), OnQueryTextListener {
         setContentView(binding?.root)
 
         id_vendedor = intent.getIntExtra("id_vendedor", 0)
-        Log.d("MiApp", "Valor de id_vendedor antes de iniciar actividad: $id_vendedor")
+//        Log.d("MiApp", "Valor de id_vendedor antes de iniciar actividad: $id_vendedor")
 
         initRecyclerView()
         listaAlEntrar(id_vendedor)
@@ -89,7 +91,9 @@ class Clientes2Activity : AppCompatActivity(), OnQueryTextListener {
             showDialogAddClientes2(id_vendedor)
         }
 
-
+        binding?.ibClientes2Refresh?.setOnClickListener {
+            listaAlEntrar(id_vendedor)
+        }
 
     }
     private fun showDialogAddClientes2(id: Int) {
@@ -125,8 +129,128 @@ class Clientes2Activity : AppCompatActivity(), OnQueryTextListener {
         ibAddClientesClose.setOnClickListener{
             dialog.dismiss()
         }
+        // TODO VALIDO CAMPOS
+        tietAddClientesRuc.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilAddClientesRuc.error = if (s!!.length < 11) "RUC INVALIDO" else null
+                if (tietAddClientesRuc.text.toString().isEmpty()){ tilAddClientesRuc.error = "RUC REQUERIDO" }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+        })
+
+        tietAddClientesRazonSocial.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilAddClientesRazonSocial.error = if (s?.any { it.isLetterOrDigit() } == true) null else "ES REQUERIDO"
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+
+        tietAddClientesNombreComercial.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilAddClientesNombreComercial.error = if (s?.any { it.isLetterOrDigit() } == true) null else "ES REQUERIDO"
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+
+        tietAddClientesDireccion1.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilAddClientesDireccion1.error = if (s?.any { it.isLetterOrDigit() } == true) null else "ES REQUERIDO"
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+
+        tietAddClientesContacto.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilAddClientesContacto.error = if (s?.any { it.isLetterOrDigit() } == true) null else "ES REQUERIDO"
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+
+        tietAddClientesTelefono1.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilAddClientesTelefono1.error = if (s?.any { it.isDigit() } == true) null else "ES REQUERIDO"
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+
+        tietAddClientesDistrito.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilAddClientesDistrito.error = if (s?.any { it.isLetterOrDigit() } == true) null else "ES REQUERIDO"
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+
+        tietAddClientesProvincia.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilAddClientesProvincia.error = if (s?.any { it.isLetterOrDigit() } == true) null else "ES REQUERIDO"
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+        // TODO FIN VALIDO CAMPO
 
         btnAddClientesGuardar.setOnClickListener{
+            //TODO VALIDO ANTES DE GUARDAR
+            if (tietAddClientesRuc.text.toString().isEmpty()){
+                tilAddClientesRuc.error = "RUC REQUERIDO"
+                return@setOnClickListener
+            } else if (tietAddClientesRazonSocial.text.toString().isEmpty()){
+                tilAddClientesRazonSocial.error = "ES REQUERIDO"
+                return@setOnClickListener
+            } else if (tietAddClientesNombreComercial.text.toString().isEmpty()){
+                tilAddClientesNombreComercial.error = "ES REQUERIDO"
+                return@setOnClickListener
+            } else if (tietAddClientesDireccion1.text.toString().isEmpty()){
+                tilAddClientesDireccion1.error = "ES REQUERIDO"
+                return@setOnClickListener
+            } else if (tietAddClientesContacto.text.toString().isEmpty()){
+                tilAddClientesContacto.error = "ES REQUERIDO"
+                return@setOnClickListener
+            } else if (tietAddClientesTelefono1.text.toString().isEmpty()){
+                tilAddClientesTelefono1.error = "ES REQUERIDO"
+                return@setOnClickListener
+            } else if (tietAddClientesDistrito.text.toString().isEmpty()){
+                tilAddClientesDistrito.error = "ES REQUERIDO"
+                return@setOnClickListener
+            } else if (tietAddClientesProvincia.text.toString().isEmpty()){
+                tilAddClientesProvincia.error = "ES REQUERIDO"
+                return@setOnClickListener
+            }
+            // TODO FIN DE VALIDAR
+
+
             val rucCli = tietAddClientesRuc.text.toString()
             val razCli = tietAddClientesRazonSocial.text.toString()
             val nomCli = tietAddClientesNombreComercial.text.toString()

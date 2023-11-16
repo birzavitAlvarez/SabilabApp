@@ -16,19 +16,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".Pedidos.Pedidos2psActivity"
-            android:exported="false"/>
-        <activity
-            android:name=".Pedidos.Pedidos2scActivity"
-            android:exported="false"/>
-        <activity
-            android:name=".Pedidos.Pedidos2Activity"
-            android:exported="false"/>
-
-
-
-        <activity
-            android:name=".Vendedores.VendedoresActivity"
+            android:name=".Aprovisionamiento.AprovisionamientoActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,10 +25,25 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".Pedidos.Pedidos2psActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Pedidos.Pedidos2scActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Pedidos.Pedidos2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Vendedores.VendedoresActivity"
+            android:exported="false" />
+        <activity
             android:name=".Clientes.ClientesActivity"
             android:exported="false" />
         <activity
             android:name=".Clientes.Clientes2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Productos.ProductosActivity"
             android:exported="false" />
         <activity
             android:name=".Productos.Productos2Activity"
@@ -51,17 +54,18 @@
         <activity
             android:name=".Categorias.CategoriasActivity"
             android:exported="false" />
-        <activity
-            android:name=".Productos.ProductosActivity"
-            android:exported="false" />
+
         <activity
             android:name=".Compras.ComprasActivity"
             android:exported="false"
             android:label="@string/title_activity_compras"
             android:theme="@style/Theme.SabilabApp" />
+
+
         <activity
             android:name=".Usuarios.UsuarioActivity"
-            android:exported="false" />
+            android:exported="false"/>
+
         <activity
             android:name=".Login.LoginActivity"
             android:exported="false" />

@@ -3,6 +3,8 @@ package com.demo.sabilabapp.Adapters
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
@@ -65,7 +67,41 @@ class UsuarioViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             dialog.dismiss()
         }
 
+
+        // TODO VALIDAR
+        tietUpdateUsuarioNombre.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilUpdateUsuarioNombre.error = if (s?.any { it.isLetterOrDigit() } == true) null else "ES REQUERIDO"
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+
+        tietUpdateUsuarioPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilUpdateUsuarioPassword.error = if (s?.any { it.isLetterOrDigit() } == true) null else "ES REQUERIDO"
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+        // TODO FIN VALIDAR
+
         btnUpdateUsuarioGuardar.setOnClickListener{
+            // TODO VALIDAR
+            if (tietUpdateUsuarioNombre.text.toString().isEmpty()){
+                tilUpdateUsuarioNombre.error = "ES REQUERIDO"
+                return@setOnClickListener
+            } else if(tietUpdateUsuarioPassword.text.toString().isEmpty()){
+                tilUpdateUsuarioPassword.error = "ES REQUERIDO"
+                return@setOnClickListener
+            }
+            // TODO FIN VALIDAR
             val nameUser = tietUpdateUsuarioNombre.text.toString()
             val passwordUser = tietUpdateUsuarioPassword.text.toString()
             CoroutineScope(Dispatchers.IO).launch {

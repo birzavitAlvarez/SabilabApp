@@ -92,7 +92,18 @@ class VendedoresViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         tietAddVendedoresTelefono1.setText(telefono1)
         tietAddVendedoresTelefono2.setText(telefono2)
         // despues se pone la seleccion del spinner
+        // TODO asdasd
+
+        if (correo.isNullOrBlank()) {
+            tilAddVendedoresCorreo.error = null
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
+            tilAddVendedoresCorreo.error = "Formato no válido"
+        } else {
+            tilAddVendedoresCorreo.error = null
+        }
+        
         tietAddVendedoresNombre.requestFocus()
+
 
         ibAddVendedoresClose.setOnClickListener{
             dialog.dismiss()
@@ -168,21 +179,46 @@ class VendedoresViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             }
         })
 
-        //
-        btnAddVendedoresGuardar.setOnClickListener{
-            var IdUserVen:Int = 0
+        tietAddVendedoresCorreo.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                validateEmail(s?.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+
+            private fun validateEmail(email: String?) {
+                if (email.isNullOrBlank()) {
+                    tilAddVendedoresCorreo.error = null
+                } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    tilAddVendedoresCorreo.error = "Formato no válido"
+                } else {
+                    tilAddVendedoresCorreo.error = null
+                }
+            }
+        })
+
+        btnAddVendedoresGuardar.setOnClickListener {
+            var IdUserVen: Int = 0
+            val emailToSave = tietAddVendedoresCorreo.text.toString()
             val vendedoresUsuarios = spAddVendedoresUsuarios.selectedItem.toString()
 
-            if (tietAddVendedoresNombre.text.toString().isEmpty()){
+            if (tietAddVendedoresNombre.text.toString().isEmpty()) {
                 tilAddVendedoresNombre.error = "Este campo es requerido"
                 return@setOnClickListener
-            } else if (tietAddVendedoresTelefono1.text.toString().isEmpty()){
+            } else if (tietAddVendedoresTelefono1.text.toString().isEmpty()) {
                 tilAddVendedoresTelefono1.error = "Este campo es requerido"
                 return@setOnClickListener
-            } else if (vendedoresUsuarios == "Seleccionar"){
+            } else if (vendedoresUsuarios == "Seleccionar") {
                 IdUserVen = id_usuarios
-            } else if(selectedUserId!! > 0){
+            } else if (selectedUserId!! > 0) {
                 IdUserVen = selectedUserId!!
+            }
+
+            if (!emailToSave.isBlank() && !android.util.Patterns.EMAIL_ADDRESS.matcher(emailToSave).matches()) {
+                tilAddVendedoresCorreo.error = "Formato no válido"
+                return@setOnClickListener
             }
 
             var actVen = 0
@@ -192,7 +228,9 @@ class VendedoresViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val corVen = tietAddVendedoresCorreo.text.toString()
             val dirVen = tietAddVendedoresDireccion.text.toString()
             val fecVen = selectedDate
-            if (activo){ actVen = 1 }
+            if (activo) {
+                actVen = 1
+            }
 
             CoroutineScope(Dispatchers.IO).launch {
                 val vendedor = Vendedores(

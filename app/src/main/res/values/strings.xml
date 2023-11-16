@@ -186,4 +186,6 @@
     <string name="cantidad_producto">Cantidad Producto</string>
     <string name="seleccionar2">SELECCIONAR</string>
     <string name="total_s">Total: S/</string>
+    <string name="nueva_compra">Nueva compra</string>
+    <string name="cantidad_numero">50</string>
 </resources>

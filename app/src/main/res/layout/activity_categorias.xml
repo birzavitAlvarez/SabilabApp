@@ -50,7 +50,7 @@
 
             <LinearLayout
                 android:id="@+id/llHeaderCategoria"
-                android:layout_width="match_parent"
+                android:layout_width="600dp"
                 android:layout_height="40dp"
                 android:background="@color/primary_color"
                 android:orientation="horizontal"

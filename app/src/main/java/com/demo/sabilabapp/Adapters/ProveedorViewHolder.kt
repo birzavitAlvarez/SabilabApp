@@ -3,6 +3,8 @@ package com.demo.sabilabapp.Adapters
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
@@ -78,7 +80,62 @@ class ProveedorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             dialog.dismiss()
         }
 
+        // TODO VALIDAR
+        tietAddProveedorRuc.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilAddProveedorRuc.error = if (s!!.length < 11) "RUC INVALIDO" else null
+                if (tietAddProveedorRuc.text.toString().isEmpty()){ tilAddProveedorRuc.error = "RUC REQUERIDO" }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+
+        tietAddProveedorRazonSocial.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tilAddProveedorRazonSocial.error = if (s?.any { it.isLetterOrDigit() } == true) null else "ES REQUERIDO"
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+
+        tietAddProveedorCorreo.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                //validateEmail(s?.toString())
+                if (s.isNullOrBlank()) {
+                    tilAddProveedorCorreo.error = null
+                } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(s).matches()) {
+                    tilAddProveedorCorreo.error = "Formato no valido"
+                } else {
+                    tilAddProveedorCorreo.error = null
+                }
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+        // TODO FIN VALIDAR
+
         btnAddProveedorGuardar.setOnClickListener{
+            // TODO VALIDAR
+            if (tietAddProveedorRuc.text.toString().isEmpty()){
+                tilAddProveedorRuc.error = "ES REQUERIDO"
+                return@setOnClickListener
+            } else if(tietAddProveedorRazonSocial.text.toString().isEmpty()){
+                tilAddProveedorRazonSocial.error = "ES REQUERIDO"
+                return@setOnClickListener
+            } else if (tietAddProveedorCorreo.text.toString().isNotEmpty() &&
+                !android.util.Patterns.EMAIL_ADDRESS.matcher(tietAddProveedorCorreo.text.toString()).matches()){
+                tilAddProveedorCorreo.error = "Formato no válido"
+                return@setOnClickListener
+            }
+            // TODO FIN VALIDAR
+
             val rucProv = tietAddProveedorRuc.text.toString()
             val razProv = tietAddProveedorRazonSocial.text.toString()
             val nomProv = tietAddProveedorNombreContacto.text.toString()
