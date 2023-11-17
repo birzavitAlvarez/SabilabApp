@@ -33,7 +33,6 @@ import com.demo.sabilabapp.Productos.Productos
 class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, OnItemUpdateListener {
 
     private var binding: ActivityPedidos2psBinding? = null
-    private var bindingDialog: ItemDialogPedidos2spProductosBinding? = null
     // data para el seleccionar productos
     private lateinit var adapter: Pedidos2psAdapter
     private val datitos = mutableListOf<ProductosSeleccionados>()
@@ -46,6 +45,7 @@ class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, 
     private var id_comprobante:Int? = null
     private var id_vendedor:Int? = null
     // adapter y data pal dialog productos
+    private var bindingDialog: ItemDialogPedidos2spProductosBinding? = null
     private lateinit var adapterProductosDialog: Pedidos2spProductosAdapter
     private val datitosProductosDialog = mutableListOf<ResultProductos>()
     var verduraDialog: Boolean = false
@@ -99,15 +99,7 @@ class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, 
 
     }
 
-    private fun postParaPedidos(
-        direccionp: String,
-        distritop: String,
-        fecha_entregap: String,
-        totalFinalp: Double,
-        id_comprobantep: Int,
-        id_vendedorp: Int,
-        id_clientep: Int
-    ) {
+    private fun postParaPedidos(direccionp: String, distritop: String, fecha_entregap: String, totalFinalp: Double,id_comprobantep: Int, id_vendedorp: Int, id_clientep: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val orders = Pedidos(direccionp, distritop, fecha_entregap, "", totalFinalp, 1, id_comprobantep, id_vendedorp, id_clientep)

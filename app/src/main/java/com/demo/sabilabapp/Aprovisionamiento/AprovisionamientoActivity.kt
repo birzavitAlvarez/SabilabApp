@@ -8,17 +8,22 @@ import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.demo.sabilabapp.R
 //
 import com.demo.sabilabapp.Adapters.AprovisionamientoAdapter// otro
+import com.demo.sabilabapp.Adapters.SequenceAprovisionamiento.AproProdAdapter
+//import com.demo.sabilabapp.Adapters.SequencePedidos.Pedidos2spProductosAdapter
 import com.demo.sabilabapp.Api.RetrofitClient.apiService
 import com.demo.sabilabapp.Aprovisionamiento.Result // otro
 import com.demo.sabilabapp.databinding.ActivityAprovisionamientoBinding //
+import com.demo.sabilabapp.databinding.ItemDialogPedidos2spProductosBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Calendar
 import java.util.Locale
+import com.demo.sabilabapp.Productos.Result as ResultProductos
 
 class AprovisionamientoActivity : AppCompatActivity() {
 
@@ -32,6 +37,16 @@ class AprovisionamientoActivity : AppCompatActivity() {
 
     var idProveedores: Int = 0
     var idProductos: Int = 0
+
+    //
+    // adapter y data pal dialog productos
+    private var bindingDialog: ItemDialogPedidos2spProductosBinding? = null
+    private lateinit var adapterProductosDialog: AproProdAdapter
+    private val datitosProductosDialog = mutableListOf<ResultProductos>()
+    var verduraDialog: Boolean = false
+    private var currentPageDialog: Int = 1
+    private var totalPagesDialog: Int = 1
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,10 +116,193 @@ class AprovisionamientoActivity : AppCompatActivity() {
 
     private fun showDialogProductosAprovi() {
         val dialog = Dialog(this)
-        dialog.setContentView(R.layout.item_dialog_pedidos2sp_productos)
+        bindingDialog = ItemDialogPedidos2spProductosBinding.inflate(layoutInflater)
+        dialog.setContentView(bindingDialog?.root!!)
+
+        // iniciando el recycler view de productos
+        val rvPedidos2spProductos: RecyclerView = dialog.findViewById(R.id.rvPedidos2spProductos)
+        adapterProductosDialog = AproProdAdapter(datitosProductosDialog)
+        rvPedidos2spProductos.layoutManager = LinearLayoutManager(this)
+        rvPedidos2spProductos.adapter = adapterProductosDialog
+        //listar
+        listaAlEntrarDialog(rvPedidos2spProductos, adapterProductosDialog)
+        var nombrepro: String = ""
+
+        bindingDialog?.ibPedidos2spProductosClose?.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        bindingDialog?.btnPedidos2spProductosBuscar?.setOnClickListener {
+            nombrepro = bindingDialog?.tietPedidos2spProductosNombre?.text.toString()
+            if (nombrepro.isEmpty()){
+                listaAlEntrarDialog(rvPedidos2spProductos, adapterProductosDialog)
+            } else {
+                searchByItemDialog(nombrepro)
+            }
+        }
+
+        // pagina siguiente
+        bindingDialog?.ibPedidos2spProductosNext?.setOnClickListener {
+            if (currentPageDialog < totalPagesDialog) {
+                currentPageDialog += 1
+                if (verduraDialog) {
+                    val query = bindingDialog?.tietPedidos2spProductosNombre?.text?.toString()
+                    if (!query.isNullOrBlank()) {
+                        nextPageSearchDialog(query,currentPageDialog)
+                    }
+                } else {
+                    nextPageDialog(currentPageDialog)
+                }
+            }
+        }
+        // pagina anterior
+        bindingDialog?.ibPedidos2spProductosBefore?.setOnClickListener {
+            if (currentPageDialog > 1) {
+                currentPageDialog -= 1
+                if (verduraDialog) {
+                    val query = bindingDialog?.tietPedidos2spProductosNombre?.text?.toString()
+                    if (!query.isNullOrBlank()) {
+                        nextPageSearchDialog(query,currentPageDialog)
+                    }
+                } else {
+                    nextPageDialog(currentPageDialog)
+                }
+            }
+        }
 
         dialog.show()
     }
+
+    @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
+    private fun nextPageDialog(np: Int){
+        CoroutineScope(Dispatchers.IO).launch {
+            val request0 = apiService.paginaProductos(np)
+            val response0 = request0.body()
+            runOnUiThread {
+                if (request0.isSuccessful) {
+                    val dataItems = response0?.data?.results ?: emptyList()
+                    datitosProductosDialog.clear()
+                    datitosProductosDialog.addAll(dataItems)
+                    adapterProductosDialog.notifyDataSetChanged()
+                    val pagination = response0?.data?.pagination
+                    if (pagination != null) {
+                        currentPageDialog = pagination.currentPage
+                        totalPagesDialog = pagination.totalPages
+                        bindingDialog?.tvPedidos2spProductosNumeroPagina?.text = "$currentPageDialog/$totalPagesDialog"
+                    } else {showErrorDialog()}
+                } else { showErrorDialog() }
+            }
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
+    private fun nextPageSearchDialog(query:String,np: Int){
+        CoroutineScope(Dispatchers.IO).launch {
+            val request0 = apiService.listarProductosPorNombreYPage(query, np)//.body()
+            val response0 = request0.body()
+            runOnUiThread {
+                if (request0.isSuccessful) {
+                    val dataItems = response0?.data?.results ?: emptyList()
+                    datitosProductosDialog.clear()
+                    datitosProductosDialog.addAll(dataItems)
+                    adapterProductosDialog.notifyDataSetChanged()
+                    val pagination = response0?.data?.pagination
+                    pagination?.currentPage!!.also { currentPageDialog = it }
+                    pagination.totalPages.also { totalPagesDialog = it }
+                    bindingDialog?.tvPedidos2spProductosNumeroPagina?.text = "$currentPageDialog/$totalPagesDialog"
+                } else {
+                    showErrorDialog()
+                }
+            }
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun searchByItemDialog(nombrepro: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val request0 = apiService.listarProductosPorFiltro(nombrepro)
+            val response0 = request0.body()
+            runOnUiThread {
+                if (request0.isSuccessful) {
+                    val dataItems = response0?.data?.results ?: emptyList()
+                    datitosProductosDialog.clear()
+                    datitosProductosDialog.addAll(dataItems)
+                    adapterProductosDialog.notifyDataSetChanged()
+                    performSearchDialog(nombrepro)
+                } else { showErrorDialog() }
+                hideKeyboardDialog()
+                getCurrentAndTotalDialog()
+            }
+        }
+    }
+
+    private fun hideKeyboardDialog() {
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(bindingDialog?.vistaPedidos2spProductosPadre?.windowToken,0)
+    }
+
+    @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
+    private fun performSearchDialog(nombrepro: String?) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = apiService.listarProductosPorFiltro(nombrepro ?: "").body()
+            runOnUiThread {
+                if (response != null && response.status == 200) {
+                    val pagination = response.data.pagination
+                    currentPageDialog = pagination.currentPage
+                    totalPagesDialog = pagination.totalPages
+                    bindingDialog?.tvPedidos2spProductosNumeroPagina?.text = "$currentPageDialog/$totalPagesDialog"
+                    verduraDialog = true
+                    adapterProductosDialog.notifyDataSetChanged()
+                } else { showErrorDialog() }
+            }
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun listaAlEntrarDialog(recyclerView: RecyclerView, adapter: RecyclerView.Adapter<*>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val request0 = apiService.listProductosTrue()
+            val response0 = request0.body()
+            runOnUiThread {
+                if (request0.isSuccessful) {
+                    val dataItems = response0?.data?.results ?: emptyList()
+                    (adapter as AproProdAdapter).updateList(dataItems)
+                    recyclerView.layoutManager?.scrollToPosition(0)
+                    getCurrentAndTotalDialog()
+                    verduraDialog = false
+                } else {
+                    showErrorDialog()
+                }
+            }
+        }
+    }
+    @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
+    private fun getCurrentAndTotalDialog(){
+        CoroutineScope(Dispatchers.IO).launch {
+            val request0 = apiService.listProductosTrue()
+            val response0 = request0.body()
+            runOnUiThread {
+                if (request0.isSuccessful) {
+                    val pagination = response0?.data?.pagination
+                    if (pagination != null) {
+                        currentPageDialog = pagination.currentPage
+                        totalPagesDialog = pagination.totalPages
+                        // Actualiza la vista de paginación en tu diálogo principal
+                        bindingDialog?.tvPedidos2spProductosNumeroPagina?.text = "$currentPageDialog/$totalPagesDialog"
+                    }
+                    adapterProductosDialog.notifyDataSetChanged()
+                } else {
+                    showErrorDialog()
+                }
+            }
+
+        }
+    }
+
+    private fun showErrorDialog() {
+        Toast.makeText(this, "Ha ocurrido un error", Toast.LENGTH_SHORT).show()
+    }
+
 
     @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     private fun nextPage(np: Int){

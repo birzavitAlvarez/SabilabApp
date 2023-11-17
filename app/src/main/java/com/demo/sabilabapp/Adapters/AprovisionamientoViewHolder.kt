@@ -63,7 +63,7 @@ class AprovisionamientoViewHolder(itemView: View) : RecyclerView.ViewHolder(item
 
         //llenando datos para el update
         tvCantidadPedidosPsTitle.text = "Actualizar Compra"
-        tietCantidadPedidosPsCantidad.setText(cantidad)
+        tietCantidadPedidosPsCantidad.setText(cantidad.toString())
         tietCantidadPedidosPsCantidad.requestFocus()
 
         ibCantidadPedidosPsClose.setOnClickListener{
@@ -97,7 +97,6 @@ class AprovisionamientoViewHolder(itemView: View) : RecyclerView.ViewHolder(item
                 apiService.updateAprovisionamiento(aprovi, idCompras)
 
                 val updatedData = apiService.listAprovisionamiento().body()?.data?.results
-
                 (itemView.context as? AppCompatActivity)?.runOnUiThread {
                     if (updatedData != null) {
                         (itemView.context as? AppCompatActivity)?.let {
