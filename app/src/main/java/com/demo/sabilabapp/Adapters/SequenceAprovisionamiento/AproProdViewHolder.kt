@@ -59,7 +59,8 @@ class AproProdViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         // iniciando el recycler view de proveedores
         val rvProveedorApro: RecyclerView = dialog.findViewById(R.id.rvDialogProveedor)
-        adapterDialog = AproProveedorAdapter(datitosDialog)
+        //                                             TODO MANDO EL IDPRODUCTO
+        adapterDialog = AproProveedorAdapter(datitosDialog,id_productos)
         rvProveedorApro.layoutManager = LinearLayoutManager(context)
         rvProveedorApro.adapter = adapterDialog
         //listar

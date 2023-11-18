@@ -3,6 +3,7 @@ package com.demo.sabilabapp.Adapters.SequenceAprovisionamiento
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.demo.sabilabapp.Adapters.ProveedorAdapter
 import com.demo.sabilabapp.Api.RetrofitClient.apiService
+import com.demo.sabilabapp.Aprovisionamiento.AprovisionamientoActivity
 import com.demo.sabilabapp.R
 import com.demo.sabilabapp.Proveedores.Result // otro
 import com.demo.sabilabapp.Aprovisionamiento.AprovisionamientoPost//para agregar
@@ -35,11 +37,11 @@ class AproProveedorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
 
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun bind (query: Result){
+    fun bind (query: Result, idProductos: Int){
         binding.tvRazonSocialDialogProveedor.text = query.razon_social
 
         binding.ibSeleccionarDialogProveedor.setOnClickListener{
-            showDialogCantidadProveedor(itemView.context,query.id_proveedores)
+            showDialogCantidadProveedor(itemView.context, query.id_proveedores, idProductos)
         }
 
 
@@ -47,7 +49,7 @@ class AproProveedorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
-    private fun showDialogCantidadProveedor(context: Context,id_proveedores:Int){
+    private fun showDialogCantidadProveedor(context: Context,id_proveedores:Int, idProductos: Int){
         val dialog = Dialog(context)
         dialog.setContentView(R.layout.item_cantidad_pedidos_ps)
 
@@ -87,11 +89,14 @@ class AproProveedorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
             val fecha_del_dia = obtenerFechaActual()
 
             CoroutineScope(Dispatchers.IO).launch {
-                val proveedor = AprovisionamientoPost(cantidad,fecha_del_dia,id_proveedores,1)
+                val proveedor = AprovisionamientoPost(cantidad,fecha_del_dia,id_proveedores,idProductos)
                 apiService.createAprovisionamiento(proveedor)
 
                 //
                 dialog.dismiss()
+                val anny = Intent(itemView.context, AprovisionamientoActivity::class.java)
+                anny.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                itemView.context.startActivity(anny)
             }
 
         }

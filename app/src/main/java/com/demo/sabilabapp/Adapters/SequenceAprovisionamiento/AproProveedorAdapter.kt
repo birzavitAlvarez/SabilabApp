@@ -9,7 +9,7 @@ import com.demo.sabilabapp.Adapters.ProveedorViewHolder
 import com.demo.sabilabapp.R
 import com.demo.sabilabapp.Proveedores.Result
 
-class AproProveedorAdapter(private val itemsList: MutableList<Result>) : RecyclerView.Adapter<AproProveedorViewHolder>() {
+class AproProveedorAdapter(private val itemsList: MutableList<Result>, private val idProductos: Int) : RecyclerView.Adapter<AproProveedorViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AproProveedorViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_data_dialog_proveedor, parent, false)
@@ -19,7 +19,7 @@ class AproProveedorAdapter(private val itemsList: MutableList<Result>) : Recycle
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: AproProveedorViewHolder, position: Int) {
         val proveedor = itemsList[position]
-        holder.bind(proveedor)
+        holder.bind(proveedor, idProductos)
     }
 
     override fun getItemCount() = itemsList.size
