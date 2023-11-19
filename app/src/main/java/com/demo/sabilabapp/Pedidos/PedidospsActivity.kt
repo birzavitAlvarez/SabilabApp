@@ -11,51 +11,46 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.demo.sabilabapp.R
-import com.demo.sabilabapp.databinding.ActivityPedidos2psBinding
-// para la lista de productos seleccionados
-import com.demo.sabilabapp.Adapters.SequencePedidos.Pedidos2psAdapter
-import com.demo.sabilabapp.Adapters.SequencePedidos.OnProductoSeleccionadoListener // interface
-// dialog data
-import com.demo.sabilabapp.Adapters.SequencePedidos.Pedidos2spProductosAdapter
+//
+import com.demo.sabilabapp.Adapters.SequenceAdmin.OnItemUpdateListenerAdmin
+import com.demo.sabilabapp.Adapters.SequenceAdmin.OnProductoSeleccionadoListenerAdmin
+import com.demo.sabilabapp.Adapters.SequenceAdmin.PedidospsAdapter
+import com.demo.sabilabapp.databinding.ActivityPedidospsBinding
+import com.demo.sabilabapp.databinding.ItemDialogPedidos2spProductosBinding
+import com.demo.sabilabapp.Adapters.SequenceAdmin.PedidosspProductosAdapter
 import com.demo.sabilabapp.Api.RetrofitClient.apiService
+import com.demo.sabilabapp.DetallePedido.DetallePedidoPost
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import com.demo.sabilabapp.Productos.Result as ResultProductos
-//
-import com.demo.sabilabapp.databinding.ItemDialogPedidos2spProductosBinding
-import com.demo.sabilabapp.Adapters.SequencePedidos.OnItemUpdateListener
-// para post
-import com.demo.sabilabapp.Pedidos.Pedidos
-import com.demo.sabilabapp.DetallePedido.DetallePedidoPost
-import com.demo.sabilabapp.Productos.Productos
 
-class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, OnItemUpdateListener {
 
-    private var binding: ActivityPedidos2psBinding? = null
+class PedidospsActivity : AppCompatActivity(), OnProductoSeleccionadoListenerAdmin, OnItemUpdateListenerAdmin {
+
+    private var binding: ActivityPedidospsBinding? = null
     // data para el seleccionar productos
-    private lateinit var adapter: Pedidos2psAdapter
+    private lateinit var adapter: PedidospsAdapter
     private val datitos = mutableListOf<ProductosSeleccionados>()
     //
-
     private var id_cliente:Int? = null
     private var direccion:String? = null
     private var distrito:String? = null
     private var fecha_entrega:String? = null
     private var id_comprobante:Int? = null
     private var id_vendedor:Int? = null
+
     // adapter y data pal dialog productos
     private var bindingDialog: ItemDialogPedidos2spProductosBinding? = null
-    private lateinit var adapterProductosDialog: Pedidos2spProductosAdapter
+    private lateinit var adapterProductosDialog: PedidosspProductosAdapter
     private val datitosProductosDialog = mutableListOf<ResultProductos>()
     var verduraDialog: Boolean = false
     private var currentPageDialog: Int = 1
     private var totalPagesDialog: Int = 1
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityPedidos2psBinding.inflate(layoutInflater)
+        binding = ActivityPedidospsBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
         val extras = intent.extras
@@ -69,32 +64,31 @@ class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, 
         }
         initRecyclerView()
 
-        binding?.btnPedidos2psRegresar?.setOnClickListener {
+        binding?.btnPedidospsRegresar?.setOnClickListener {
             onBackPressed()
         }
 
-        binding?.ibPedidos2psCancelar?.setOnClickListener {
-            val anny = Intent(this@Pedidos2psActivity, Pedidos2Activity::class.java)
-            anny.putExtra("id_vendedor", id_vendedor)
+        binding?.ibPedidospsCancelar?.setOnClickListener {
+            val anny = Intent(this@PedidospsActivity, PedidosActivity::class.java)
+            //anny.putExtra("id_vendedor", id_vendedor)
             startActivity(anny)
         }
 
-        binding?.btnPedidos2psAgregarProductos?.setOnClickListener {
-            showDialogPedidos2psProductos()
+        binding?.btnPedidospsAgregarProductos?.setOnClickListener {
+            showDialogPedidospsProductos()
         }
 
-        binding?.btnPedidos2psFinalizarPedido?.setOnClickListener {
+        binding?.btnPedidospsFinalizarPedido?.setOnClickListener {
             postParaPedidos(
                 direccion.toString(),
                 distrito.toString(),
                 fecha_entrega.toString(),
-                binding?.tvPedidos2psTotal?.text.toString().toDouble(),
+                binding?.tvPedidospsTotal?.text.toString().toDouble(),
                 id_comprobante.toString().toInt(),
                 id_vendedor.toString().toInt(),
                 id_cliente.toString().toInt()
             )
         }
-
     }
 
     private fun postParaPedidos(direccionp: String, distritop: String, fecha_entregap: String, totalFinalp: Double,id_comprobantep: Int, id_vendedorp: Int, id_clientep: Int) {
@@ -118,12 +112,12 @@ class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, 
                                     apiService.createDetallePedido(detallePedido)
                                 }
                             }
-                            val anny = Intent(this@Pedidos2psActivity, Pedidos2Activity::class.java)
-                            anny.putExtra("id_vendedor", id_vendedorp)
+                            val anny = Intent(this@PedidospsActivity, PedidosActivity::class.java)
+                            //anny.putExtra("id_vendedor", id_vendedorp)
                             startActivity(anny)
                         } else {
                             Toast.makeText(
-                                this@Pedidos2psActivity,
+                                this@PedidospsActivity,
                                 "Error al obtener el ID del pedido",
                                 Toast.LENGTH_SHORT
                             ).show()
@@ -132,7 +126,7 @@ class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, 
                 } else {
                     runOnUiThread {
                         Toast.makeText(
-                            this@Pedidos2psActivity,
+                            this@PedidospsActivity,
                             "Error al crear el pedido: ${response.message()}",
                             Toast.LENGTH_SHORT
                         ).show()
@@ -142,7 +136,7 @@ class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, 
                 e.printStackTrace()
                 runOnUiThread {
                     Toast.makeText(
-                        this@Pedidos2psActivity,
+                        this@PedidospsActivity,
                         "Error al crear el pedido: ${e.message}",
                         Toast.LENGTH_SHORT
                     ).show()
@@ -151,27 +145,7 @@ class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, 
         }
     }
 
-
-
-    @SuppressLint("NotifyDataSetChanged")
-    override fun onProductoSeleccionado(productosSeleccionados: ProductosSeleccionados) {
-        datitos.add(productosSeleccionados)
-        adapter.notifyDataSetChanged()
-        actualizarTotal()
-    }
-
-    private fun actualizarTotal() {
-        var totalps: Double = 0.0
-        for (producto in datitos) {
-            totalps += producto.total
-        }
-        val totalFormateado = String.format("%.2f", totalps)
-        binding?.tvPedidos2psTotal?.text = totalFormateado
-    }
-
-
-
-    private fun showDialogPedidos2psProductos() {
+    private fun showDialogPedidospsProductos() {
         val dialog = Dialog(this)
         //dialog.setContentView(R.layout.item_dialog_pedidos2sp_productos)
         bindingDialog = ItemDialogPedidos2spProductosBinding.inflate(layoutInflater)
@@ -181,17 +155,16 @@ class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, 
 
         // iniciando el recycler view de productos
         val rvPedidos2spProductos: RecyclerView = dialog.findViewById(R.id.rvPedidos2spProductos)
-        adapterProductosDialog = Pedidos2spProductosAdapter(datitosProductosDialog,this)
+        adapterProductosDialog = PedidosspProductosAdapter(datitosProductosDialog,this)
         rvPedidos2spProductos.layoutManager = LinearLayoutManager(this)
         rvPedidos2spProductos.adapter = adapterProductosDialog
         // lista para la vista del rv
         listaAlEntrarDialog(rvPedidos2spProductos, adapterProductosDialog)
 
-
         bindingDialog?.ibPedidos2spProductosClose?.setOnClickListener {
             dialog.dismiss()
         }
-
+        //
         bindingDialog?.btnPedidos2spProductosBuscar?.setOnClickListener {
             nombrepro = bindingDialog?.tietPedidos2spProductosNombre?.text.toString()
             if (nombrepro.isEmpty()){
@@ -200,7 +173,7 @@ class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, 
                 searchByItemDialog(nombrepro)
             }
         }
-
+        //
         // pagina siguiente
         bindingDialog?.ibPedidos2spProductosNext?.setOnClickListener {
             if (currentPageDialog < totalPagesDialog) {
@@ -229,7 +202,6 @@ class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, 
                 }
             }
         }
-
 
         dialog.show()
     }
@@ -297,6 +269,11 @@ class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, 
         }
     }
 
+    private fun hideKeyboardDialog() {
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(bindingDialog?.vistaPedidos2spProductosPadre?.windowToken,0)
+    }
+
     @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     private fun performSearchDialog(nombrepro: String?) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -314,11 +291,6 @@ class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, 
         }
     }
 
-    private fun hideKeyboardDialog() {
-        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(bindingDialog?.vistaPedidos2spProductosPadre?.windowToken,0)
-    }
-
     @SuppressLint("NotifyDataSetChanged")
     private fun listaAlEntrarDialog(recyclerView: RecyclerView, adapter: RecyclerView.Adapter<*>) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -327,7 +299,7 @@ class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, 
             runOnUiThread {
                 if (request0.isSuccessful) {
                     val dataItems = response0?.data?.results ?: emptyList()
-                    (adapter as Pedidos2spProductosAdapter).updateList(dataItems)
+                    (adapter as PedidosspProductosAdapter).updateList(dataItems)
                     recyclerView.layoutManager?.scrollToPosition(0)
                     getCurrentAndTotalDialog()
                     verduraDialog = false
@@ -365,14 +337,29 @@ class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, 
         }
     }
 
-
     private fun initRecyclerView() {
-        adapter = Pedidos2psAdapter(datitos,this)
-        binding?.rvPedidos2ps?.layoutManager = LinearLayoutManager(this)
-        binding?.rvPedidos2ps?.adapter = adapter
+        adapter = PedidospsAdapter(datitos,this) // TODO
+        binding?.rvPedidosps?.layoutManager = LinearLayoutManager(this)
+        binding?.rvPedidosps?.adapter = adapter
     }
 
-    override fun onItemUpdated() {
+    override fun onItemUpdatedAdmin() {
+        actualizarTotal()
+    }
+
+    private fun actualizarTotal() {
+        var totalps: Double = 0.0
+        for (producto in datitos) {
+            totalps += producto.total
+        }
+        val totalFormateado = String.format("%.2f", totalps)
+        binding?.tvPedidospsTotal?.text = totalFormateado
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onProductoSeleccionadoAdmin(productosSeleccionados: ProductosSeleccionados) {
+        datitos.add(productosSeleccionados)
+        adapter.notifyDataSetChanged()
         actualizarTotal()
     }
 

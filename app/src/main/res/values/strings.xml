@@ -189,4 +189,5 @@
     <string name="nueva_compra">Nueva compra</string>
     <string name="cantidad_numero">50</string>
     <string name="escoger">ESCOGER</string>
+    <string name="fecha_llegada">FECHA LLEGADA</string>
 </resources>

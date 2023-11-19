@@ -34,8 +34,6 @@ class AproProveedorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
 
     private val binding: ItemDataDialogProveedorBinding = ItemDataDialogProveedorBinding.bind(itemView)
 
-
-
     @RequiresApi(Build.VERSION_CODES.O)
     fun bind (query: Result, idProductos: Int){
         binding.tvRazonSocialDialogProveedor.text = query.razon_social

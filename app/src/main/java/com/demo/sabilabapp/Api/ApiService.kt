@@ -28,7 +28,6 @@ import com.demo.sabilabapp.Usuarios.Usuario
 import com.demo.sabilabapp.Usuarios.UsuariosResponse
 import com.demo.sabilabapp.Vendedores.Vendedores
 import com.demo.sabilabapp.Vendedores.VendedoresResponse
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -265,9 +264,24 @@ interface ApiService {
     @DELETE("api/pedido/desactivar/{id}")
     suspend fun deletePedido(@Path("id") id: Int)
 
-    // ADMIN LISTA al entrar
+    // TODO ADMIN LISTA al entrar
     @GET("api/pedido/filtrar")
-    suspend fun listPedidosVendedorTrue(@Query("fecha") fecha: String): Response<PedidosResponse>
+    suspend fun listPedidosAdminTrue(@Query("fecha") fecha: String): Response<PedidosResponse>
+    // paginacion de lista al entrar admin
+    @GET("api/pedido/filtrar")
+    suspend fun paginaPedidosAdminTrue(@Query("fecha") fecha: String, @Query("page") pagina: Int): Response<PedidosResponse>
+
+    // Filtrar por fecha y nombre query
+    @GET("api/pedido/filtrar")
+    suspend fun listarAdminPedidosPorFiltro(@Query("fecha") fecha: String, @Query("nombre") nombre: String): Response<PedidosResponse>
+
+    //Paginacion de filtrar por fecha y nombre query
+    @GET("api/pedido/filtrar")
+    suspend fun listarAdminPedidosPorNombreYPage(@Query("fecha") fecha: String, @Query("nombre") nombre: String, @Query("page") pagina: Int): Response<PedidosResponse>
+
+    //
+
+
     // TODO FIN PEDIDOS
 
     // TODO DETALLEPEDIDO

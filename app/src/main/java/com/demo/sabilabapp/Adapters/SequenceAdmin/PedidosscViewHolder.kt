@@ -1,4 +1,4 @@
-package com.demo.sabilabapp.Adapters.SequencePedidos
+package com.demo.sabilabapp.Adapters.SequenceAdmin
 
 import android.app.DatePickerDialog
 import android.app.Dialog
@@ -16,9 +16,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.demo.sabilabapp.Api.RetrofitClient
+import com.demo.sabilabapp.Api.RetrofitClient.apiService
 import com.demo.sabilabapp.Clientes.Result
-import com.demo.sabilabapp.Pedidos.Pedidos2psActivity
+import com.demo.sabilabapp.Pedidos.PedidospsActivity
 import com.demo.sabilabapp.R
 import com.demo.sabilabapp.databinding.ItemPedidos2scBinding
 import com.google.android.material.textfield.TextInputEditText
@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
 import java.util.Calendar
 import java.util.Locale
 
-class Pedidos2scViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class PedidosscViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private val binding: ItemPedidos2scBinding = ItemPedidos2scBinding.bind(itemView)
 
@@ -85,7 +85,7 @@ class Pedidos2scViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         // llenar spinner comprobantes
         CoroutineScope(Dispatchers.IO).launch {
-            val response = RetrofitClient.apiService.listComprobante().body()
+            val response = apiService.listComprobante().body()
             (itemView.context as? AppCompatActivity)?.runOnUiThread {
                 if (response != null && response.status == 200) {
                     val categoriasList = response.data.map { it.tipo_comprobante }
@@ -103,7 +103,7 @@ class Pedidos2scViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var selectedComprobanteId: Int? = null
 
         CoroutineScope(Dispatchers.IO).launch {
-            val response = RetrofitClient.apiService.listCategory().body()
+            val response = apiService.listCategory().body()
             spDatosEnvioComprobante.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     selectedComprobanteId = if (position > 0) {
@@ -158,7 +158,7 @@ class Pedidos2scViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             } else if (comprobanteSeleccionado == "Seleccionar") {
                 tilDatosEnvioComprobante.error = "Este campo es requerido"
             } else {
-                val intent = Intent(context, Pedidos2psActivity::class.java)
+                val intent = Intent(context, PedidospsActivity::class.java)
                 intent.putExtra("id_cliente", id_cliente)
                 intent.putExtra("direccion", tietDatosEnvioDireccion.text.toString())
                 intent.putExtra("distrito", tietDatosEnvioDistrito.text.toString())

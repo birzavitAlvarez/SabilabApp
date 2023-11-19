@@ -6,7 +6,7 @@ data class Result(
     val distrito: String,
     val fecha_pedido: String,
     val fecha_entrega: String,
-    val fecha_llegada: Any,
+    val fecha_llegada: String,
     val total_pedido: Double,
     val activo: Boolean,
     val id_comprobante: Int,

@@ -1,4 +1,4 @@
-package com.demo.sabilabapp.Adapters.SequencePedidos
+package com.demo.sabilabapp.Adapters.SequenceAdmin
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,17 +6,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.demo.sabilabapp.R
 import com.demo.sabilabapp.Pedidos.ProductosSeleccionados
 
-class Pedidos2psAdapter(
-    internal val itemsList: MutableList<ProductosSeleccionados>,
-    private val listener: OnItemUpdateListener
-) : RecyclerView.Adapter<Pedidos2psViewHolder>() {
+class PedidospsAdapter(internal val itemsList: MutableList<ProductosSeleccionados>, private val listener: OnItemUpdateListenerAdmin) : RecyclerView.Adapter<PedidospsViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Pedidos2psViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PedidospsViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_pedidos2ps, parent, false)
-        return Pedidos2psViewHolder(itemView,this)
+        return PedidospsViewHolder(itemView,this)
     }
 
-    override fun onBindViewHolder(holder: Pedidos2psViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PedidospsViewHolder, position: Int) {
         val items_data = itemsList[position]
         holder.bind(items_data,this)
     }
@@ -35,7 +32,7 @@ class Pedidos2psAdapter(
         if (position >= 0 && position < itemsList.size) {
             itemsList.removeAt(position)
             notifyItemRemoved(position)
-            listener.onItemUpdated()
+            listener.onItemUpdatedAdmin()
         }
     }
 

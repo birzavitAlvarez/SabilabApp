@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemPedidosPadre"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="1300dp"
+        android:layout_height="100dp"
+        android:background="@color/background_color"
+        android:orientation="horizontal"
+        android:weightSum="7">
+
+        <TextView
+            android:id="@+id/tvClientePedidos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/clientes_speach3"
+            android:textColor="@color/text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvDireccionPedidos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/clientes_speach4"
+            android:textColor="@color/text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvFechaPedidoPedidos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/vendedores_speach6"
+            android:textColor="@color/text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvFechaEntregaPedidos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/vendedores_speach6"
+            android:textColor="@color/text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvFechaLlegadaPedidos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/vendedores_speach6"
+            android:textColor="@color/text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvTotalPedidos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/total"
+            android:textColor="@color/text"
+            android:textSize="16sp" />
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/background_color"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/ibPedidosSheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/secondary_color"
+                android:src="@drawable/ic_seleccionar"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <ImageButton
+                android:id="@+id/ibPedidosEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/primary_color"
+                android:src="@drawable/ic_edit"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <ImageButton
+                android:id="@+id/ibPedidosDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/error_color"
+                android:src="@drawable/ic_delete"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/primary_color" />
+</LinearLayout>
