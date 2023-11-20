@@ -297,6 +297,7 @@ interface ApiService {
     //Actualizar Cantidad_obtenida
     @PUT("api/detallepedido/{id}")
     suspend fun updateDetallePedido(@Body detallePedidoCantidad: DetallePedidoCantidad, @Path("id") id: Int)
+
     // TODO FIN DETALLEPEDIDO
 
     // TODO Aprovisionamiento (compras)

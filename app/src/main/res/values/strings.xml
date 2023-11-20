@@ -190,4 +190,6 @@
     <string name="cantidad_numero">50</string>
     <string name="escoger">ESCOGER</string>
     <string name="fecha_llegada">FECHA LLEGADA</string>
+    <string name="objetivo">OBJETIVO</string>
+    <string name="obtenido">OBTENIDO</string>
 </resources>
