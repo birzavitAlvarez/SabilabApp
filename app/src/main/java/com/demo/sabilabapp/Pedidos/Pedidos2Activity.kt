@@ -37,7 +37,7 @@ import java.util.Calendar
 
 class Pedidos2Activity : AppCompatActivity() {
 
-    var id_vendedor: Int = 4 // pasar al activity
+    var id_vendedor: Int = 0 // pasar al activity
 
 
     private var binding: ActivityPedidos2Binding? = null
@@ -56,7 +56,7 @@ class Pedidos2Activity : AppCompatActivity() {
         setContentView(binding?.root)
         var selectedDate: String = ""
         var nomcome: String = ""
-        //id_vendedor = intent.getIntExtra("id_vendedor", 0)
+        id_vendedor = intent.getIntExtra("id_vendedor", 0)
         //Log.d("MiApp", "Valor de id_vendedor antes de iniciar actividad: $id_vendedor")
         val fecha_del_dia = obtenerFechaActual()
 
@@ -248,7 +248,7 @@ class Pedidos2Activity : AppCompatActivity() {
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding?.vistaPedidos2Padre?.windowToken,0)
     }
-    //listarPedidosPorFiltro
+
     @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     private fun performSearch(id: Int,query: String?,query2: String? ) {
         CoroutineScope(Dispatchers.IO).launch {

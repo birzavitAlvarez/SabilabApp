@@ -1,5 +1,6 @@
 package com.demo.sabilabapp.Adapters.SequenceAdmin
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -27,10 +28,10 @@ class CumplimientoPedidoAdapter(private val itemsList: MutableList<Data>) : Recy
         }
     }
     //
+    @SuppressLint("NotifyDataSetChanged")
     fun updateList(newData: List<Data>) {
         itemsList.clear()
         itemsList.addAll(newData)
         notifyDataSetChanged()
     }
-
 }

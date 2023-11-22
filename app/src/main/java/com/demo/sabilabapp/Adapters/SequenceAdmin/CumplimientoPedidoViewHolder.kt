@@ -3,16 +3,15 @@ package com.demo.sabilabapp.Adapters.SequenceAdmin
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
-import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
-import androidx.annotation.RequiresApi
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.demo.sabilabapp.Adapters.ProductosAdapter
 import com.demo.sabilabapp.Api.RetrofitClient.apiService
 import com.demo.sabilabapp.R
 import com.demo.sabilabapp.DetallePedido.Data // otro
@@ -23,9 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-
+import kotlinx.coroutines.withContext
 
 class CumplimientoPedidoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -33,7 +30,7 @@ class CumplimientoPedidoViewHolder(itemView: View) : RecyclerView.ViewHolder(ite
 
     fun bind (query: Data){
         binding.tvDataCumplimientoPedidoNombreProductos.text = query.nombre
-        binding.tvDataCumplimientoPedidoObtenido.text = query.cantidad_obtenida.toString()
+        binding.tvDataCumplimientoPedidoObjetivo.text = query.cantidad_objetiva.toString()
 
         binding.ibDataCumplimientoPedidoEdit.setOnClickListener{
             showDialogEditCumpliPedido(itemView.context,query.id_detallepedido,query.cantidad_obtenida, query.id_pedido, query.cantidad_objetiva)
@@ -43,16 +40,18 @@ class CumplimientoPedidoViewHolder(itemView: View) : RecyclerView.ViewHolder(ite
 
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     private fun showDialogEditCumpliPedido(context: Context,id_detallepedido:Int,cantidad_obtenida:Int, id_pedido:Int, cantidad_objetiva:Int){
         val dialog = Dialog(context)
         dialog.setContentView(R.layout.item_cantidad_pedidos_ps)
 
+        val tvCantidadPedidosPsTitle: TextView = dialog.findViewById(R.id.tvCantidadPedidosPsTitle)
         val ibCantidadPedidosPsClose: ImageButton = dialog.findViewById(R.id.ibCantidadPedidosPsClose)
         val tilCantidadPedidosPsCantidad: TextInputLayout = dialog.findViewById(R.id.tilCantidadPedidosPsCantidad)
         val tietCantidadPedidosPsCantidad: TextInputEditText = dialog.findViewById(R.id.tietCantidadPedidosPsCantidad)
         val btnCantidadPedidosPsGuardar: Button = dialog.findViewById(R.id.btnCantidadPedidosPsGuardar)
 
+        tvCantidadPedidosPsTitle.setText("Cantidad Obtenida")
         tietCantidadPedidosPsCantidad.setText(cantidad_obtenida.toString())
 
         ibCantidadPedidosPsClose.setOnClickListener {
@@ -90,19 +89,9 @@ class CumplimientoPedidoViewHolder(itemView: View) : RecyclerView.ViewHolder(ite
                 CoroutineScope(Dispatchers.IO).launch {
                     val detallepedido = DetallePedidoCantidad(cantidadInput.toInt())
                     apiService.updateDetallePedido(detallepedido, id_detallepedido)
-
-                    val updatedData = apiService.listDetallePedidoByIdPedido(id_pedido).body()?.data
-
-                    (itemView.context as? AppCompatActivity)?.runOnUiThread {
-                        if (updatedData != null) {
-                            (itemView.context as? AppCompatActivity)?.let {
-                                val adapter = it.findViewById<RecyclerView>(R.id.rvCumplimientoPedidoDialog)
-                                (adapter?.adapter as? CumplimientoPedidoAdapter)?.updateList(updatedData)
-                            }
-                        }
-                        dialog.dismiss()
-                    }
+                    dialog.dismiss()
                 }
+
 
             } else {
                 tilCantidadPedidosPsCantidad.error = "ES REQUERIDO"

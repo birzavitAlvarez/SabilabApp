@@ -22,12 +22,14 @@ import com.demo.sabilabapp.Productos.Productos
 import com.demo.sabilabapp.Productos.ProductosResponse
 import com.demo.sabilabapp.Proveedores.Proveedor
 import com.demo.sabilabapp.Proveedores.ProveedorResponse
+import com.demo.sabilabapp.Reportes.ReporteResponse
 import com.demo.sabilabapp.Roles.RolesResponse
 import com.demo.sabilabapp.Usuarios.UserNotUse.UserNotUseResponse
 import com.demo.sabilabapp.Usuarios.Usuario
 import com.demo.sabilabapp.Usuarios.UsuariosResponse
 import com.demo.sabilabapp.Vendedores.Vendedores
 import com.demo.sabilabapp.Vendedores.VendedoresResponse
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -36,6 +38,8 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.Streaming
+import java.math.BigDecimal
 
 interface ApiService {
     // Login
@@ -330,9 +334,22 @@ interface ApiService {
     suspend fun deleteAprovisionamiento(@Path("id") id: Int)
     // TODO FIN DE APROVISIONAMIENTO
 
+    //TODO REPORTE
+    // Lista por path fecha y descuento, fecha del dia y descuento 0 al entrar
+    @GET("api/pedido/listacompra/{fecha}/{descuento}")
+    suspend fun listarReporte(@Path("fecha") fecha: String, @Path("descuento") descuento: Double): Response<ReporteResponse>
+
+    //Paginacion de Lista por path fecha y descuento, fecha del dia y descuento 0 al entrar
+    @GET("api/pedido/listacompra/{fecha}/{descuento}")
+    suspend fun listarReportePage(@Path("fecha") fecha: String, @Path("descuento") descuento: Double, @Query("page") pagina: Int): Response<ReporteResponse>
+
+    //GENERAR PDF
+    @GET("api/pedido/listacompra/pdf/{fecha}/{descuento}")
+    @Streaming
+    suspend fun descargarReportePdfDirecto(@Path("fecha") fecha: String, @Path("descuento") descuento: Double): Response<ResponseBody>
+    //TODO FIN REPORTE
 
 }
-
 
 
 

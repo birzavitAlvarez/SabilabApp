@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.demo.sabilabapp.Api.RetrofitClient.apiService
+import com.demo.sabilabapp.Pedidos.PedidosUpdate1
 import com.demo.sabilabapp.R
 import com.demo.sabilabapp.Pedidos.Result // otro
 import com.demo.sabilabapp.Pedidos.PedidosUpdate4 //para update
@@ -39,7 +40,6 @@ import java.util.Calendar
 import java.util.Locale
 import com.demo.sabilabapp.DetallePedido.Data as DataDetalle
 
-
 class PedidosViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private val binding: ItemPedidosBinding = ItemPedidosBinding.bind(itemView)
@@ -50,6 +50,7 @@ class PedidosViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private lateinit var adapterCumpliPedidosDialog: CumplimientoPedidoAdapter
     private val datitosCumpliPedidosDialog = mutableListOf<DataDetalle>()
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun bind (query: Result){
@@ -75,6 +76,7 @@ class PedidosViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun showDialogSheckPedidos(context: Context, idPedido: Int, fechaLlegada: String) {
         val dialog = Dialog(context)
         val inflater = LayoutInflater.from(context)
@@ -82,19 +84,77 @@ class PedidosViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         bindingDialog = ItemDialogCumplimientoPedidoBinding.inflate(inflater)
         dialog.setContentView(bindingDialog?.root!!)
 
+        bindingDialog?.tietCumplimientoPedidoDialogFechaLlegada?.setText(fechaLlegada)
 
         val rvCumplimientoPedidoDialog: RecyclerView = dialog.findViewById(R.id.rvCumplimientoPedidoDialog)
+
         adapterCumpliPedidosDialog = CumplimientoPedidoAdapter(datitosCumpliPedidosDialog)
         rvCumplimientoPedidoDialog.layoutManager = LinearLayoutManager(context)
         rvCumplimientoPedidoDialog.adapter = adapterCumpliPedidosDialog
 
         listaAlEntrarDialog(idPedido, rvCumplimientoPedidoDialog, adapterCumpliPedidosDialog)
 
+        bindingDialog?.ibCumplimientoPedidoDialogClose?.setOnClickListener {
+            dialog.dismiss()
+        }
 
+
+        var selectedDate: String = ""
+        bindingDialog?.tietCumplimientoPedidoDialogFechaLlegada?.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(context, { _, year, month, dayOfMonth ->
+                selectedDate = String.format(Locale.US, "%04d-%02d-%02d", year, month + 1, dayOfMonth)
+                bindingDialog?.tietCumplimientoPedidoDialogFechaLlegada?.setText(selectedDate)
+            }, year, month, day)
+            // corrgiendo error del TIL
+            bindingDialog?.tilCumplimientoPedidoDialogFechaLlegada?.error = null
+            datePickerDialog.show()
+        }
+
+        bindingDialog?.btnCumplimientoPedidoDialogGuardar?.setOnClickListener {
+
+            if (bindingDialog?.tietCumplimientoPedidoDialogFechaLlegada?.text.toString().isEmpty()){
+                bindingDialog?.tilCumplimientoPedidoDialogFechaLlegada?.error = "ES REQUERIDO"
+                return@setOnClickListener
+            }
+
+            val fechaLlegada = bindingDialog?.tietCumplimientoPedidoDialogFechaLlegada?.text.toString()
+
+            // no me juzguen xd
+            val fecha_del_dia = obtenerFechaActual()
+
+            CoroutineScope(Dispatchers.IO).launch {
+                val pedido = PedidosUpdate1(fechaLlegada)
+                apiService.updatePedido1(pedido, idPedido)
+
+                val updatedData = apiService.listPedidosAdminTrue(fecha_del_dia).body()?.data?.results
+
+                (itemView.context as? AppCompatActivity)?.runOnUiThread {
+                    if (updatedData != null) {
+                        (itemView.context as? AppCompatActivity)?.let {
+                            val adapter = it.findViewById<RecyclerView>(R.id.rvPedidos)
+                            (adapter?.adapter as? PedidosAdapter)?.updateList(updatedData)
+                        }
+                    }
+                    dialog.dismiss()
+                }
+            }
+
+
+
+
+
+        }
 
 
         dialog.show()
     }
+
+
 
     @SuppressLint("NotifyDataSetChanged")
     private fun listaAlEntrarDialog(idPedido:Int, recyclerView: RecyclerView, adapter: RecyclerView.Adapter<*>) {

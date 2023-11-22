@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -15,21 +17,25 @@
         android:theme="@style/Theme.SabilabApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
         <activity
-            android:name=".Pedidos.PedidospsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Pedidos.PedidosscActivity"
-            android:exported="false"/>
-        <activity
-            android:name=".Pedidos.PedidosActivity"
-            android:exported="true">
+            android:name=".Reportes.ReporteActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Pedidos.PedidospsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Pedidos.PedidosscActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Pedidos.PedidosActivity"
+            android:exported="false"/>
         <activity
             android:name=".Aprovisionamiento.AprovisionamientoActivity"
             android:exported="false"

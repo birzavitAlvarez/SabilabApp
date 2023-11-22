@@ -192,4 +192,10 @@
     <string name="fecha_llegada">FECHA LLEGADA</string>
     <string name="objetivo">OBJETIVO</string>
     <string name="obtenido">OBTENIDO</string>
+    <string name="cantidad_solicitada">CANTIDAD SOLICITADA</string>
+    <string name="margen_ganancia">Margen Ganancia</string>
+    <string name="generar_pdf">Generar PDF</string>
+    <string name="prec_uni">PREC. UNI</string>
+    <string name="total_compra">TOTAL COMPRA</string>
+    <string name="total_venta">TOTAL VENTA</string>
 </resources>

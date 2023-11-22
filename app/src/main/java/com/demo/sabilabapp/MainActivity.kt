@@ -20,6 +20,8 @@ import com.demo.sabilabapp.Clientes.Clientes2Activity
 import com.demo.sabilabapp.Clientes.ClientesActivity
 import com.demo.sabilabapp.Login.LoginActivity
 import com.demo.sabilabapp.Login.UserData  // Class que almacena data
+import com.demo.sabilabapp.Pedidos.Pedidos2Activity
+import com.demo.sabilabapp.Pedidos.PedidosActivity
 import com.demo.sabilabapp.Productos.Productos2Activity
 import com.demo.sabilabapp.Productos.ProductosActivity
 import com.demo.sabilabapp.Proveedores.ProveedorActivity
@@ -127,6 +129,15 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext, "Pedidos clicked", Toast.LENGTH_SHORT).show()
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
+                    if (id_roles == 2){
+                        val anny = Intent(this@MainActivity, Pedidos2Activity::class.java)
+                        anny.putExtra("id_vendedor", id_vendedor)
+                        startActivity(anny)
+                    } else {
+                        val anny = Intent(this@MainActivity, PedidosActivity::class.java)
+                        startActivity(anny)
+                    }
+
                 }
                 R.id.nav_clientes -> {
                     drawerLayout.closeDrawer(GravityCompat.START)

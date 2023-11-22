@@ -1,7 +1,9 @@
 package com.demo.sabilabapp.Adapters.SequenceAdmin
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.demo.sabilabapp.R
 import com.demo.sabilabapp.Pedidos.Result
@@ -13,6 +15,7 @@ class PedidosAdapter(private val itemsList: MutableList<Result>) : RecyclerView.
         return PedidosViewHolder(itemView)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: PedidosViewHolder, position: Int) {
         val pedidos = itemsList[position]
         holder.bind(pedidos)
