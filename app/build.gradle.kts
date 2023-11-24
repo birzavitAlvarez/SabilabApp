@@ -63,17 +63,24 @@ dependencies {
 
     // menu
     implementation ("de.hdodenhof:circleimageview:3.1.0")
+
+    //graficos
+    // Charts
+    implementation ("com.diogobernardino:williamchart:3.10.1")
+//    // Tooltips
+//    implementation ("com.diogobernardino.williamchart:tooltip-slider:3.10.1")
+//    implementation ("com.diogobernardino.williamchart:tooltip-points:3.10.1")
+
+
+
     // fragments birza
-    implementation("androidx.fragment:fragment-ktx:1.6.2")
+//    implementation("androidx.fragment:fragment-ktx:1.6.2")
 
     //NavComponent
     val navVersion = "2.7.5"
     implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
 
-    // ema :v
-//    implementation("androidx.annotation:annotation:1.6.0")
-//    implementation("androidx.navigation:navigation-fragment:2.5.3")
-//    implementation("androidx.navigation:navigation-ui:2.5.3")
+
 
 }

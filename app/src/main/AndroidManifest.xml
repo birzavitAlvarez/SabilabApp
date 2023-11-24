@@ -17,9 +17,8 @@
         android:theme="@style/Theme.SabilabApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
         <activity
-            android:name=".Reportes.ReporteActivity"
+            android:name=".Dashboard.DashboardActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +27,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".Reportes.ReporteActivity"
+            android:exported="false"/>
+        <activity
             android:name=".Pedidos.PedidospsActivity"
             android:exported="false" />
         <activity
@@ -35,7 +37,7 @@
             android:exported="false" />
         <activity
             android:name=".Pedidos.PedidosActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".Aprovisionamiento.AprovisionamientoActivity"
             android:exported="false"
