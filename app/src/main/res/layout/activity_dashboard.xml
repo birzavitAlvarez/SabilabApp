@@ -211,13 +211,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitulo2Dashboard"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
 
-        app:chart_axis = "xy"
+
+        app:chart_axis="x"
         app:chart_gridEffect="dotted"
         app:chart_lineColor="@color/primary_color"
         app:chart_lineThickness="3dp"
         app:chart_smoothLine="false"
-        app:chart_barsBackgroundColor="@color/background_color"
+        app:chart_labelsSize="12sp"
+
+
         />
 
     <TextView
@@ -244,10 +249,13 @@
             app:layout_constraintTop_toBottomOf="@+id/tvTitulo3Dashboard"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
 
-            app:chart_axis = "xy"
+            app:chart_axis = "x"
             app:chart_barsColor="@color/primary_color"
-            app:chart_barsRadius="1dp"
+            app:chart_barsRadius="5dp"
+            app:chart_labelsSize="12sp"
             />
 
     <TextView

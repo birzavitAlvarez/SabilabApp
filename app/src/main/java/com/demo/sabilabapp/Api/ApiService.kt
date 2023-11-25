@@ -8,6 +8,10 @@ import com.demo.sabilabapp.Clientes.Clientes
 import com.demo.sabilabapp.Clientes.ClientesResponse
 
 import com.demo.sabilabapp.Comprobante.ComprobanteResponse
+import com.demo.sabilabapp.Dashboard.Dash3.Dashboard3Response
+import com.demo.sabilabapp.Dashboard.Dash4.Dashboard4Response
+import com.demo.sabilabapp.Dashboard.Dash6.Dashboard6Response
+import com.demo.sabilabapp.Dashboard.HojaRuta.HojaRutaResponse
 import com.demo.sabilabapp.DetallePedido.DetallePedidoCantidad
 import com.demo.sabilabapp.DetallePedido.DetallePedidoPost
 import com.demo.sabilabapp.DetallePedido.DetallePedidoResponse
@@ -348,6 +352,30 @@ interface ApiService {
     @Streaming
     suspend fun descargarReportePdfDirecto(@Path("fecha") fecha: String, @Path("descuento") descuento: Double): Response<ResponseBody>
     //TODO FIN REPORTE
+
+    //TODO DASHBOARD
+
+    // DASHBOARD3
+    @GET("api/pedido/dashboard3")
+    suspend fun dashBoard3(): Response<Dashboard3Response>
+
+    // DASHBOARD4
+    @GET("api/pedido/dashboard4")
+    suspend fun dashBoard4(): Response<Dashboard4Response>
+
+
+    // DASHBOARD6
+    @GET("api/pedido/dashboard6")
+    suspend fun dashBoard6(): Response<Dashboard6Response>
+
+    // HOJA RUTA
+    @GET("api/pedido/ruta/{fecha}")
+    suspend fun hojaRuta(@Path("fecha") fecha: String): Response<HojaRutaResponse>
+
+    // HOJA RUTA PAGINACION
+    @GET("api/pedido/ruta/{fecha}")
+    suspend fun hojaRutaPage(@Path("fecha") fecha: String, @Query("page") pagina: Int): Response<HojaRutaResponse>
+    //TODO FIN DASHBOARD
 
 }
 
