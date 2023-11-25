@@ -286,10 +286,6 @@ interface ApiService {
     //Paginacion de filtrar por fecha y nombre query
     @GET("api/pedido/filtrar")
     suspend fun listarAdminPedidosPorNombreYPage(@Query("fecha") fecha: String, @Query("nombre") nombre: String, @Query("page") pagina: Int): Response<PedidosResponse>
-
-    //
-
-
     // TODO FIN PEDIDOS
 
     // TODO DETALLEPEDIDO

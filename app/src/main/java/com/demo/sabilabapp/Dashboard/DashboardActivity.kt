@@ -1,45 +1,150 @@
 package com.demo.sabilabapp.Dashboard
 
-import android.graphics.Color
+
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import com.demo.sabilabapp.Api.RetrofitClient.apiService
 import com.demo.sabilabapp.R
-import com.demo.sabilabapp.databinding.ActivityDashboardBinding
+import android.widget.Toast
+import android.graphics.Color
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.demo.sabilabapp.Api.RetrofitClient.apiService //
+import com.demo.sabilabapp.Dashboard.Dash6.Data as DataDash6 //
+import com.demo.sabilabapp.databinding.ActivityDashboardBinding //
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.math.RoundingMode
-import java.text.DecimalFormat
-import java.text.NumberFormat
 import kotlin.math.roundToInt
-import kotlin.math.roundToLong
+//ADAPTER
+import com.demo.sabilabapp.Dashboard.HojaRuta.Result as DataHojaRuta //
+import com.demo.sabilabapp.Adapters.HojaRutaAdapter //
+import kotlinx.coroutines.CoroutineScope
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
-import com.demo.sabilabapp.Dashboard.Dash6.Data as DataDash6
 
 class DashboardActivity : AppCompatActivity() {
 
     private var binding: ActivityDashboardBinding? = null
     //rivate lateinit var binding: ActivityDashboardBinding
     private val animationDuration = 1000L
+    //Adapter
+    private lateinit var adapter: HojaRutaAdapter
+    private val datitos = mutableListOf<DataHojaRuta>()
+    private var currentPage: Int = 1
+    private var totalPages: Int = 1
+    private var verdura: Boolean = false
+    //
 
+    @SuppressLint("SuspiciousIndentation")
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
+        val fecha_del_dia = obtenerFechaActual()
+        initHojaRuta()
+        Dashboard6DataInit()
+        listaAlEntrar(fecha_del_dia)
 
         binding?.apply {
             lineChartInit()
             barChartInit()
-            Dashboard6DataInit()
-//            barChartDashboard.animation.duration = animationDuration
-//            barChartDashboard.animate()
         }
 
+        // pagina siguiente
+        binding?.ibHojaRutaDashboardNext?.setOnClickListener {
+            if (currentPage < totalPages) {
+                currentPage += 1
+                nextPage(fecha_del_dia, currentPage)
+            }
+        }
+        // pagina anterior
+        binding?.ibHojaRutaDashboardBefore?.setOnClickListener {
+            if (currentPage > 1) {
+                currentPage -= 1
+                nextPage(fecha_del_dia, currentPage)
+            }
+        }
+        //
+
+    }
+
+    @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
+    private fun nextPage(fecha:String,np: Int){
+        CoroutineScope(Dispatchers.IO).launch {
+            val request0 = apiService.hojaRutaPage(fecha,np)
+            val response0 = request0.body()
+            runOnUiThread {
+                if (request0.isSuccessful) {
+                    val dataItems = response0?.data?.results ?: emptyList()
+                    datitos.clear()
+                    datitos.addAll(dataItems)
+                    adapter.notifyDataSetChanged()
+                    val pagination = response0?.data?.pagination
+                    if (pagination != null) {
+                        currentPage = pagination.currentPage
+                        totalPages = pagination.totalPages
+                        binding?.tvHojaRutaDashboardNumeroPagina?.text = "$currentPage/$totalPages"
+                    } else {showError()}
+                } else { showError() }
+            }
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun listaAlEntrar(query: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val request0 = apiService.hojaRuta(query)
+            val response0 = request0.body()
+            runOnUiThread {
+                if (request0.isSuccessful) {
+                    val dataItems = response0?.data?.results ?: emptyList()
+                    datitos.clear()
+                    datitos.addAll(dataItems)
+                    adapter.notifyDataSetChanged()
+                    getCurrentAndTotal(query)
+                    verdura = false
+                } else { showError() }
+            }
+        }
+    }
+
+    @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
+    private fun getCurrentAndTotal(query:String){
+        CoroutineScope(Dispatchers.IO).launch {
+            val request0 = apiService.hojaRuta(query )
+            val response0 = request0.body()
+            runOnUiThread {
+                if (request0.isSuccessful) {
+                    val pagination = response0?.data?.pagination
+                    if (pagination != null) {
+                        currentPage = pagination.currentPage
+                        totalPages = pagination.totalPages
+                        binding?.tvHojaRutaDashboardNumeroPagina?.text = "$currentPage/$totalPages"
+                    }
+                    adapter.notifyDataSetChanged()
+                } else { showError() }
+            }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun obtenerFechaActual(): String {
+        val fechaActual = LocalDate.now()
+        val formato = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        return fechaActual.format(formato)
+    }
+
+    private fun initHojaRuta() {
+        adapter = HojaRutaAdapter(datitos)
+        binding?.rvHojaRutaDashboard?.layoutManager = LinearLayoutManager(this)
+        binding?.rvHojaRutaDashboard?.adapter = adapter
     }
 
     @OptIn(DelicateCoroutinesApi::class)
@@ -112,12 +217,11 @@ class DashboardActivity : AppCompatActivity() {
                         val totalIncompletos = dashboardData.total_incompletos
                         val totalCompletos = dashboardData.total_completos
                         val totalFechaNo = dashboardData.total_fecha_no
-
-                        // Haz lo que necesites con estos valores.
-                        binding?.tvPedidosIngresadosDashboard?.setText(totalPedidos.toString())
-                        binding?.tvPedidosIncompletosDashboard?.setText(totalIncompletos.toString())
-                        binding?.tvPedidosCompletosDashboard?.setText(totalCompletos.toString())
-                        binding?.tvPedidosNoEntregadosTiempoDashboard?.setText(totalFechaNo.toString())
+                        // ASIGNANDO VALORES
+                        binding?.tvPedidosIngresadosDashboard?.text = totalPedidos.toString()
+                        binding?.tvPedidosIncompletosDashboard?.text = totalIncompletos.toString()
+                        binding?.tvPedidosCompletosDashboard?.text = totalCompletos.toString()
+                        binding?.tvPedidosNoEntregadosTiempoDashboard?.text = totalFechaNo.toString()
                     }
                 }
 
