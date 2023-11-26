@@ -24,6 +24,8 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
+        binding?.tietUserLogin?.requestFocus()
+
         binding?.btnLogin?.setOnClickListener {
             val username = binding?.tietUserLogin?.text.toString()
             val password = binding?.tietPasswordLogin?.text.toString()

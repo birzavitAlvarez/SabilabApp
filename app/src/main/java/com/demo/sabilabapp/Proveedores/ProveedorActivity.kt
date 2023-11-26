@@ -88,6 +88,7 @@ class ProveedorActivity : AppCompatActivity(), OnQueryTextListener {
             listaAlEntrar()
         }
 
+        binding?.ibBackProveedor?.setOnClickListener { onBackPressed() }
     }
 
     @SuppressLint("SuspiciousIndentation")

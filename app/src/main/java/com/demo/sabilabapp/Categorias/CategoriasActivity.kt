@@ -40,6 +40,7 @@ class CategoriasActivity : AppCompatActivity() {
         binding?.btnCategoriaNueva?.setOnClickListener{
             showDialogAddCategory()
         }
+        binding?.ibBackCategoria?.setOnClickListener { onBackPressed() }
     }
 
     private fun showDialogAddCategory() {

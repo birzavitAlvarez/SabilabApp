@@ -118,9 +118,9 @@ class ClientesActivity : AppCompatActivity(), OnQueryTextListener {
             }
         }
         // boton nuevo cliente
-        binding?.btnClientesAgregar?.setOnClickListener{
-            showDialogAddClientes(id_vendedor)
-        }
+        binding?.btnClientesAgregar?.setOnClickListener{ showDialogAddClientes(id_vendedor)}
+
+        binding?.ibBackClientes?.setOnClickListener { onBackPressed() }
 
     }
 

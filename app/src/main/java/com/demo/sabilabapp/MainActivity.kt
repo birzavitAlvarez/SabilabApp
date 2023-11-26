@@ -18,6 +18,7 @@ import com.demo.sabilabapp.Aprovisionamiento.AprovisionamientoActivity
 import com.demo.sabilabapp.Categorias.CategoriasActivity
 import com.demo.sabilabapp.Clientes.Clientes2Activity
 import com.demo.sabilabapp.Clientes.ClientesActivity
+import com.demo.sabilabapp.Dashboard.DashboardActivity
 import com.demo.sabilabapp.Login.LoginActivity
 import com.demo.sabilabapp.Login.UserData  // Class que almacena data
 import com.demo.sabilabapp.Pedidos.Pedidos2Activity
@@ -25,9 +26,11 @@ import com.demo.sabilabapp.Pedidos.PedidosActivity
 import com.demo.sabilabapp.Productos.Productos2Activity
 import com.demo.sabilabapp.Productos.ProductosActivity
 import com.demo.sabilabapp.Proveedores.ProveedorActivity
+import com.demo.sabilabapp.Reportes.ReporteActivity
 import com.demo.sabilabapp.Usuarios.UsuarioActivity
+import com.demo.sabilabapp.Vendedores.VendedoresActivity
 
-class MainActivity : AppCompatActivity() {
+open class MainActivity : AppCompatActivity() {
 
     private var binding: ActivityMainBinding? = null
 
@@ -37,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
     var id_usuarios: Int? = null
     var id_roles:Int? = null
-    var id_vendedor:Int? = null
+    open var id_vendedor:Int? = null
     var nombre: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,12 +106,11 @@ class MainActivity : AppCompatActivity() {
 
             when (menuItem.itemId) {
                 R.id.nav_dashboard -> {
-                    Toast.makeText(applicationContext, "Dashboard clicked", Toast.LENGTH_SHORT).show()
                     drawerLayout.closeDrawer(GravityCompat.START)
-                    return@setNavigationItemSelectedListener true
+                    drawerLayout.closeDrawers()
                     true
-                    //val anny = Intent(this@MainActivity, LoginActivity::class.java)
-                    //startActivity(anny)
+                    val anny = Intent(this@MainActivity, DashboardActivity::class.java)
+                    startActivity(anny)
                 }
                 R.id.nav_usuarios -> {
                     drawerLayout.closeDrawer(GravityCompat.START)
@@ -153,9 +155,11 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 R.id.nav_vendedores -> {
-                    Toast.makeText(applicationContext, "Vendedores clicked", Toast.LENGTH_SHORT).show()
                     drawerLayout.closeDrawer(GravityCompat.START)
+                    drawerLayout.closeDrawers()
                     true
+                    val anny = Intent(this@MainActivity, VendedoresActivity::class.java)
+                    startActivity(anny)
                 }
                 R.id.nav_productos -> {
                     drawerLayout.closeDrawer(GravityCompat.START)
@@ -184,9 +188,11 @@ class MainActivity : AppCompatActivity() {
                     startActivity(anny)
                 }
                 R.id.nav_reportes -> {
-                    Toast.makeText(applicationContext, "Reporte clicked", Toast.LENGTH_SHORT).show()
                     drawerLayout.closeDrawer(GravityCompat.START)
+                    drawerLayout.closeDrawers()
                     true
+                    val anny = Intent(this@MainActivity, ReporteActivity::class.java)
+                    startActivity(anny)
                 }
                 R.id.nav_logout -> {
                     val intent = Intent(this@MainActivity, LoginActivity::class.java)

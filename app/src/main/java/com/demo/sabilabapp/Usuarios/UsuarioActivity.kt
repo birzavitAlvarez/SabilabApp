@@ -51,9 +51,7 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
         // boton buscar xd
         binding?.btnUsuarioBuscar?.setOnClickListener {
             val query = binding?.svUsuarioBusqueda?.query?.toString()
-            if (!query.isNullOrBlank()) {
-                searchByUsuario(query)
-            }
+            if (!query.isNullOrBlank()) { searchByUsuario(query) }
         }
         // pagina siguiente
         binding?.ibUsuarioNext?.setOnClickListener {
@@ -64,9 +62,7 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
                     if (!query.isNullOrBlank()) {
                         nextPageSearch(query,currentPage)
                     }
-                } else {
-                    nextPage(currentPage)
-                }
+                } else { nextPage(currentPage) }
             }
         }
         // pagina anterior
@@ -78,15 +74,13 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
                     if (!query.isNullOrBlank()) {
                         nextPageSearch(query,currentPage)
                     }
-                } else {
-                    nextPage(currentPage)
-                }
+                } else { nextPage(currentPage) }
             }
         }
         // boton agregar
-        binding?.btnUsuarioAgregar?.setOnClickListener {
-            showDialogAddUser()
-        }
+        binding?.btnUsuarioAgregar?.setOnClickListener { showDialogAddUser() }
+
+        binding?.ibBackUsuario?.setOnClickListener { onBackPressed() }
     }
 
 
@@ -127,9 +121,7 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
                     pagination?.currentPage!!.also { currentPage = it }
                     pagination.totalPages.also { totalPages = it }
                     binding?.tvUsuarioNumeroPagina?.text = "$currentPage/$totalPages"
-                } else {
-                    showError()
-                }
+                } else { showError() }
             }
         }
     }
@@ -257,8 +249,6 @@ class UsuarioActivity : AppCompatActivity(), OnQueryTextListener {
                     val adapterLoad = ArrayAdapter(this@UsuarioActivity, android.R.layout.simple_spinner_item, rolesWithSelect)
                     adapterLoad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     spAddUsuarioRol.adapter = adapterLoad
-                    // el log lo uso para ver la impresion de datos en consola :v
-                    //Log.d("DataUsuario", rolesList.toString())
                     adapterLoad.notifyDataSetChanged()
                 } else {
                     showError()

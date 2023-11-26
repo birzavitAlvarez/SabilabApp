@@ -94,6 +94,8 @@ class ProductosActivity : AppCompatActivity(), OnQueryTextListener {
             listaAlEntrar()
         }
 
+        binding?.ibBackProductos?.setOnClickListener { onBackPressed() }
+
     }
     //
     private fun showDialogAddProductos(){

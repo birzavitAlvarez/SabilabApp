@@ -55,6 +55,9 @@ class DashboardActivity : AppCompatActivity() {
         binding?.apply {
             lineChartInit()
             barChartInit()
+            ibBackDashboard.setOnClickListener {
+                onBackPressed()
+            }
         }
 
         // pagina siguiente

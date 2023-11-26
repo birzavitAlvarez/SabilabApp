@@ -8,6 +8,7 @@ import android.app.Dialog
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.Menu
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.ImageButton
@@ -19,6 +20,7 @@ import com.demo.sabilabapp.Adapters.Clientes2Adapter // OTRO
 import com.demo.sabilabapp.Api.RetrofitClient.apiService
 import com.demo.sabilabapp.Clientes.Result // OTRO
 import com.demo.sabilabapp.Clientes.Clientes // OTRO
+
 import com.demo.sabilabapp.databinding.ActivityClientes2Binding // OTRO
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -29,7 +31,7 @@ import java.util.Locale
 
 class Clientes2Activity : AppCompatActivity(), OnQueryTextListener {
 
-    var id_vendedor: Int = 0
+    private var id_vendedor:Int = 0
 
     private var binding: ActivityClientes2Binding? = null
 
@@ -38,11 +40,11 @@ class Clientes2Activity : AppCompatActivity(), OnQueryTextListener {
     private var currentPage: Int = 1
     private var totalPages: Int = 1
     private var verdura: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityClientes2Binding.inflate(layoutInflater)
         setContentView(binding?.root)
-
         id_vendedor = intent.getIntExtra("id_vendedor", 0)
 //        Log.d("MiApp", "Valor de id_vendedor antes de iniciar actividad: $id_vendedor")
 

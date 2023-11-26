@@ -12,13 +12,27 @@
         android:id="@+id/tvUsuarioTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginTop="50dp"
         android:text="@string/usuarios"
         android:textColor="@color/text"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/ibBackUsuario"
+        android:layout_width="33dp"
+        android:layout_height="26dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="26dp"
+        android:backgroundTint="@color/background_color"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/svUsuarioBusqueda"
@@ -32,14 +46,14 @@
         android:id="@+id/btnUsuarioBuscar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@color/primary_color"
         android:text="@string/buscar"
         android:textColor="@color/texto_boton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.387"
+        app:layout_constraintHorizontal_bias="0.346"
         app:layout_constraintStart_toEndOf="@+id/svUsuarioBusqueda"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvUsuarioTitulo"
         tools:ignore="TextContrastCheck" />
 
     <Button

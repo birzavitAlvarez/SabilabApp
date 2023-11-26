@@ -111,7 +111,7 @@ class AprovisionamientoActivity : AppCompatActivity() {
             showDialogProductosAprovi()
         }
 
-
+        binding?.ibBackAprovisionamiento?.setOnClickListener { onBackPressed() }
     }
 
     private fun showDialogProductosAprovi() {

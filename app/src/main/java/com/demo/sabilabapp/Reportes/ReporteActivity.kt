@@ -165,6 +165,8 @@ class ReporteActivity : AppCompatActivity() {
             val ganancia = binding?.tietReporteMargenGanancia?.text.toString().toDouble()
             generarPDF(fechaDia,ganancia)
         }
+
+        binding?.ibBackReporte?.setOnClickListener { onBackPressed() }
     }
 
     @SuppressLint("NotifyDataSetChanged", "SetTextI18n")

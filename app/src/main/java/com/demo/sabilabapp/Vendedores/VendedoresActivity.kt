@@ -96,6 +96,8 @@ class VendedoresActivity : AppCompatActivity(), OnQueryTextListener {
             binding?.svVendedoresBusqueda?.setQuery("", false)
         }
 
+        binding?.ibBackVendedores?.setOnClickListener { onBackPressed() }
+
     }
 
     private fun showDialogAddVendedores(){

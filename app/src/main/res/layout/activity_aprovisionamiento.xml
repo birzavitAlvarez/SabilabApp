@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/vistaAprovisionamientoPadre"
@@ -18,31 +17,42 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="2"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvAprovisionamientoTitulo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/aprovisionamiento"
-                android:textColor="@color/text"
-                android:textSize="24sp"
-                android:layout_weight="1"
-                android:textStyle="bold" />
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/ibAprovisionamientoRefresh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_weight="1"
-                android:layout_marginTop="10dp"
+            <ImageButton
+                android:id="@+id/ibBackAprovisionamiento"
+                android:layout_width="33dp"
+                android:layout_height="26dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="26dp"
                 android:backgroundTint="@color/background_color"
-                android:src="@drawable/ic_refresh"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+                android:src="@drawable/ic_back"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvAprovisionamientoTitulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="80dp"
+                    android:text="@string/aprovisionamiento"
+                    android:textColor="@color/text"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/ibAprovisionamientoRefresh"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="60dp"
+                    android:backgroundTint="@color/background_color"
+                    android:src="@drawable/ic_refresh"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -50,26 +60,26 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="65dp"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp">
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilAprovisionamientoFecha"
                 android:layout_width="200dp"
-                android:layout_marginStart="20dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
                 android:hint="@string/fecha2">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tietAprovisionamientoFecha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:singleLine="true"
                     android:clickable="true"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
+                    android:inputType="none"
+                    android:singleLine="true"
                     tools:ignore="KeyboardInaccessibleWidget" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,23 +91,24 @@
                 android:layout_marginStart="20dp"
                 android:backgroundTint="@color/primary_color"
                 android:text="@string/buscar"
-                android:textSize="18sp"
                 android:textColor="@color/texto_boton"
+                android:textSize="18sp"
                 tools:ignore="TextContrastCheck" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
-            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/ibAprovisionamientoBefore"
-                android:layout_marginStart="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:backgroundTint="@color/background_color"
                 android:src="@drawable/ic_before"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
@@ -124,8 +135,8 @@
                 android:layout_marginStart="60dp"
                 android:backgroundTint="@color/primary_color"
                 android:text="@string/nueva_compra"
-                android:textSize="18sp"
                 android:textColor="@color/texto_boton"
+                android:textSize="18sp"
                 tools:ignore="TextContrastCheck" />
 
 
@@ -143,7 +154,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"  >
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:id="@+id/llHeaderAprovisionamiento"
