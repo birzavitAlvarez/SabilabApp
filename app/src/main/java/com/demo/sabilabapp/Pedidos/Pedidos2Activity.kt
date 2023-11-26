@@ -127,6 +127,7 @@ class Pedidos2Activity : AppCompatActivity() {
             startActivity(anny)
         }
 
+        binding?.ibBackPedidos?.setOnClickListener { onBackPressed() }
 
     }
 

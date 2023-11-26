@@ -64,14 +64,13 @@ class PedidospsActivity : AppCompatActivity(), OnProductoSeleccionadoListenerAdm
         }
         initRecyclerView()
 
-        binding?.btnPedidospsRegresar?.setOnClickListener {
-            onBackPressed()
-        }
+        binding?.btnPedidospsRegresar?.setOnClickListener { onBackPressed() }
 
-        binding?.ibPedidospsCancelar?.setOnClickListener {
-            val anny = Intent(this@PedidospsActivity, PedidosActivity::class.java)
-            //anny.putExtra("id_vendedor", id_vendedor)
-            startActivity(anny)
+        binding?.ibPedidospsCancelar?.setOnClickListener{
+            val intent  = Intent(this@PedidospsActivity, PedidosActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            startActivity(intent)
+            finish()
         }
 
         binding?.btnPedidospsAgregarProductos?.setOnClickListener {
@@ -91,10 +90,10 @@ class PedidospsActivity : AppCompatActivity(), OnProductoSeleccionadoListenerAdm
         }
     }
 
-    private fun postParaPedidos(direccionp: String, distritop: String, fecha_entregap: String, totalFinalp: Double,id_comprobantep: Int, id_vendedorp: Int, id_clientep: Int) {
+    private fun postParaPedidos(direccionp: String, distritop: String, fecha_entregap: String, totalFinalp: Double,id_comprobantep: Int, id_vendedor: Int, id_clientep: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val orders = Pedidos(direccionp, distritop, fecha_entregap, "", totalFinalp, 1, id_comprobantep, id_vendedorp, id_clientep)
+                val orders = Pedidos(direccionp, distritop, fecha_entregap, "", totalFinalp, 1, id_comprobantep, id_vendedor, id_clientep)
                 val response = apiService.createPedido(orders)
 
                 if (response.isSuccessful) {
@@ -112,9 +111,10 @@ class PedidospsActivity : AppCompatActivity(), OnProductoSeleccionadoListenerAdm
                                     apiService.createDetallePedido(detallePedido)
                                 }
                             }
-                            val anny = Intent(this@PedidospsActivity, PedidosActivity::class.java)
-                            //anny.putExtra("id_vendedor", id_vendedorp)
-                            startActivity(anny)
+                            val intent  = Intent(this@PedidospsActivity, PedidosActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                            startActivity(intent)
+                            finish()
                         } else {
                             Toast.makeText(
                                 this@PedidospsActivity,

@@ -73,6 +73,7 @@ class Productos2Activity : AppCompatActivity(), OnQueryTextListener {
                 }
             }
         }
+        binding?.ibBackProductos2?.setOnClickListener { onBackPressed() }
 
     }
 

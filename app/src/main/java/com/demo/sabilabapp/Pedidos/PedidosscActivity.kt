@@ -3,6 +3,8 @@ package com.demo.sabilabapp.Pedidos
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity//
 import android.os.Bundle//
+import android.os.Handler
+import android.os.Looper
 import com.demo.sabilabapp.R//
 //
 import android.view.View//
@@ -30,8 +32,7 @@ class PedidosscActivity : AppCompatActivity(), OnQueryTextListener {
     private var currentPage: Int = 1
     private var totalPages: Int = 1
     private var verdura: Boolean = false
-    var id_vendedor: Int = 0
-
+    var id_vendedor:Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPedidosscBinding.inflate(layoutInflater)
@@ -112,7 +113,11 @@ class PedidosscActivity : AppCompatActivity(), OnQueryTextListener {
         binding?.btnPedidosscCancelar?.setOnClickListener {
             onBackPressed()
         }
+
+        binding?.ibBackPedidossc?.setOnClickListener { onBackPressed() }
     }
+
+
 
     @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     private fun nextPage(id: Int,np: Int){

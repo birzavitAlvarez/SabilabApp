@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
@@ -15,6 +14,15 @@ tools:context=".Pedidos.PedidosscActivity">
     android:orientation="vertical"
     tools:ignore="UselessParent">
 
+    <ImageButton
+        android:id="@+id/ibBackPedidossc"
+        android:layout_width="33dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="26dp"
+        android:backgroundTint="@color/background_color"
+        android:src="@drawable/ic_back"
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -150,7 +158,7 @@ tools:context=".Pedidos.PedidosscActivity">
 
                 <LinearLayout
                     android:id="@+id/llHeaderPedidossc"
-                    android:layout_width="match_parent"
+                    android:layout_width="411dp"
                     android:layout_height="70dp"
                     android:layout_gravity="center"
                     android:background="@color/primary_color"

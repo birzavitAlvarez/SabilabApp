@@ -58,7 +58,7 @@ class LoginActivity : AppCompatActivity() {
                         val nombre = datos.nombre
 
                         val userData  = UserData(id_usuarios, id_roles, id_vendedor, nombre)
-                        Log.d("LoginActivity", "Inicio de sesión EXITOSO id_usuarios: $id_usuarios id_roles: $id_roles id_vendedor: $id_vendedor nombre: $nombre")
+                        //Log.d("LoginActivity", "Inicio de sesión EXITOSO id_usuarios: $id_usuarios id_roles: $id_roles id_vendedor: $id_vendedor nombre: $nombre")
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         intent.putExtra("userData", userData )
                         startActivity(intent)

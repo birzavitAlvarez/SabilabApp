@@ -26,7 +26,6 @@ import java.util.Locale
 class PedidosActivity : AppCompatActivity() {
 
     private var binding: ActivityPedidosBinding? = null
-    var id_vendedor: Int = 0
     private lateinit var adapter: PedidosAdapter
     private val datitos = mutableListOf<Result>()
     private var currentPage: Int = 1
@@ -107,9 +106,11 @@ class PedidosActivity : AppCompatActivity() {
         //
 
         binding?.btnPedidosNuevoPedido?.setOnClickListener{
-            val anny = Intent(this@PedidosActivity, PedidosscActivity::class.java)
-            startActivity(anny)
+            val intent = Intent(this@PedidosActivity, PedidosscActivity::class.java)
+            startActivity(intent)
         }
+
+        binding?.ibBackPedidos?.setOnClickListener { onBackPressed() }
 
     }
 

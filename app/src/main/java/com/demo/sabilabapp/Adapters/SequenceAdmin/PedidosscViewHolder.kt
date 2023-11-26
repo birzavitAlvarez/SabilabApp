@@ -145,7 +145,6 @@ class PedidosscViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         btnDatosEnvioSiguiente.setOnClickListener {
             val comprobanteSeleccionado = spDatosEnvioComprobante.selectedItem.toString()
-
             if (tietDatosEnvioDireccion.text.toString().isEmpty()){
                 tilDatosEnvioDireccion.error = "Este campo es requerido"
                 return@setOnClickListener

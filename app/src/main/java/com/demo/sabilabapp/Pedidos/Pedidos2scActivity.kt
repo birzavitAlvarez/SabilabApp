@@ -99,6 +99,7 @@ class Pedidos2scActivity : AppCompatActivity() {
             binding?.tietPedidos2scnomcome?.setText("")
             binding?.tietPedidos2scnomcome?.clearFocus()
         }
+        binding?.ibBackPedidos2sc?.setOnClickListener { onBackPressed() }
 
     }
 

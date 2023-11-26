@@ -26,9 +26,7 @@ import com.demo.sabilabapp.Productos.Result as ResultProductos
 import com.demo.sabilabapp.databinding.ItemDialogPedidos2spProductosBinding
 import com.demo.sabilabapp.Adapters.SequencePedidos.OnItemUpdateListener
 // para post
-import com.demo.sabilabapp.Pedidos.Pedidos
 import com.demo.sabilabapp.DetallePedido.DetallePedidoPost
-import com.demo.sabilabapp.Productos.Productos
 
 class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, OnItemUpdateListener {
 
@@ -74,9 +72,10 @@ class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, 
         }
 
         binding?.ibPedidos2psCancelar?.setOnClickListener {
-            val anny = Intent(this@Pedidos2psActivity, Pedidos2Activity::class.java)
-            anny.putExtra("id_vendedor", id_vendedor)
-            startActivity(anny)
+            val intent  = Intent(this@Pedidos2psActivity, Pedidos2Activity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            startActivity(intent)
+            finish()
         }
 
         binding?.btnPedidos2psAgregarProductos?.setOnClickListener {
@@ -118,9 +117,10 @@ class Pedidos2psActivity : AppCompatActivity(), OnProductoSeleccionadoListener, 
                                     apiService.createDetallePedido(detallePedido)
                                 }
                             }
-                            val anny = Intent(this@Pedidos2psActivity, Pedidos2Activity::class.java)
-                            anny.putExtra("id_vendedor", id_vendedorp)
-                            startActivity(anny)
+                            val intent  = Intent(this@Pedidos2psActivity, Pedidos2Activity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                            startActivity(intent)
+                            finish()
                         } else {
                             Toast.makeText(
                                 this@Pedidos2psActivity,

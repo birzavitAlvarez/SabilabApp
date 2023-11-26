@@ -14,30 +14,37 @@
         android:orientation="vertical"
         tools:ignore="UselessParent">
 
+        <ImageButton
+            android:id="@+id/ibBackPedidos2sc"
+            android:layout_width="33dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="26dp"
+            android:backgroundTint="@color/background_color"
+            android:src="@drawable/ic_back"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="3"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tvPedidos2scTitulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="80dp"
                 android:text="@string/seleccionar_cliente"
                 android:textColor="@color/text"
                 android:textSize="24sp"
-                android:layout_weight="2"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/ibPedidos2scRefresh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginTop="10dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="50dp"
                 android:backgroundTint="@color/background_color"
                 android:src="@drawable/ic_refresh"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
@@ -48,6 +55,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -71,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="40dp"
                 android:textSize="18sp"
                 android:backgroundTint="@color/primary_color"
                 android:text="@string/buscar"
@@ -119,7 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginStart="55dp"
+                android:layout_marginStart="75dp"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="@color/error_color"
                 android:text="@string/cancelar2"

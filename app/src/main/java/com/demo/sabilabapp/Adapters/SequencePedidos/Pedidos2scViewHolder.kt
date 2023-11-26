@@ -145,7 +145,7 @@ class Pedidos2scViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         btnDatosEnvioSiguiente.setOnClickListener {
             val comprobanteSeleccionado = spDatosEnvioComprobante.selectedItem.toString()
-
+            val id_rol:Int = 2
             if (tietDatosEnvioDireccion.text.toString().isEmpty()){
                 tilDatosEnvioDireccion.error = "Este campo es requerido"
                 return@setOnClickListener
@@ -165,6 +165,7 @@ class Pedidos2scViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 intent.putExtra("fecha_entrega", selectedDate)
                 intent.putExtra("id_comprobante", selectedComprobanteId)
                 intent.putExtra("id_vendedor", id_vendedor)
+                intent.putExtra("id_rol", id_rol)
                 context.startActivity(intent)
                 dialog.dismiss()
             }

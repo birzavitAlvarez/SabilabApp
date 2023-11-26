@@ -97,6 +97,8 @@ class Clientes2Activity : AppCompatActivity(), OnQueryTextListener {
             listaAlEntrar(id_vendedor)
         }
 
+        binding?.ibBackClientes2?.setOnClickListener { onBackPressed() }
+
     }
     private fun showDialogAddClientes2(id: Int) {
         val dialog = Dialog(this)

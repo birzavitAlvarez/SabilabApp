@@ -40,7 +40,7 @@ open class MainActivity : AppCompatActivity() {
 
     var id_usuarios: Int? = null
     var id_roles:Int? = null
-    open var id_vendedor:Int? = null
+    var id_vendedor:Int? = null
     var nombre: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -109,8 +109,8 @@ open class MainActivity : AppCompatActivity() {
                     drawerLayout.closeDrawer(GravityCompat.START)
                     drawerLayout.closeDrawers()
                     true
-                    val anny = Intent(this@MainActivity, DashboardActivity::class.java)
-                    startActivity(anny)
+                    val intent = Intent(this@MainActivity, DashboardActivity::class.java)
+                    startActivity(intent)
                 }
                 R.id.nav_usuarios -> {
                     drawerLayout.closeDrawer(GravityCompat.START)
@@ -120,7 +120,6 @@ open class MainActivity : AppCompatActivity() {
                     startActivity(anny)
                 }
                 R.id.nav_aprovisionamiento -> {
-                    Toast.makeText(applicationContext, "Aprovisionamiento clicked", Toast.LENGTH_SHORT).show()
                     drawerLayout.closeDrawer(GravityCompat.START)
                     drawerLayout.closeDrawers()
                     true
@@ -128,15 +127,16 @@ open class MainActivity : AppCompatActivity() {
                     startActivity(anny)
                 }
                 R.id.nav_pedidos -> {
-                    Toast.makeText(applicationContext, "Pedidos clicked", Toast.LENGTH_SHORT).show()
                     drawerLayout.closeDrawer(GravityCompat.START)
+                    drawerLayout.closeDrawers()
                     true
                     if (id_roles == 2){
-                        val anny = Intent(this@MainActivity, Pedidos2Activity::class.java)
-                        anny.putExtra("id_vendedor", id_vendedor)
-                        startActivity(anny)
+                        val intent = Intent(this@MainActivity, Pedidos2Activity::class.java)
+                        intent.putExtra("id_vendedor", id_vendedor )
+                        startActivity(intent)
                     } else {
                         val anny = Intent(this@MainActivity, PedidosActivity::class.java)
+                        startActivity(intent)
                         startActivity(anny)
                     }
 
