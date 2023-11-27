@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SabilabApp</string>
+    <string name="app_name">Sabilab</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -200,4 +200,7 @@
     <string name="total_venta">TOTAL VENTA</string>
     <string name="sabilab">SABILAB</string>
     <string name="vendedor2">VENDEDOR</string>
+    <string name="iniciar_sesion">Iniciar sesion</string>
+    <string name="ok">OK</string>
+    <string name="login_speach">Usuario o Password Incorrectos \nVuelve a Intentar</string>
 </resources>
