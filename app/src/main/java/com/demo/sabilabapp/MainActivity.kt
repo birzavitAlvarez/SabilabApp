@@ -57,10 +57,10 @@ open class MainActivity : AppCompatActivity() {
             nombre = userData.nombre
         }
         //--------------------------------------------------------------------------------------------
-        binding?.tvMainIdUsuario?.text = id_usuarios.toString()
-        binding?.tvMainIdRol?.text = id_roles.toString()
-        binding?.tvMainIdVendedor?.text = id_vendedor.toString()
-        binding?.tvMainNombre?.text = nombre.toString()
+//        binding?.tvMainIdUsuario?.text = id_usuarios.toString()
+//        binding?.tvMainIdRol?.text = id_roles.toString()
+//        binding?.tvMainIdVendedor?.text = id_vendedor.toString()
+//        binding?.tvMainNombre?.text = nombre.toString()
 
         //--------------------------------------------------------------------------------------------
         drawerLayout = findViewById(R.id.drawer_layout)

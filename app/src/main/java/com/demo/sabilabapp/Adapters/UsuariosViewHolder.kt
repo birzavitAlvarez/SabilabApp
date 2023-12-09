@@ -28,7 +28,6 @@ class UsuarioViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private val binding: ItemUsuarioBinding = ItemUsuarioBinding.bind(itemView)
 
-
     fun bind (query: Result){
         binding.tvUsuario.text = query.usuario
         binding.tvRol.text = query.rol

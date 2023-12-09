@@ -84,7 +84,7 @@
         android:layout_height="60dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="94dp"
-        android:backgroundTint="#fec007"
+        android:backgroundTint="@color/yellow_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toEndOf="@+id/cvPedidosCompletosDashboard"

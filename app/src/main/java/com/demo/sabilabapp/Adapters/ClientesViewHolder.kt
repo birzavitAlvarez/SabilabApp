@@ -22,6 +22,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+import com.demo.sabilabapp.Api.RetrofitClient.apiService
+
 class ClientesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private val binding: ItemClientesBinding = ItemClientesBinding.bind(itemView)
@@ -245,9 +247,9 @@ class ClientesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
             CoroutineScope(Dispatchers.IO).launch {
                 val proveedor = Clientes(rucCli,razCli,nomCli,conCli,di1Cli,di2Cli,te1Cli,te2Cli,empCli,proCli,disCli,valor,id_vendedor)
-                RetrofitClient.apiService.updateClientes(proveedor, id_cliente)
+                apiService.updateClientes(proveedor, id_cliente)
 
-                val updatedData = RetrofitClient.apiService.listClientesTrue(id_vendedor).body()?.data?.results
+                val updatedData = apiService.listClientesTrue(id_vendedor).body()?.data?.results
 
                 (itemView.context as? AppCompatActivity)?.runOnUiThread {
                     if (updatedData != null) {

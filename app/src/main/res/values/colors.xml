@@ -8,6 +8,7 @@
 <!--Color sabilab-->
     <color name="text">#03171d</color>
     <color name="primary_color">#1788ab</color>
+    <color name="yellow_color">#fec007</color>
     <color name="secondary_color">#6aab2e</color>
     <color name="header_color">#121127</color>
     <color name="background_color">#f0f0fd</color>
